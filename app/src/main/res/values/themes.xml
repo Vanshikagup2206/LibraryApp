@@ -1,0 +1,13 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.LibraryApp" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/brownish_green</item>
+        <item name="colorOnPrimary">@color/black</item>
+        <item name="colorPrimaryContainer">@color/brownish_green</item>
+        <item name="colorOnPrimaryContainer">@color/black</item>
+        <item name="colorSecondaryContainer">@color/brownish_green</item>
+    </style>
+    <style name="Theme.LibraryApp" parent="Base.Theme.LibraryApp" />
+</resources>
