@@ -11,4 +11,5 @@
     <string name="admin">Admin</string>
     <string name="student">Student</string>
     <string name="select_one">Select One</string>
+    <string name="welcome_to_dav_lib">Welcome To DAV Library</string>
 </resources>

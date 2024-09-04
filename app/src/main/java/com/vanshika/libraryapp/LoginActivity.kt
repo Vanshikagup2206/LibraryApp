@@ -19,8 +19,14 @@ class LoginActivity : AppCompatActivity() {
         }else if (binding?.rgUser?.checkedRadioButtonId == -1){
             Toast.makeText(this, R.string.select_one, Toast.LENGTH_SHORT).show()
         } else{
-            binding?.btnLogin?.setOnClickListener {
-                findNavController(R.id.homeFragment)
+            if(binding?.rbAdmin?.isChecked == true){
+                binding?.btnLogin?.setOnClickListener {
+                    findNavController(R.id.homeForAdditionFragment)
+                }
+            }else {
+                binding?.btnLogin?.setOnClickListener {
+                    findNavController(R.id.homeFragment)
+                }
             }
         }
     }
