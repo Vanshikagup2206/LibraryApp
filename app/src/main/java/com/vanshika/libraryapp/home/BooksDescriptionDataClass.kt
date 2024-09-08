@@ -17,5 +17,4 @@ data class BooksDescriptionDataClass(
     var booksStatus : String ?= "",
     var booksDescription : String ?= "",
     var isWishlist : Boolean ?= false
-
 )
