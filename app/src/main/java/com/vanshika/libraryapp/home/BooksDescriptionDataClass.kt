@@ -14,6 +14,10 @@ import androidx.room.PrimaryKey
 data class BooksDescriptionDataClass(
     @PrimaryKey(autoGenerate = true)
     var booksDescriptionId : Int = 0,
+    var booksName : String ?= "",
+    var booksContent : String ?= "",
+    var booksLocation : String ?= "",
+    var booksCopies : String ?= "",
     var booksStatus : String ?= "",
     var booksDescription : String ?= "",
     var isWishlist : Boolean ?= false
