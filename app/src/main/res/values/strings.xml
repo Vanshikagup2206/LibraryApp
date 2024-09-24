@@ -19,4 +19,8 @@
     <string name="description">Description</string>
     <string name="table_of_content">Table of Content</string>
     <string name="no_of_copies">No. of copies</string>
+    <string name="enter_author_name">Enter Author Name :</string>
+    <string name="enter_book_title">Enter Book Title :</string>
+    <string name="insert_image_of_the_book">Insert Image of the Book</string>
+    <string name="enter_short_description">Enter short Description :</string>
 </resources>
