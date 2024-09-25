@@ -7,8 +7,8 @@ import androidx.room.PrimaryKey
 @Entity
 data class BooksDataClass(
     @PrimaryKey(autoGenerate = true)
-    var BooksId : Int = 0,
+    var booksId : Int = 0,
     var categoryId : Int ?= 0,
-    var BooksType : String ?= "",
+    var booksType : String ?= "",
 //    var BooksPhotos : Photo ?= ""
 )

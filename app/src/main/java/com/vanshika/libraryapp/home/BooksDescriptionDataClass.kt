@@ -20,5 +20,6 @@ data class BooksDescriptionDataClass(
     var booksCopies : String ?= "",
     var booksStatus : String ?= "",
     var booksDescription : String ?= "",
-    var isWishlist : Boolean ?= false
+    var isWishlist : Boolean ?= false,
+    var booksId : Int ?= 0
 )
