@@ -23,7 +23,7 @@ class LoginActivity : AppCompatActivity() {
                 Toast.makeText(this, R.string.select_one, Toast.LENGTH_SHORT).show()
             } else {
                 if (binding?.rbAdmin?.isChecked == true) {
-                    val intent = Intent(this, MainActivity::class.java)
+                    val intent = Intent(this, AdminActivity::class.java)
                     startActivity(intent)
                     finish()
                 } else {
