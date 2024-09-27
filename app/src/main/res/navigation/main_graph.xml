@@ -35,4 +35,9 @@
         android:name="com.vanshika.libraryapp.home.HomeForAdditionFragment"
         android:label="fragment_home_for_addition"
         tools:layout="@layout/fragment_home_for_addition" />
+    <fragment
+        android:id="@+id/booksAdditionFragment"
+        android:name="com.vanshika.libraryapp.BooksAdditionFragment"
+        android:label="fragment_books_addition"
+        tools:layout="@layout/fragment_books_addition" />
 </navigation>
