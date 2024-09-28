@@ -23,4 +23,15 @@
     <string name="enter_book_title">Enter Book Title :</string>
     <string name="insert_image_of_the_book">Insert Image of the Book</string>
     <string name="enter_short_description">Enter short Description :</string>
+    <string name="enter_publisher">Enter Publisher :</string>
+    <string name="no_of_copies_available">No. of Copies Available :</string>
+    <string name="eg_1_2">Eg.,1,2,3....</string>
+    <string name="release_date">Release Date</string>
+    <string name="select_date">Select Date</string>
+    <string name="available">Available</string>
+    <string name="status">Status :</string>
+    <string name="issued">issued</string>
+    <string name="enter_brief_description">Enter Brief Description</string>
+    <string name="sr_no_topic_name_page_no">sr.no    topic name    page no.</string>
+    <string name="add">Add</string>
 </resources>
