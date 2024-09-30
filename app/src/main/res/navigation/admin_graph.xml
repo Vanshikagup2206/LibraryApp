@@ -10,4 +10,9 @@
         android:name="com.vanshika.libraryapp.home.AdminHomeFragment"
         android:label="fragment_admin_home"
         tools:layout="@layout/fragment_admin_home" />
+    <fragment
+        android:id="@+id/booksAdditionFragment2"
+        android:name="com.vanshika.libraryapp.BooksAdditionFragment"
+        android:label="fragment_books_addition"
+        tools:layout="@layout/fragment_books_addition" />
 </navigation>

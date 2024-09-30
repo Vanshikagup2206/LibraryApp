@@ -30,14 +30,4 @@
         android:name="com.vanshika.libraryapp.wishlist.WishlistFragment"
         android:label="fragment_wishlist"
         tools:layout="@layout/fragment_wishlist" />
-    <fragment
-        android:id="@+id/homeForAdditionFragment"
-        android:name="com.vanshika.libraryapp.home.HomeForAdditionFragment"
-        android:label="fragment_home_for_addition"
-        tools:layout="@layout/fragment_home_for_addition" />
-    <fragment
-        android:id="@+id/booksAdditionFragment"
-        android:name="com.vanshika.libraryapp.BooksAdditionFragment"
-        android:label="fragment_books_addition"
-        tools:layout="@layout/fragment_books_addition" />
 </navigation>
