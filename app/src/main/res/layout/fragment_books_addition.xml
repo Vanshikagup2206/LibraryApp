@@ -23,6 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/enter_author_name"
+            android:id="@+id/etAuthorName"
             android:textSize="@dimen/sp_20" />
 
         <TextView
@@ -36,6 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/enter_book_title"
+            android:id="@+id/etBookTitle"
             android:textSize="@dimen/sp_20" />
 
         <TextView
@@ -49,6 +51,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/enter_publisher"
+            android:id="@+id/etPublisher"
             android:textSize="@dimen/sp_20" />
 
         <TextView
@@ -63,6 +66,7 @@
             android:layout_height="wrap_content"
             android:gravity="top|start"
             android:hint="@string/enter_short_description"
+            android:id="@+id/etShortDescription"
             android:minLines="3"
             android:textSize="@dimen/sp_20" />
 
@@ -85,6 +89,7 @@
             android:layout_height="wrap_content"
             android:minLines="50"
             android:gravity="top|start"
+            android:id="@+id/etDescription"
             android:hint="@string/enter_brief_description"
             android:textSize="@dimen/sp_20" />
 
@@ -99,6 +104,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="top|start"
+            android:id="@+id/etTableOfContent"
             android:hint="@string/sr_no_topic_name_page_no"
             android:minLines="30"
             android:textSize="@dimen/sp_20" />
@@ -114,6 +120,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/eg_1_2"
+            android:id="@+id/etCopiesAvailable"
             android:inputType="number"
             android:textSize="@dimen/sp_20" />
 
@@ -128,6 +135,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/select_date"
+            android:id="@+id/etReleaseDate"
             android:textSize="@dimen/sp_20" />
 
         <TextView
@@ -140,23 +148,28 @@
         <RadioGroup
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/rgStatus"
             android:orientation="horizontal">
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/rbAvailable"
                 android:text="@string/available"
                 android:textSize="@dimen/sp_20" />
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/rbIssued"
                 android:text="@string/issued"
                 android:textSize="@dimen/sp_20" />
         </RadioGroup>
         <com.google.android.material.button.MaterialButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/btnAdd"
+            android:layout_gravity="center"
             android:text="@string/add"
             android:textStyle="bold"
             android:textSize="@dimen/sp_20"/>
