@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import com.vanshika.libraryapp.LibraryDatabase
+import com.vanshika.libraryapp.MainActivity
 import com.vanshika.libraryapp.R
 import com.vanshika.libraryapp.databinding.FragmentAdminHomeBinding
 
@@ -23,9 +25,14 @@ class AdminHomeFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    var binding : FragmentAdminHomeBinding ?= null
+   lateinit var binding : FragmentAdminHomeBinding
+    var mainActivity: MainActivity? = null
+    var categoryList = arrayListOf<CategoryDataClass>()
+    lateinit var newAdapter: NewCategoryadapter
+    lateinit var libraryDatabase: LibraryDatabase
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+//        mainActivity = activity as MainActivity
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
@@ -38,14 +45,18 @@ class AdminHomeFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentAdminHomeBinding.inflate(inflater)
+        newAdapter = NewCategoryadapter(categoryList)
+        binding.rvCategory.adapter = newAdapter
         return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        libraryDatabase = LibraryDatabase.getInstance(requireContext())
         binding?.fabAdd?.setOnClickListener {
             findNavController().navigate(R.id.booksAccordingToCategoryFragment)
         }
+        newAdapter.notifyDataSetChanged()
     }
 
     companion object {

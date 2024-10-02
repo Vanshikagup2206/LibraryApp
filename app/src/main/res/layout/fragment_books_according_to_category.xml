@@ -12,45 +12,58 @@
         android:layout_height="wrap_content"
         android:text="@string/enter_category"
         android:textSize="@dimen/sp_20"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
+
     <EditText
+        android:id="@+id/etCatagory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/enter_category"
-        android:textSize="@dimen/sp_20"/>
+        android:textSize="@dimen/sp_20" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/enter_about_the_category"
-        android:textStyle="bold"
-        android:textSize="@dimen/sp_20"/>
+        android:textSize="@dimen/sp_20"
+        android:textStyle="bold" />
+
     <EditText
+        android:id="@+id/etF"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/enter_about_the_category"
-        android:textSize="@dimen/sp_20"/>
+        android:textSize="@dimen/sp_20" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/enter_no_of_books_in_this_category"
         android:textSize="@dimen/sp_20"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
+
     <EditText
+        android:id="@+id/etNoCat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/enter_no_of_books_in_this_category"
-        android:textSize="@dimen/sp_20"/>
+        android:inputType="number"
+        android:maxLength="5"
+        android:textSize="@dimen/sp_20" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/add_images"
         android:textSize="@dimen/sp_20"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
+
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnAddCatogory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:text="@string/add"
-        android:textStyle="bold"
         android:textSize="@dimen/sp_20"
-        android:layout_gravity="center"/>
+        android:textStyle="bold" />
 </LinearLayout>

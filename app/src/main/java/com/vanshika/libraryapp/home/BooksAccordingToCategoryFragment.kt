@@ -5,7 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
+import com.vanshika.libraryapp.LibraryDatabase
+import com.vanshika.libraryapp.MainActivity
 import com.vanshika.libraryapp.R
+import com.vanshika.libraryapp.databinding.FragmentBooksAccordingToCategoryBinding
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -19,6 +23,10 @@ private const val ARG_PARAM2 = "param2"
  */
 class BooksAccordingToCategoryFragment : Fragment() {
     // TODO: Rename and change types of parameters
+    lateinit var binding: FragmentBooksAccordingToCategoryBinding
+    var mainActivity: MainActivity? = null
+    var categoryList = arrayListOf<CategoryDataClass>()
+    lateinit var libraryDatabase: LibraryDatabase
     private var param1: String? = null
     private var param2: String? = null
 
@@ -35,7 +43,43 @@ class BooksAccordingToCategoryFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_books_according_to_category, container, false)
+        binding = FragmentBooksAccordingToCategoryBinding.inflate(layoutInflater)
+        return binding?.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        libraryDatabase = LibraryDatabase.getInstance(requireContext())
+        binding.btnAddCatogory.setOnClickListener {
+            if (binding.etCatagory.text.toString().trim().isEmpty()) {
+                binding.etCatagory.error = resources.getString(R.string.enter_category)
+            } else if (binding.etF.text.toString().trim().isEmpty()) {
+                binding.etF.error = resources.getString(R.string.enter_description)
+            } else if (binding.etNoCat.text.toString().trim().isEmpty()) {
+                binding.etNoCat.error =
+                    resources.getString(R.string.enter_no_of_books_in_this_category)
+            } else {
+                libraryDatabase.libraryDao().insertCategory(
+                    CategoryDataClass(
+                        categoryName = binding.etCatagory.text.toString(),
+                        categoryDescription = binding.etF.text.toString(),
+                        totalBooks = binding.etNoCat.text.toString().toInt()
+
+                    )
+                )
+                getBooksCategory()
+
+
+            }
+            findNavController().navigate(R.id.adminHomeFragment)
+        }
+        getBooksCategory()
+    }
+
+    private fun getBooksCategory() {
+        categoryList.clear()
+        categoryList.addAll(libraryDatabase.libraryDao().getCategory())
+
     }
 
     companion object {

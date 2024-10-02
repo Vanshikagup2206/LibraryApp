@@ -7,9 +7,10 @@ import androidx.room.RoomDatabase
 import com.vanshika.libraryapp.home.BooksDataClass
 import com.vanshika.libraryapp.home.BooksDescriptionDataClass
 import com.vanshika.libraryapp.home.BooksSpecificationDataClass
+import com.vanshika.libraryapp.home.CategoryDataClass
 
 @Database(
-    entities = [BooksDataClass::class, BooksDescriptionDataClass::class, BooksSpecificationDataClass::class],
+    entities = [BooksDataClass::class, BooksDescriptionDataClass::class, BooksSpecificationDataClass::class, CategoryDataClass::class],
     version = 1,
     exportSchema = true
 )

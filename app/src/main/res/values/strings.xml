@@ -38,4 +38,5 @@
     <string name="enter_about_the_category">Enter About The Category</string>
     <string name="enter_no_of_books_in_this_category">Enter No. of Books in this Category</string>
     <string name="add_images">Add Images</string>
+    <string name="enter_description">Enter description</string>
 </resources>
