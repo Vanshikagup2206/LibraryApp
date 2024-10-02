@@ -58,17 +58,14 @@ class BooksAccordingToCategoryFragment : Fragment() {
                 binding?.etBooksCategory?.error = resources.getString(R.string.enter_category)
             } else if (binding?.etAboutBooksCategory?.text?.toString()?.trim()?.isEmpty() == true) {
                 binding?.etAboutBooksCategory?.error = resources.getString(R.string.enter_description)
-            } else if (binding?.etNoOfBooks?.text?.toString()?.trim()?.isEmpty() == true) {
-                binding?.etNoOfBooks?.error =
-                    resources.getString(R.string.enter_no_of_books_in_this_category)
             } else {
                 libraryDatabase.libraryDao().insertBooksWithCategory(
                     BooksDataClass(
                         booksCategory = binding?.etBooksCategory?.text?.toString(),
-                        booksAbout = binding?.etAboutBooksCategory?.text?.toString(),
-                        booksCount = binding?.etNoOfBooks?.text?.toString()?.toInt()
+                        booksAbout = binding?.etAboutBooksCategory?.text?.toString()
                     )
                 )
+                findNavController().popBackStack()
             }
         }
     }

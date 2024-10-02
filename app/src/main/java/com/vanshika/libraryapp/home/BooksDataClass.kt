@@ -10,7 +10,6 @@ data class BooksDataClass(
     var booksId : Int = 0,
     var categoryId : Int ?= 0,
     var booksAbout : String ?= "",
-    var booksCategory : String ?= "",
-    var booksCount : Int ?= 0
+    var booksCategory : String ?= ""
 //    var BooksPhotos : Photo ?= ""
 )

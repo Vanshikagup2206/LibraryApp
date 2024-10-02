@@ -13,7 +13,6 @@ class BooksAdapter(
     class ViewHolder(var view: View) : RecyclerView.ViewHolder(view) {
         var tvCategory : TextView = view.findViewById(R.id.tvBooksCategory)
         var tvDescription : TextView = view.findViewById(R.id.tvBooksAbout)
-        var tvNoOfBooks : TextView = view.findViewById(R.id.tvNoOfBooks)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -29,6 +28,5 @@ class BooksAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.tvCategory.setText(booksList[position].booksCategory)
         holder.tvDescription.setText(booksList[position].booksAbout)
-        holder.tvNoOfBooks.setText(booksList[position].booksCount.toString())
     }
 }

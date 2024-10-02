@@ -56,6 +56,7 @@ class AdminHomeFragment : Fragment() {
         booksAdapter = BooksAdapter(booksList)
         linearLayoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
         binding?.rvBooks?.layoutManager = linearLayoutManager
+        binding?.rvBooks?.adapter = booksAdapter
         getBooksAccToCategory()
 
         binding?.fabAdd?.setOnClickListener {
