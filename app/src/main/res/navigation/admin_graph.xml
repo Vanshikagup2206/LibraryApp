@@ -11,8 +11,13 @@
         android:label="fragment_admin_home"
         tools:layout="@layout/fragment_admin_home" />
     <fragment
-        android:id="@+id/booksAdditionFragment2"
+        android:id="@+id/booksAdditionFragment"
         android:name="com.vanshika.libraryapp.BooksAdditionFragment"
         android:label="fragment_books_addition"
         tools:layout="@layout/fragment_books_addition" />
+    <fragment
+        android:id="@+id/booksAccordingToCategoryFragment"
+        android:name="com.vanshika.libraryapp.home.BooksAccordingToCategoryFragment"
+        android:label="fragment_books_according_to_category"
+        tools:layout="@layout/fragment_books_according_to_category" />
 </navigation>
