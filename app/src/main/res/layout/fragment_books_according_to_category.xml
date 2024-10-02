@@ -15,7 +15,7 @@
         android:textStyle="bold" />
 
     <EditText
-        android:id="@+id/etCatagory"
+        android:id="@+id/etBooksCategory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/enter_category"
@@ -29,7 +29,7 @@
         android:textStyle="bold" />
 
     <EditText
-        android:id="@+id/etF"
+        android:id="@+id/etAboutBooksCategory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/enter_about_the_category"
@@ -43,7 +43,7 @@
         android:textStyle="bold" />
 
     <EditText
-        android:id="@+id/etNoCat"
+        android:id="@+id/etNoOfBooks"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/enter_no_of_books_in_this_category"
@@ -59,7 +59,7 @@
         android:textStyle="bold" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnAddCatogory"
+        android:id="@+id/btnAddBookAccToCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

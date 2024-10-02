@@ -19,7 +19,7 @@
         app:cardCornerRadius="@dimen/sp_20">
 
         <TextView
-            android:id="@+id/tvCategory"
+            android:id="@+id/tvBooksCategory"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="viewStart"
@@ -38,7 +38,7 @@
         app:cardCornerRadius="@dimen/sp_20">
 
         <TextView
-            android:id="@+id/tvDescription"
+            android:id="@+id/tvBooksAbout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="viewStart"
@@ -56,7 +56,7 @@
         app:cardCornerRadius="@dimen/sp_20">
 
         <TextView
-            android:id="@+id/tvTotalBooks"
+            android:id="@+id/tvNoOfBooks"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="viewStart"
@@ -76,7 +76,7 @@
         app:cardCornerRadius="@dimen/sp_20">
 
         <ImageView
-            android:id="@+id/imNext"
+            android:id="@+id/ivNext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/baseline_arrow_forward_ios_24"

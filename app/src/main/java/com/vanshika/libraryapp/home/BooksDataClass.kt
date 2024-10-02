@@ -9,6 +9,8 @@ data class BooksDataClass(
     @PrimaryKey(autoGenerate = true)
     var booksId : Int = 0,
     var categoryId : Int ?= 0,
-    var booksType : String ?= "",
+    var booksAbout : String ?= "",
+    var booksCategory : String ?= "",
+    var booksCount : Int ?= 0
 //    var BooksPhotos : Photo ?= ""
 )
