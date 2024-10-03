@@ -5,4 +5,5 @@
     <dimen name="dp_32">32dp</dimen>
     <dimen name="dp_5">5dp</dimen>
     <dimen name="sp_10">10sp</dimen>
+    <dimen name="sp_15">15sp</dimen>
 </resources>

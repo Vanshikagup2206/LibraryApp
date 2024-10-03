@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 class BooksSpecificationAdapter(var SpecifiedList:ArrayList<BooksSpecificationDataClass>):
     RecyclerView.Adapter<BooksSpecificationAdapter.ViewHolder>() {
     class ViewHolder(var view: View) : RecyclerView.ViewHolder(view) {
-    var
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
