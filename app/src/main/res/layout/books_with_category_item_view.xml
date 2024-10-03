@@ -16,15 +16,16 @@
         android:layout_height="wrap_content"
         android:textAlignment="viewStart"
         android:textSize="@dimen/sp_20"
-        android:textStyle="bold|italic" />
+        android:textStyle="bold|italic"
+        android:layout_marginBottom="@dimen/sp_20"/>
 
     <TextView
         android:id="@+id/tvBooksAbout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="viewStart"
-        android:textSize="@dimen/sp_20"
-        android:textStyle="bold|italic" />
+        android:textSize="@dimen/sp_10"
+         />
 
         <ImageView
             android:id="@+id/ivNext"
