@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/enter_author_name"
-            android:id="@+id/etAuthorName"
+            android:id="@+id/etBookAuthorName"
             android:textSize="@dimen/sp_20" />
 
         <TextView
