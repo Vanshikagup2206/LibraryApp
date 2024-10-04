@@ -1,6 +1,9 @@
 package com.vanshika.libraryapp.home
 
+import android.app.Dialog
+import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.vanshika.libraryapp.LibraryDatabase
 import com.vanshika.libraryapp.R
+import com.vanshika.libraryapp.databinding.CustomBooksAccToCategoryBinding
 import com.vanshika.libraryapp.databinding.FragmentAdminHomeBinding
 
 // TODO: Rename parameter arguments, choose names that match
@@ -64,7 +68,8 @@ class AdminHomeFragment : Fragment(), BooksInterface {
         getBooksAccToCategory()
         // set up itemTouchHelper
         val itemTouchHelper =
-            ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+            ItemTouchHelper(object :
+                ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
                 override fun onMove(
                     recyclerView: RecyclerView,
                     viewHolder: RecyclerView.ViewHolder,
@@ -76,25 +81,79 @@ class AdminHomeFragment : Fragment(), BooksInterface {
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                     val position = viewHolder.adapterPosition
                     val book = booksList[position]
+                    val itemView = viewHolder.itemView
+                    Log.d(
+                        "SwipeDetection",
+                        "Swiped book: ${book.booksCategory}, direction: $direction"
+                    )
                     if (direction == ItemTouchHelper.LEFT) {
                         // Show confirmation dialog
+//                        itemView.setBackgroundColor(R.drawable.boundary_to_swipe_delete)
+                        itemView.setBackgroundColor(R.drawable.boundary_to_swipe_delete)
+//                        itemView.background = ColorDrawable(Color.parseColor("#FF5252"))
                         AlertDialog.Builder(requireContext())
                             .setMessage(R.string.are_you_sure_you_want_to_delete_this_section)
                             .setPositiveButton(R.string.yes) { _, _ ->
+                            .setTitle("Delete Book")
+                            .setMessage("Are you sure you want to delete this book?")
+
+                            .setPositiveButton("Yes") { _, _ ->
                                 libraryDatabase.libraryDao().deleteBooksWithCategory(book)
                                 getBooksAccToCategory() // Refresh the list
                             }
                             .setNegativeButton(R.string.no) { dialog, _ ->
                                 dialog.dismiss()
+//                                itemView.setBackgroundColor(0)// reset the color
                                 booksAdapter.notifyItemChanged(position) // Revert swipe
                             }
+                            .setCancelable(false)
                             .show()
                     } else if (direction == ItemTouchHelper.RIGHT) {
+                        itemView.setBackgroundColor(R.drawable.boundary_to_update)
                         Toast.makeText(
                             requireContext(),
                             "Update book: ${book.booksCategory}",
                             Toast.LENGTH_SHORT
                         ).show()
+//                        findNavController().navigate(R.id.booksAccordingToCategoryFragment)
+                        val dialogBinding = CustomBooksAccToCategoryBinding.inflate(layoutInflater)
+                        Dialog(requireContext()).apply {
+                            setContentView(dialogBinding.root)
+                            getWindow()?.setLayout(
+                                ViewGroup.LayoutParams.MATCH_PARENT,
+                                ViewGroup.LayoutParams.WRAP_CONTENT
+                            )
+                            show()
+                            setCancelable(false)
+
+                            dialogBinding.btnAddAccToCategory.setOnClickListener {
+                                if (dialogBinding.etCategory.text.toString().trim()
+                                        .isNullOrEmpty()
+                                ) {
+                                    dialogBinding.etCategory.error =
+                                        resources.getString(R.string.enter_category)
+                                } else if (dialogBinding.etAboutCategory.text.toString().trim()
+                                        .isNullOrEmpty()
+                                ) {
+                                    dialogBinding.etAboutCategory.error =
+                                        resources.getString(R.string.enter_description)
+                                } else {
+                                    libraryDatabase.libraryDao().updateBooksWithCategory(
+                                        BooksDataClass(
+                                            booksId = booksList[position].booksId,
+                                            booksCategory = dialogBinding.etCategory.text.toString(),
+                                            booksAbout = dialogBinding.etAboutCategory.text.toString(),
+                                            categoryId = booksList[position].booksId
+                                        )
+                                    )
+                                    getBooksAccToCategory()
+                                    booksAdapter.notifyDataSetChanged()
+                                    dismiss()
+                                }
+                            }
+
+
+                        }
                     }
 
                 }
@@ -104,7 +163,6 @@ class AdminHomeFragment : Fragment(), BooksInterface {
         binding?.fabAdd?.setOnClickListener {
             findNavController().navigate(R.id.booksAccordingToCategoryFragment)
         }
-    }
 
     private fun getBooksAccToCategory() {
         booksList.clear()
@@ -135,4 +193,3 @@ class AdminHomeFragment : Fragment(), BooksInterface {
     override fun onItemClick(position: Int) {
         TODO("Not yet implemented")
     }
-}
