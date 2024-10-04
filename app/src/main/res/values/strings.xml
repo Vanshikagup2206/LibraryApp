@@ -43,4 +43,5 @@
     <string name="no_of_books">No of books</string>
     <string name="book_category">Book Category</string>
     <string name="book_category_description">Book Category Description</string>
+    <string name="update">Update</string>
 </resources>

@@ -30,6 +30,7 @@ class BooksAccordingToCategoryFragment : Fragment() {
     var booksList = arrayListOf<BooksDataClass>()
     lateinit var booksAdapter: ArrayAdapter<BooksDataClass>
     lateinit var libraryDatabase: LibraryDatabase
+
     private var param1: String? = null
     private var param2: String? = null
 
@@ -61,6 +62,7 @@ class BooksAccordingToCategoryFragment : Fragment() {
             } else {
                 libraryDatabase.libraryDao().insertBooksWithCategory(
                     BooksDataClass(
+                        booksId = booksDataClass.booksId,
                         booksCategory = binding?.etBooksCategory?.text?.toString(),
                         booksAbout = binding?.etAboutBooksCategory?.text?.toString()
                     )
