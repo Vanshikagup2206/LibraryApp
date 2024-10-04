@@ -14,6 +14,7 @@
         android:id="@+id/tvBooksCategory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/blue"
         android:textAlignment="viewStart"
         android:textSize="@dimen/sp_20"
         android:textStyle="bold|italic"
@@ -23,8 +24,9 @@
         android:id="@+id/tvBooksAbout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:minLines="2"
         android:textAlignment="viewStart"
-        android:textSize="@dimen/sp_10"
+        android:textSize="@dimen/sp_15"
          />
 
         <ImageView
