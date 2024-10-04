@@ -93,10 +93,7 @@ class AdminHomeFragment : Fragment(), BooksInterface {
 //                        itemView.background = ColorDrawable(Color.parseColor("#FF5252"))
                         AlertDialog.Builder(requireContext())
                             .setMessage(R.string.are_you_sure_you_want_to_delete_this_section)
-                            .setPositiveButton(R.string.yes) { _, _ ->
-                            .setTitle("Delete Book")
                             .setMessage("Are you sure you want to delete this book?")
-
                             .setPositiveButton("Yes") { _, _ ->
                                 libraryDatabase.libraryDao().deleteBooksWithCategory(book)
                                 getBooksAccToCategory() // Refresh the list
@@ -115,8 +112,8 @@ class AdminHomeFragment : Fragment(), BooksInterface {
                             "Update book: ${book.booksCategory}",
                             Toast.LENGTH_SHORT
                         ).show()
-//                        findNavController().navigate(R.id.booksAccordingToCategoryFragment)
-                        val dialogBinding = CustomBooksAccToCategoryBinding.inflate(layoutInflater)
+                        val dialogBinding =
+                            CustomBooksAccToCategoryBinding.inflate(layoutInflater)
                         Dialog(requireContext()).apply {
                             setContentView(dialogBinding.root)
                             getWindow()?.setLayout(
@@ -151,8 +148,6 @@ class AdminHomeFragment : Fragment(), BooksInterface {
                                     dismiss()
                                 }
                             }
-
-
                         }
                     }
 
@@ -163,6 +158,7 @@ class AdminHomeFragment : Fragment(), BooksInterface {
         binding?.fabAdd?.setOnClickListener {
             findNavController().navigate(R.id.booksAccordingToCategoryFragment)
         }
+    }
 
     private fun getBooksAccToCategory() {
         booksList.clear()
@@ -193,3 +189,4 @@ class AdminHomeFragment : Fragment(), BooksInterface {
     override fun onItemClick(position: Int) {
         TODO("Not yet implemented")
     }
+}
