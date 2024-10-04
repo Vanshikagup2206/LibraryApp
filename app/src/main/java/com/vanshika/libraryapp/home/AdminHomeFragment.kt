@@ -93,8 +93,7 @@ class AdminHomeFragment : Fragment(), BooksInterface {
 //                        itemView.background = ColorDrawable(Color.parseColor("#FF5252"))
                         AlertDialog.Builder(requireContext())
                             .setMessage(R.string.are_you_sure_you_want_to_delete_this_section)
-                            .setMessage("Are you sure you want to delete this book?")
-                            .setPositiveButton("Yes") { _, _ ->
+                            .setPositiveButton(R.string.yes) { _, _ ->
                                 libraryDatabase.libraryDao().deleteBooksWithCategory(book)
                                 getBooksAccToCategory() // Refresh the list
                             }
@@ -103,8 +102,8 @@ class AdminHomeFragment : Fragment(), BooksInterface {
 //                                itemView.setBackgroundColor(0)// reset the color
                                 booksAdapter.notifyItemChanged(position) // Revert swipe
                             }
-                            .setCancelable(false)
                             .show()
+                            .setCancelable(false)
                     } else if (direction == ItemTouchHelper.RIGHT) {
                         itemView.setBackgroundColor(R.drawable.boundary_to_update)
                         Toast.makeText(
