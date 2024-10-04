@@ -41,9 +41,6 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentHomeBinding.inflate(layoutInflater)
-//        binding.rvCategory.layoutManager =
-//            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL)
-        // Inflate the layout for this fragment
         return binding.root
     }
 

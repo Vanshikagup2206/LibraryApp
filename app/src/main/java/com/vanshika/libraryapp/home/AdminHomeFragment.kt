@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.navigation.fragment.findNavController
@@ -13,7 +12,6 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.vanshika.libraryapp.LibraryDatabase
-import com.vanshika.libraryapp.MainActivity
 import com.vanshika.libraryapp.R
 import com.vanshika.libraryapp.databinding.FragmentAdminHomeBinding
 
@@ -27,7 +25,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [AdminHomeFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class AdminHomeFragment : Fragment() ,booksInterface{
+class AdminHomeFragment : Fragment(), BooksInterface {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -58,7 +56,7 @@ class AdminHomeFragment : Fragment() ,booksInterface{
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         libraryDatabase = LibraryDatabase.getInstance(requireContext())
-        booksAdapter = BooksAdapter(booksList,this)
+        booksAdapter = BooksAdapter(booksList, this)
         linearLayoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding?.rvBooks?.layoutManager = linearLayoutManager
@@ -81,20 +79,22 @@ class AdminHomeFragment : Fragment() ,booksInterface{
                     if (direction == ItemTouchHelper.LEFT) {
                         // Show confirmation dialog
                         AlertDialog.Builder(requireContext())
-                            .setTitle("Delete Book")
-                            .setMessage("Are you sure you want to delete this book?")
-                            .setPositiveButton("Yes") { _, _ ->
+                            .setMessage(R.string.are_you_sure_you_want_to_delete_this_section)
+                            .setPositiveButton(R.string.yes) { _, _ ->
                                 libraryDatabase.libraryDao().deleteBooksWithCategory(book)
                                 getBooksAccToCategory() // Refresh the list
                             }
-                            .setNegativeButton("No") { dialog, _ ->
+                            .setNegativeButton(R.string.no) { dialog, _ ->
                                 dialog.dismiss()
                                 booksAdapter.notifyItemChanged(position) // Revert swipe
                             }
                             .show()
                     } else if (direction == ItemTouchHelper.RIGHT) {
-                        Toast.makeText(requireContext(), "Update book: ${book.booksCategory}", Toast.LENGTH_SHORT).show()
-                        findNavController().navigate(R.id.booksAdditionFragment)
+                        Toast.makeText(
+                            requireContext(),
+                            "Update book: ${book.booksCategory}",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
 
                 }
@@ -104,8 +104,6 @@ class AdminHomeFragment : Fragment() ,booksInterface{
         binding?.fabAdd?.setOnClickListener {
             findNavController().navigate(R.id.booksAccordingToCategoryFragment)
         }
-
-
     }
 
     private fun getBooksAccToCategory() {
@@ -134,7 +132,7 @@ class AdminHomeFragment : Fragment() ,booksInterface{
             }
     }
 
-    override fun onItemclick(position: Int) {
+    override fun onItemClick(position: Int) {
         TODO("Not yet implemented")
     }
 }

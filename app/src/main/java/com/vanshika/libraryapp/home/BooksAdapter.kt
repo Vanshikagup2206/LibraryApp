@@ -9,7 +9,7 @@ import com.vanshika.libraryapp.R
 
 class BooksAdapter(
     var booksList: ArrayList<BooksDataClass>,
-    var onItemClick: booksInterface
+    var onItemClick: BooksInterface
 ) : RecyclerView.Adapter<BooksAdapter.ViewHolder>() {
     class ViewHolder(var view: View) : RecyclerView.ViewHolder(view) {
         var tvCategory: TextView = view.findViewById(R.id.tvBooksCategory)
@@ -27,13 +27,10 @@ class BooksAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-//        holder.tvCategory.setText(booksList[position].booksCategory)
-//        holder.tvDescription.setText(booksList[position].booksAbout)
-        val book = booksList[position]
-        holder.tvCategory.text = book.booksCategory
-        holder.tvDescription.text = book.booksAbout
+        holder.tvCategory.setText(booksList[position].booksCategory)
+        holder.tvDescription.setText(booksList[position].booksAbout)
         holder.itemView.setOnClickListener {
-            onItemClick.onItemclick(position)
+            onItemClick.onItemClick(position)
         }
     }
 }

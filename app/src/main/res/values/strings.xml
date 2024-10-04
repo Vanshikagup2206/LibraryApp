@@ -43,4 +43,8 @@
     <string name="no_of_books">No of books</string>
     <string name="book_category">Book Category</string>
     <string name="book_category_description">Book Category Description</string>
+    <string name="are_you_sure_you_want_to_delete_this_section">Are You Sure You Want To Delete This Section?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="dash">____________________________________________</string>
 </resources>

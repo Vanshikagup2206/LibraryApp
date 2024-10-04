@@ -44,9 +44,7 @@ var binding: FragmentBooksSpecificationBinding? = null
         super.onViewCreated(view, savedInstanceState)
         binding?.btnFab?.setOnClickListener {
             findNavController().navigate(R.id.booksSpecificationFragment)
-
         }
-
     }
     companion object {
         /**

@@ -43,7 +43,7 @@ class BooksAdditionFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding?.btnAdd?.setOnClickListener {
-            if(binding?.etBookAuthorName?.text?.isNullOrEmpty() == true){
+            if(binding?.etBookAuthorName?.text?.isEmpty() == true){
                 binding?.etBookAuthorName?.error = resources.getString(R.string.enter_author_name)
             }
         }
