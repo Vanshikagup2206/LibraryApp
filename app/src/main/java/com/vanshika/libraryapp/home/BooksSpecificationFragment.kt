@@ -56,7 +56,7 @@ var binding: FragmentBooksSpecificationBinding? = null
             findNavController().popBackStack()
         }
         binding?.btnFab?.setOnClickListener {
-            findNavController().navigate(R.id.booksSpecificationFragment)
+            findNavController().navigate(R.id.booksAdditionFragment)
         }
 
     }
