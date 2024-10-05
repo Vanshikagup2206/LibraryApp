@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.vanshika.libraryapp.R
 
-class BooksSpecificationAdapter(var SpecifiedList:ArrayList<BooksSpecificationDataClass>):
+class BooksSpecificationAdapter(var specifiedList:ArrayList<BooksSpecificationDataClass>):
     RecyclerView.Adapter<BooksSpecificationAdapter.ViewHolder>() {
     class ViewHolder(var view: View) : RecyclerView.ViewHolder(view) {
         var authorName: TextView = view.findViewById(R.id.author_name)
@@ -25,13 +25,18 @@ class BooksSpecificationAdapter(var SpecifiedList:ArrayList<BooksSpecificationDa
     }
 
     override fun getItemCount(): Int {
-        return SpecifiedList.size
+        return specifiedList.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.authorName.setText(SpecifiedList[position].booksAuthor)
-        holder.bookName.setText(SpecifiedList[position].booksName)
-        holder.status.setText(SpecifiedList[position].booksStatus)
-        holder.description.setText(SpecifiedList[position].booksDescription)
+        holder.authorName.setText(specifiedList[position].booksAuthor)
+        holder.bookName.setText(specifiedList[position].booksName)
+        holder.description.setText(specifiedList[position].booksDescription)
+        when (specifiedList[position].booksStatus) {
+            0 -> {
+            }
+            1->{
+            }
+        }
     }
 }

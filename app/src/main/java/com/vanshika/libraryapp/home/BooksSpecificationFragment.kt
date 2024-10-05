@@ -5,7 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.vanshika.libraryapp.LibraryDatabase
 import com.vanshika.libraryapp.R
 import com.vanshika.libraryapp.databinding.FragmentBooksSpecificationBinding
 
@@ -24,6 +27,12 @@ class BooksSpecificationFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 var binding: FragmentBooksSpecificationBinding? = null
+    lateinit var linearLayoutManager: LinearLayoutManager
+    lateinit var booksSpecificationAdapter: ArrayAdapter<BooksSpecificationDataClass>
+    var specifiedList = arrayListOf<BooksSpecificationDataClass>()
+    lateinit var libraryDatabase: LibraryDatabase
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -42,12 +51,14 @@ var binding: FragmentBooksSpecificationBinding? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        libraryDatabase = LibraryDatabase.getInstance(requireContext())
         binding?.ivBack?.setOnClickListener{
             findNavController().popBackStack()
         }
         binding?.btnFab?.setOnClickListener {
             findNavController().navigate(R.id.booksSpecificationFragment)
         }
+
     }
     companion object {
         /**

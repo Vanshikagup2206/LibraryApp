@@ -75,6 +75,9 @@ class BooksAdditionFragment : Fragment() {
                         Toast.LENGTH_SHORT
                     ).show()
             }
+            else{
+
+            }
         }
     }
 
