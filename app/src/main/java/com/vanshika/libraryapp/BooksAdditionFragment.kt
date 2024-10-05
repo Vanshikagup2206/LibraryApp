@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.vanshika.libraryapp.databinding.FragmentBooksAdditionBinding
 
 // TODO: Rename parameter arguments, choose names that match
@@ -45,6 +46,34 @@ class BooksAdditionFragment : Fragment() {
         binding?.btnAdd?.setOnClickListener {
             if(binding?.etBookAuthorName?.text?.isEmpty() == true){
                 binding?.etBookAuthorName?.error = resources.getString(R.string.enter_author_name)
+            }
+            else if(binding?.etBookTitle?.text?.isNullOrEmpty() == true){
+                binding?.etBookTitle?.error = resources.getString(R.string.enter_book_title)
+            }
+            else if(binding?.etPublisher?.text?.isNullOrEmpty() == true){
+                binding?.etPublisher?.error = resources.getString(R.string.enter_publisher)
+            }
+            else if(binding?.etShortDescription?.text?.isNullOrEmpty() == true){
+                binding?.etShortDescription?.error = resources.getString(R.string.enter_short_description)
+            }
+            else if(binding?.etDescription?.text?.isNullOrEmpty() == true){
+                binding?.etDescription?.error = resources.getString(R.string.enter_description)
+            }
+            else if(binding?.etTableOfContent?.text?.isNullOrEmpty() == true){
+                binding?.etTableOfContent?.error = resources.getString(R.string.enter_the_table_content)
+            }
+            else if(binding?.etCopiesAvailable?.text?.isNullOrEmpty() == true){
+                binding?.etCopiesAvailable?.error = resources.getString(R.string.enter_copies_available)
+            }
+            else if(binding?.etReleaseDate?.text?.isNullOrEmpty() == true){
+                binding?.etReleaseDate?.error = resources.getString(R.string.enter_date)
+            }
+            else if (binding?.rgStatus?.checkedRadioButtonId == -1) {
+                    Toast.makeText(
+                        requireContext(),
+                        resources.getString(R.string.select_status),
+                        Toast.LENGTH_SHORT
+                    ).show()
             }
         }
     }

@@ -54,4 +54,8 @@
     <string name="titles">\ttitles</string>
     <string name="enter_subject_category">Enter Subject/Category</string>
     <string name="just_added_history_business">Just added,History,Business,..</string>
+    <string name="enter_the_table_content">Enter the table contents</string>
+    <string name="enter_copies_available">Enter copies available</string>
+    <string name="enter_date">Enter date</string>
+    <string name="select_status">Select status</string>
 </resources>
