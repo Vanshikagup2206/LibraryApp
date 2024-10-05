@@ -13,7 +13,7 @@ import androidx.room.PrimaryKey
 ])
 data class BooksDescriptionDataClass(
     @PrimaryKey(autoGenerate = true)
-    var bookAuthor: String ?= "",
+    //var bookAuthor: String ?= "",
     var booksDescriptionId : Int = 0,
     var booksName : String ?= "",
     var booksContent : String ?= "",
