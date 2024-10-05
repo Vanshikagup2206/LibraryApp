@@ -40,12 +40,18 @@
     <string name="add_images">Add Images</string>
     <string name="enter_description">Enter description</string>
     <string name="library">Library</string>
-    <string name="no_of_books">No of books</string>
+    <string name="no_of_books">No of books </string>
     <string name="book_category">Book Category</string>
     <string name="book_category_description">Book Category Description</string>
     <string name="are_you_sure_you_want_to_delete_this_section">Are You Sure You Want To Delete This Section?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
-    <string name="dash">____________________________________________</string>
+    <string name="dash">_________________________________________</string>
     <string name="update">Update</string>
+    <string name="subject">Subject</string>
+    <string name="about">About</string>
+    <string name="see_over">See over \t</string>
+    <string name="titles">\ttitles</string>
+    <string name="enter_subject_category">Enter Subject/Category</string>
+    <string name="just_added_history_business">Just added,History,Business,..</string>
 </resources>

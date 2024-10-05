@@ -10,7 +10,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/enter_category"
+        android:text="@string/enter_subject_category"
         android:textSize="@dimen/sp_20"
         android:textStyle="bold" />
 
@@ -18,7 +18,7 @@
         android:id="@+id/etBooksCategory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/enter_category"
+        android:hint="@string/just_added_history_business"
         android:textSize="@dimen/sp_20" />
 
     <TextView
@@ -34,6 +34,18 @@
         android:layout_height="wrap_content"
         android:hint="@string/enter_about_the_category"
         android:textSize="@dimen/sp_20" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/enter_no_of_books_in_this_category"
+        android:textSize="@dimen/sp_20"
+        android:textStyle="bold"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/etNoOfBooks"
+        android:hint="@string/enter_no_of_books_in_this_category"
+        android:textSize="@dimen/sp_20"/>
 
     <TextView
         android:layout_width="match_parent"
