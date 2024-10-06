@@ -15,7 +15,7 @@ data class BooksSpecificationDataClass(
     @PrimaryKey(autoGenerate = true)
     var booksSpecificationId : Int = 0,
     var booksName : String ?= "",
-    var booksAuthor : String ?= "",
+    var booksAuthorName : String ?= "",
     var booksDescription : String ?= "",
     var booksStatus : Int ?= 0,
     var isWishlist : Boolean ?= false,

@@ -58,4 +58,5 @@
     <string name="enter_copies_available">Enter copies available</string>
     <string name="enter_date">Enter date</string>
     <string name="select_status">Select status</string>
+    <string name="one_two">1,2,…1000…</string>
 </resources>

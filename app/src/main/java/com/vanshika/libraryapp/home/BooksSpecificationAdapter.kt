@@ -10,10 +10,10 @@ import com.vanshika.libraryapp.R
 class BooksSpecificationAdapter(var specifiedList:ArrayList<BooksSpecificationDataClass>):
     RecyclerView.Adapter<BooksSpecificationAdapter.ViewHolder>() {
     class ViewHolder(var view: View) : RecyclerView.ViewHolder(view) {
-        var authorName: TextView = view.findViewById(R.id.author_name)
-        var bookName: TextView = view.findViewById(R.id.book_name)
-        var status: TextView = view.findViewById(R.id.status)
-        var description: TextView = view.findViewById(R.id.description)
+        var tvBooksAuthorName: TextView = view.findViewById(R.id.tvBooksAuthorName)
+        var tvBookName: TextView = view.findViewById(R.id.tvBookName)
+        var tvBooksStatus: TextView = view.findViewById(R.id.tvBooksStatus)
+        var tvBooksDescription: TextView = view.findViewById(R.id.tvBooksDescription)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -29,9 +29,9 @@ class BooksSpecificationAdapter(var specifiedList:ArrayList<BooksSpecificationDa
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.authorName.setText(specifiedList[position].booksAuthor)
-        holder.bookName.setText(specifiedList[position].booksName)
-        holder.description.setText(specifiedList[position].booksDescription)
+        holder.tvBooksAuthorName.setText(specifiedList[position].booksAuthorName)
+        holder.tvBookName.setText(specifiedList[position].booksName)
+        holder.tvBooksDescription.setText(specifiedList[position].booksDescription)
         when (specifiedList[position].booksStatus) {
             0 -> {
             }

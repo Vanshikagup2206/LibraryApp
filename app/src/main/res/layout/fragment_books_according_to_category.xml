@@ -44,7 +44,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/etNoOfBooks"
-        android:hint="@string/enter_no_of_books_in_this_category"
+        android:inputType="number"
+        android:hint="@string/one_two"
         android:textSize="@dimen/sp_20"/>
 
     <TextView
