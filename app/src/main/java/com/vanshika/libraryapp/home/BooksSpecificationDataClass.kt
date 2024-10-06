@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey
     ForeignKey(
         entity = BooksDataClass :: class,
         parentColumns = ["booksId"],
-        childColumns = ["booksId"]
+        childColumns = ["booksSpecificationId"]
     )
 ])
 data class BooksSpecificationDataClass(
@@ -18,6 +18,6 @@ data class BooksSpecificationDataClass(
     var booksAuthorName : String ?= "",
     var booksDescription : String ?= "",
     var booksStatus : Int ?= 0,
-    var isWishlist : Boolean ?= false,
+    //var isWishlist : Boolean ?= false,
     var booksId : Int ?= 0
 )

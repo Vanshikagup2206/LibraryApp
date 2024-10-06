@@ -1,5 +1,6 @@
 package com.vanshika.libraryapp
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -13,6 +14,8 @@ import com.vanshika.libraryapp.home.BooksAdapter
 import com.vanshika.libraryapp.home.BooksDataClass
 import com.vanshika.libraryapp.home.BooksSpecificationAdapter
 import com.vanshika.libraryapp.home.BooksSpecificationDataClass
+import java.text.SimpleDateFormat
+import java.util.Calendar
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -29,10 +32,16 @@ class BooksAdditionFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     var binding : FragmentBooksAdditionBinding ?= null
+    //var booksSpecificationDataClass:BooksSpecificationDataClass()
     lateinit var linearLayoutManager: LinearLayoutManager
     var specifiedList = arrayListOf<BooksSpecificationDataClass>()
     lateinit var booksSpecificationAdapter: BooksSpecificationAdapter
     lateinit var libraryDatabase: LibraryDatabase
+    var dateFormat = SimpleDateFormat("dd/MMM/yyy")
+    var calendar = Calendar.getInstance()
+    var fromateDate: String? = null
+    var booksSpecificationId = 0
+    var booksId = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,7 +62,24 @@ class BooksAdditionFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        libraryDatabase = LibraryDatabase.getInstance(requireContext())
+       // booksSpecificationAdapter = BooksSpecificationAdapter(specifiedList,this)
+        linearLayoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding?.btnAdd?.setOnClickListener {
+            binding?.etReleaseDate?.setOnClickListener {
+                var datePickerDialog = DatePickerDialog(
+                    requireContext(), { _, year, month, date ->
+                        calendar = Calendar.getInstance()
+                        calendar.set(year, month, date)
+                        fromateDate = dateFormat.format(calendar.time)
+                        binding?.etReleaseDate?.setText(fromateDate)
+                    }, Calendar.getInstance().get(Calendar.YEAR),
+                    Calendar.getInstance().get(Calendar.MONTH),
+                    Calendar.getInstance().get(Calendar.DATE)
+                )
+                datePickerDialog.show()
+            }
             if(binding?.etBookAuthorName?.text?.isEmpty() == true){
                 binding?.etBookAuthorName?.error = resources.getString(R.string.enter_author_name)
             }
@@ -86,10 +112,29 @@ class BooksAdditionFragment : Fragment() {
                     ).show()
             }
             else{
-               findNavController().popBackStack()
+
+                var booksStatus = if (binding?.rbAvailable?.isChecked == true) {
+                    1
+                } else if(binding?.rbIssued?.isChecked == true) {
+                    2
+                }else{
+                    0
+                }
+                libraryDatabase.libraryDao().insertBooksSpecification(
+                    BooksSpecificationDataClass(
+                        booksSpecificationId = booksSpecificationId,
+                        booksAuthorName = binding?.etBookAuthorName?.text.toString(),
+                        booksName = binding?.etBookTitle?.text?.toString(),
+                        booksDescription = binding?.etShortDescription?.text?.toString(),
+                        booksStatus = booksStatus,
+                    )
+                )
+              findNavController().popBackStack()
             }
+
         }
     }
+    
 
     companion object {
         /**

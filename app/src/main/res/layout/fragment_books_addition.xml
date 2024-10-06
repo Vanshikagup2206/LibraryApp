@@ -136,7 +136,10 @@
             android:layout_height="wrap_content"
             android:hint="@string/select_date"
             android:id="@+id/etReleaseDate"
-            android:textSize="@dimen/sp_20" />
+            android:textSize="@dimen/sp_20"
+            android:clickable="true"
+            android:inputType="none"
+            android:focusable="false"/>
 
         <TextView
             android:layout_width="match_parent"
