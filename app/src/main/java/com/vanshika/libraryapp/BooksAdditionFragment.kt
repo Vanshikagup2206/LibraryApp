@@ -83,25 +83,25 @@ class BooksAdditionFragment : Fragment() {
             if(binding?.etBookAuthorName?.text?.isEmpty() == true){
                 binding?.etBookAuthorName?.error = resources.getString(R.string.enter_author_name)
             }
-            else if(binding?.etBookTitle?.text?.isNullOrEmpty() == true){
+            else if(binding?.etBookTitle?.text?.isEmpty() == true){
                 binding?.etBookTitle?.error = resources.getString(R.string.enter_book_title)
             }
-            else if(binding?.etPublisher?.text?.isNullOrEmpty() == true){
+            else if(binding?.etPublisher?.text?.isEmpty() == true){
                 binding?.etPublisher?.error = resources.getString(R.string.enter_publisher)
             }
-            else if(binding?.etShortDescription?.text?.isNullOrEmpty() == true){
+            else if(binding?.etShortDescription?.text?.isEmpty() == true){
                 binding?.etShortDescription?.error = resources.getString(R.string.enter_short_description)
             }
-            else if(binding?.etDescription?.text?.isNullOrEmpty() == true){
+            else if(binding?.etDescription?.text?.isEmpty() == true){
                 binding?.etDescription?.error = resources.getString(R.string.enter_description)
             }
-            else if(binding?.etTableOfContent?.text?.isNullOrEmpty() == true){
+            else if(binding?.etTableOfContent?.text?.isEmpty() == true){
                 binding?.etTableOfContent?.error = resources.getString(R.string.enter_the_table_content)
             }
-            else if(binding?.etCopiesAvailable?.text?.isNullOrEmpty() == true){
+            else if(binding?.etCopiesAvailable?.text?.isEmpty() == true){
                 binding?.etCopiesAvailable?.error = resources.getString(R.string.enter_copies_available)
             }
-            else if(binding?.etReleaseDate?.text?.isNullOrEmpty() == true){
+            else if(binding?.etReleaseDate?.text?.isEmpty() == true){
                 binding?.etReleaseDate?.error = resources.getString(R.string.enter_date)
             }
             else if (binding?.rgStatus?.checkedRadioButtonId == -1) {
@@ -122,7 +122,6 @@ class BooksAdditionFragment : Fragment() {
                 }
                 libraryDatabase.libraryDao().insertBooksSpecification(
                     BooksSpecificationDataClass(
-                        booksSpecificationId = booksSpecificationId,
                         booksAuthorName = binding?.etBookAuthorName?.text.toString(),
                         booksName = binding?.etBookTitle?.text?.toString(),
                         booksDescription = binding?.etShortDescription?.text?.toString(),

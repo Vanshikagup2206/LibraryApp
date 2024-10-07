@@ -15,7 +15,6 @@ class BooksSpecificationAdapter(var specifiedList:ArrayList<BooksSpecificationDa
         var tvBooksStatus: TextView = view.findViewById(R.id.tvBooksStatus)
         var tvBooksDescription: TextView = view.findViewById(R.id.tvBooksDescription)
     }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         var view = LayoutInflater.from(parent.context).inflate(
             R.layout.item_books_specification,
@@ -23,11 +22,9 @@ class BooksSpecificationAdapter(var specifiedList:ArrayList<BooksSpecificationDa
         )
         return ViewHolder(view)
     }
-
     override fun getItemCount(): Int {
         return specifiedList.size
     }
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.tvBooksAuthorName.setText(specifiedList[position].booksAuthorName)
         holder.tvBookName.setText(specifiedList[position].booksName)

@@ -26,11 +26,11 @@ class BooksSpecificationFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-var binding: FragmentBooksSpecificationBinding? = null
+    var binding: FragmentBooksSpecificationBinding? = null
     lateinit var linearLayoutManager: LinearLayoutManager
-    lateinit var booksSpecificationAdapter: ArrayAdapter<BooksSpecificationDataClass>
-    var specifiedList = arrayListOf<BooksSpecificationDataClass>()
+    var booksSpecificationList = arrayListOf<BooksSpecificationDataClass>()
     lateinit var libraryDatabase: LibraryDatabase
+    lateinit var booksSpecificationAdapter: BooksSpecificationAdapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,14 +45,19 @@ var binding: FragmentBooksSpecificationBinding? = null
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-       binding = FragmentBooksSpecificationBinding.inflate(layoutInflater)
+        binding = FragmentBooksSpecificationBinding.inflate(layoutInflater)
         return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         libraryDatabase = LibraryDatabase.getInstance(requireContext())
-        binding?.ivBack?.setOnClickListener{
+        booksSpecificationAdapter = BooksSpecificationAdapter(booksSpecificationList)
+        linearLayoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
+        binding?.rvBooksSpecification?.layoutManager = linearLayoutManager
+        binding?.rvBooksSpecification?.adapter = booksSpecificationAdapter
+        getBooksSpecifationList()
+        binding?.ivBack?.setOnClickListener {
             findNavController().popBackStack()
         }
         binding?.btnFab?.setOnClickListener {
@@ -60,6 +65,13 @@ var binding: FragmentBooksSpecificationBinding? = null
         }
 
     }
+
+    private fun getBooksSpecifationList() {
+        booksSpecificationList.clear()
+        booksSpecificationList.addAll(libraryDatabase.libraryDao().getBookSpecification())
+        booksSpecificationAdapter.notifyDataSetChanged()
+    }
+
     companion object {
         /**
          * Use this factory method to create a new instance of
