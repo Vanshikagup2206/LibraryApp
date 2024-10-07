@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -32,16 +33,11 @@ class BooksAdditionFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     var binding : FragmentBooksAdditionBinding ?= null
-    //var booksSpecificationDataClass:BooksSpecificationDataClass()
-    lateinit var linearLayoutManager: LinearLayoutManager
-    var specifiedList = arrayListOf<BooksSpecificationDataClass>()
-    lateinit var booksSpecificationAdapter: BooksSpecificationAdapter
+    var booksSpecificationDataClass = BooksSpecificationDataClass()
     lateinit var libraryDatabase: LibraryDatabase
     var dateFormat = SimpleDateFormat("dd/MMM/yyy")
     var calendar = Calendar.getInstance()
-    var fromateDate: String? = null
-    var booksSpecificationId = 0
-    var booksId = 0
+    var formatDate: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,23 +59,21 @@ class BooksAdditionFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         libraryDatabase = LibraryDatabase.getInstance(requireContext())
-       // booksSpecificationAdapter = BooksSpecificationAdapter(specifiedList,this)
-        linearLayoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        binding?.etReleaseDate?.setOnClickListener {
+            var datePickerDialog = DatePickerDialog(
+                requireContext(), { _, year, month, date ->
+                    calendar = Calendar.getInstance()
+                    calendar.set(year, month, date)
+                    formatDate = dateFormat.format(calendar.time)
+                    binding?.etReleaseDate?.setText(formatDate)
+                }, Calendar.getInstance().get(Calendar.YEAR),
+                Calendar.getInstance().get(Calendar.MONTH),
+                Calendar.getInstance().get(Calendar.DATE)
+            )
+            datePickerDialog.show()
+        }
+
         binding?.btnAdd?.setOnClickListener {
-            binding?.etReleaseDate?.setOnClickListener {
-                var datePickerDialog = DatePickerDialog(
-                    requireContext(), { _, year, month, date ->
-                        calendar = Calendar.getInstance()
-                        calendar.set(year, month, date)
-                        fromateDate = dateFormat.format(calendar.time)
-                        binding?.etReleaseDate?.setText(fromateDate)
-                    }, Calendar.getInstance().get(Calendar.YEAR),
-                    Calendar.getInstance().get(Calendar.MONTH),
-                    Calendar.getInstance().get(Calendar.DATE)
-                )
-                datePickerDialog.show()
-            }
             if(binding?.etBookAuthorName?.text?.isEmpty() == true){
                 binding?.etBookAuthorName?.error = resources.getString(R.string.enter_author_name)
             }
