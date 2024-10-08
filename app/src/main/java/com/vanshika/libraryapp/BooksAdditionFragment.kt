@@ -117,7 +117,7 @@ class BooksAdditionFragment : Fragment() {
 //                }
                 libraryDatabase.libraryDao().insertBooksSpecification(
                     BooksSpecificationDataClass(
-                        booksSpecificationId = booksSpecificationDataClass.booksSpecificationId,
+                        booksId = booksDataClass.booksId,
                         booksAuthorName = binding?.etBookAuthorName?.text?.toString(),
                         booksName = binding?.etBookTitle?.text?.toString(),
                         booksDescription = binding?.etShortDescription?.text?.toString()
