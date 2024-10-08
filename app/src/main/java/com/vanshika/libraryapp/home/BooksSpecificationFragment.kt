@@ -56,7 +56,7 @@ class BooksSpecificationFragment : Fragment() {
         linearLayoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
         binding?.rvBooksSpecification?.layoutManager = linearLayoutManager
         binding?.rvBooksSpecification?.adapter = booksSpecificationAdapter
-        getBooksSpecifationList()
+        getBooksSpecificationList()
         binding?.ivBack?.setOnClickListener {
             findNavController().popBackStack()
         }
@@ -66,7 +66,7 @@ class BooksSpecificationFragment : Fragment() {
 
     }
 
-    private fun getBooksSpecifationList() {
+    private fun getBooksSpecificationList() {
         booksSpecificationList.clear()
         booksSpecificationList.addAll(libraryDatabase.libraryDao().getBookSpecification())
         booksSpecificationAdapter.notifyDataSetChanged()

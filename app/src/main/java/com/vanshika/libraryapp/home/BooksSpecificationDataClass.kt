@@ -7,8 +7,8 @@ import androidx.room.PrimaryKey
 @Entity(foreignKeys = [
     ForeignKey(
         entity = BooksDataClass :: class,
-        parentColumns = ["booksSpecificationId"],
-        childColumns = ["booksId"]
+        parentColumns = ["booksId"],
+        childColumns = ["booksSpecificationId"]
     )
 ])
 data class BooksSpecificationDataClass(

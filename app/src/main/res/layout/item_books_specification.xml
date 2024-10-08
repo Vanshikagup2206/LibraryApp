@@ -43,6 +43,5 @@
     android:layout_height="wrap_content"
     android:text="@string/description"
     android:minLines="4"
-    android:textStyle="bold"
     android:textSize="@dimen/sp_20"/>
 </LinearLayout>

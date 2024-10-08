@@ -29,11 +29,11 @@ class BooksSpecificationAdapter(var specifiedList:ArrayList<BooksSpecificationDa
         holder.tvBooksAuthorName.setText(specifiedList[position].booksAuthorName)
         holder.tvBookName.setText(specifiedList[position].booksName)
         holder.tvBooksDescription.setText(specifiedList[position].booksDescription)
-        when (specifiedList[position].booksStatus) {
-            0 -> {
-            }
-            1->{
-            }
-        }
+//        when (specifiedList[position].booksStatus) {
+//            0 -> {
+//            }
+//            1->{
+//            }
+//        }
     }
 }

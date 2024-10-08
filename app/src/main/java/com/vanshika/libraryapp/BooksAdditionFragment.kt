@@ -33,6 +33,7 @@ class BooksAdditionFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     var binding : FragmentBooksAdditionBinding ?= null
+    var booksDataClass = BooksDataClass()
     var booksSpecificationDataClass = BooksSpecificationDataClass()
     lateinit var libraryDatabase: LibraryDatabase
     var dateFormat = SimpleDateFormat("dd/MMM/yyy")
@@ -107,19 +108,19 @@ class BooksAdditionFragment : Fragment() {
             }
             else{
 
-                var booksStatus = if (binding?.rbAvailable?.isChecked == true) {
-                    1
-                } else if(binding?.rbIssued?.isChecked == true) {
-                    2
-                }else{
-                    0
-                }
+//                var booksStatus = if (binding?.rbAvailable?.isChecked == true) {
+//                    1
+//                } else if(binding?.rbIssued?.isChecked == true) {
+//                    2
+//                }else{
+//                    0
+//                }
                 libraryDatabase.libraryDao().insertBooksSpecification(
                     BooksSpecificationDataClass(
-                        booksAuthorName = binding?.etBookAuthorName?.text.toString(),
+                        booksSpecificationId = booksSpecificationDataClass.booksSpecificationId,
+                        booksAuthorName = binding?.etBookAuthorName?.text?.toString(),
                         booksName = binding?.etBookTitle?.text?.toString(),
-                        booksDescription = binding?.etShortDescription?.text?.toString(),
-                        booksStatus = booksStatus,
+                        booksDescription = binding?.etShortDescription?.text?.toString()
                     )
                 )
               findNavController().popBackStack()
