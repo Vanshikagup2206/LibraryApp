@@ -32,6 +32,9 @@ interface LibraryDao {
     @Query("SELECT * FROM BooksSpecificationDataClass")
     fun getBookSpecification(): List<BooksSpecificationDataClass>
 
+    @Query("SELECT * FROM BooksDataClass WHERE booksId =:booksId")
+    fun getBooksAccToId(booksId : Int): BooksDataClass
+
     @Update
     fun updateBooksSpecification(booksSpecificationDataClass: BooksSpecificationDataClass)
 }

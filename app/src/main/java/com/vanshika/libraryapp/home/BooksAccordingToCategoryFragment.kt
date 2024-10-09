@@ -1,6 +1,8 @@
 package com.vanshika.libraryapp.home
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -30,7 +32,7 @@ class BooksAccordingToCategoryFragment : Fragment() {
     var booksList = arrayListOf<BooksDataClass>()
     lateinit var booksAdapter: ArrayAdapter<BooksDataClass>
     lateinit var libraryDatabase: LibraryDatabase
-
+    var booksId = 0
     private var param1: String? = null
     private var param2: String? = null
 
@@ -54,6 +56,12 @@ class BooksAccordingToCategoryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         libraryDatabase = LibraryDatabase.getInstance(requireContext())
+        arguments?.let {
+            booksId = it.getInt("booksId",0)
+            if (booksId>0){
+                getBooksAccToIdList()
+            }
+        }
         binding?.btnAddBookAccToCategory?.setOnClickListener {
             if (binding?.etBooksCategory?.text?.toString()?.trim()?.isEmpty() == true) {
                 binding?.etBooksCategory?.error = resources.getString(R.string.enter_category)
@@ -64,12 +72,14 @@ class BooksAccordingToCategoryFragment : Fragment() {
             else {
                 libraryDatabase.libraryDao().insertBooksWithCategory(
                     BooksDataClass(
-                        booksId = booksDataClass.booksId,
                         booksCategory = binding?.etBooksCategory?.text?.toString(),
                         booksAbout = binding?.etAboutBooksCategory?.text?.toString(),
                         noOfBooks = binding?.etNoOfBooks?.text?.toString()?.toInt()
                     )
                 )
+                var bundle = Bundle()
+                bundle.getInt(booksDataClass.booksId.toString())
+                Log.e(TAG, "onViewCreated: ${booksDataClass.booksId}" )
                 findNavController().popBackStack()
             }
         }
@@ -93,5 +103,8 @@ class BooksAccordingToCategoryFragment : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+    }
+    fun getBooksAccToIdList(){
+        booksDataClass = libraryDatabase.libraryDao().getBooksAccToId(booksId)
     }
 }

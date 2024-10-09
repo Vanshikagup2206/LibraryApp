@@ -39,6 +39,7 @@ class BooksAdditionFragment : Fragment() {
     var dateFormat = SimpleDateFormat("dd/MMM/yyy")
     var calendar = Calendar.getInstance()
     var formatDate: String? = null
+    var booksId = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,6 +60,9 @@ class BooksAdditionFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        arguments?.let {
+            booksId = it.getInt("booksId",0)
+        }
         libraryDatabase = LibraryDatabase.getInstance(requireContext())
         binding?.etReleaseDate?.setOnClickListener {
             var datePickerDialog = DatePickerDialog(
@@ -115,9 +119,10 @@ class BooksAdditionFragment : Fragment() {
 //                }else{
 //                    0
 //                }
+
                 libraryDatabase.libraryDao().insertBooksSpecification(
                     BooksSpecificationDataClass(
-                        booksId = booksDataClass.booksId,
+                        booksId = booksId,
                         booksAuthorName = binding?.etBookAuthorName?.text?.toString(),
                         booksName = binding?.etBookTitle?.text?.toString(),
                         booksDescription = binding?.etShortDescription?.text?.toString()
