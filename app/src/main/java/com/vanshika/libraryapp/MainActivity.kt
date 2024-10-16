@@ -1,5 +1,6 @@
 package com.vanshika.libraryapp
 
+import android.content.pm.ActivityInfo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.navigation.NavController
@@ -17,6 +18,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding?.root)
         navController = findNavController(R.id.host)
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
         binding?.bottomNavigation?.setOnItemSelectedListener {
             when(it.itemId){
                 R.id.navHome -> navController?.navigate(R.id.homeFragment)
