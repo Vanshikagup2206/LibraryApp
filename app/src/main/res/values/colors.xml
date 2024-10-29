@@ -6,4 +6,5 @@
     <color name="grey">#CAC3C3</color>
     <color name="blue">#3665F4</color>
     <color name="deep_olive">#475a27</color>
+    <color name="colorAccent">#008000</color>
 </resources>

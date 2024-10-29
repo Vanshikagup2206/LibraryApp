@@ -1,14 +1,24 @@
 package com.vanshika.libraryapp.home
 
 import android.app.Dialog
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Rect
+import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.util.Log
+import android.os.Handler
+import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -37,6 +47,8 @@ class AdminHomeFragment : Fragment(), BooksClickInterface {
     var booksList = arrayListOf<BooksDataClass>()
     lateinit var booksAdapter: BooksAdapter
     lateinit var libraryDatabase: LibraryDatabase
+    private lateinit var deleteIcon: Drawable
+    private lateinit var editIcon: Drawable
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -57,6 +69,8 @@ class AdminHomeFragment : Fragment(), BooksClickInterface {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        deleteIcon = ContextCompat.getDrawable(requireContext(), R.drawable.baseline_delete_24)!!
+        editIcon = ContextCompat.getDrawable(requireContext(), R.drawable.baseline_edit_24)!!
         libraryDatabase = LibraryDatabase.getInstance(requireContext())
         booksAdapter = BooksAdapter(booksList, this)
         linearLayoutManager =
@@ -65,93 +79,205 @@ class AdminHomeFragment : Fragment(), BooksClickInterface {
         binding?.rvBooks?.adapter = booksAdapter
         getBooksAccToCategory()
         // set up itemTouchHelper
-        val itemTouchHelper =
-            ItemTouchHelper(object :
-                ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
-                override fun onMove(
-                    recyclerView: RecyclerView,
-                    viewHolder: RecyclerView.ViewHolder,
-                    target: RecyclerView.ViewHolder
-                ): Boolean {
-                    return false // No drag-and-drop functionality
+//        val itemTouchHelper =
+//            ItemTouchHelper(object :
+//                ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
+//                override fun onMove(
+//                    recyclerView: RecyclerView,
+//                    viewHolder: RecyclerView.ViewHolder,
+//                    target: RecyclerView.ViewHolder
+//                ): Boolean {
+//                    return false // No drag-and-drop functionality
+//                }
+//
+//                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+//                    val position = viewHolder.adapterPosition
+//                    val book = booksList[position]
+//                    val itemView = viewHolder.itemView
+//                    Log.d(
+//                        "SwipeDetection",
+//                        "Swiped book: ${book.booksCategory}, direction: $direction"
+//                    )
+//                    if (direction == ItemTouchHelper.LEFT) {
+//                        // Show confirmation dialog
+////                        itemView.setBackgroundColor(R.drawable.boundary_to_swipe_delete)
+//                        itemView.setBackgroundColor(R.drawable.boundary_to_swipe_delete)
+////                        itemView.background = ColorDrawable(Color.parseColor("#FF5252"))
+//                        AlertDialog.Builder(requireContext())
+//                            .setMessage(R.string.are_you_sure_you_want_to_delete_this_section)
+//                            .setPositiveButton(R.string.yes) { _, _ ->
+//                                libraryDatabase.libraryDao().deleteBooksWithCategory(book)
+//                                getBooksAccToCategory() // Refresh the list
+//                            }
+//                            .setNegativeButton(R.string.no) { dialog, _ ->
+//                                dialog.dismiss()
+////                                itemView.setBackgroundColor(0)// reset the color
+//                                booksAdapter.notifyItemChanged(position) // Revert swipe
+//                            }
+//                            .show()
+//                            .setCancelable(false)
+//                    } else if (direction == ItemTouchHelper.RIGHT) {
+//                        itemView.setBackgroundColor(R.drawable.boundary_to_update)
+//                        Toast.makeText(
+//                            requireContext(),
+//                            "Update book: ${book.booksCategory}",
+//                            Toast.LENGTH_SHORT
+//                        ).show()
+//                        val dialogBinding =
+//                            CustomBooksAccToCategoryBinding.inflate(layoutInflater)
+//                        Dialog(requireContext()).apply {
+//                            setContentView(dialogBinding.root)
+//                            getWindow()?.setLayout(
+//                                ViewGroup.LayoutParams.MATCH_PARENT,
+//                                ViewGroup.LayoutParams.WRAP_CONTENT
+//                            )
+//                            show()
+//                            setCancelable(false)
+//
+//                            dialogBinding.btnAddAccToCategory.setOnClickListener {
+//                                if (dialogBinding.etCategory.text.toString().trim()
+//                                        .isNullOrEmpty()
+//                                ) {
+//                                    dialogBinding.etCategory.error =
+//                                        resources.getString(R.string.enter_category)
+//                                } else if (dialogBinding.etAboutCategory.text.toString().trim()
+//                                        .isNullOrEmpty()
+//                                ) {
+//                                    dialogBinding.etAboutCategory.error =
+//                                        resources.getString(R.string.enter_description)
+//                                } else {
+//                                    libraryDatabase.libraryDao().updateBooksWithCategory(
+//                                        BooksDataClass(
+//                                            booksId = booksList[position].booksId,
+//                                            booksCategory = dialogBinding.etCategory.text.toString(),
+//                                            booksAbout = dialogBinding.etAboutCategory.text.toString(),
+//                                            categoryId = booksList[position].booksId
+//                                        )
+//                                    )
+//                                    getBooksAccToCategory()
+//                                    booksAdapter.notifyDataSetChanged()
+//                                    dismiss()
+//                                }
+//                            }
+//                        }
+//                    }
+//
+//                }
+//
+//            })
+//        itemTouchHelper.attachToRecyclerView(binding?.rvBooks)
+
+        val itemTouchHelper = ItemTouchHelper(object :
+            ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+            private val swipeThreshold = 150f //swipe distance
+
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                return false // No drag-and-drop functionality
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+//                booksAdapter.notifyItemChanged(viewHolder.adapterPosition)
+            }
+
+            override fun onChildDraw(
+                c: Canvas,
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                dX: Float,
+                dY: Float,
+                actionState: Int,
+                isCurrentlyActive: Boolean
+            ) {
+                val itemView = viewHolder.itemView
+                val iconSize = 50
+                val iconMargin = (itemView.height - iconSize * 2)/3
+                val limitedDx = dX.coerceAtLeast(-swipeThreshold)
+
+                if (limitedDx < 0) { // Swipe left
+                    // Draw background for delete and edit
+                    val background = ColorDrawable(Color.parseColor("#CCCC99"))
+                    background.setBounds(
+                        (itemView.right + limitedDx).toInt(),
+                        itemView.top,
+                        itemView.right,
+                        itemView.bottom
+                    )
+                    background.draw(c)
+
+                    // Draw delete icon
+                    deleteIcon.setBounds(
+                        itemView.right - iconMargin - iconSize,
+                        itemView.top + iconMargin,
+                        itemView.right - iconMargin,
+                        itemView.top + iconMargin + iconSize
+                    )
+                    deleteIcon.draw(c)
+
+                    //Draw edit icon
+                    editIcon.setBounds(
+                        itemView.right - iconMargin - iconSize,
+                        itemView.top + iconMargin * 2 + iconSize,
+                        itemView.right - iconMargin,
+                        itemView.top + iconMargin * 2 + iconSize * 2
+                    )
+                    editIcon.draw(c)
                 }
 
-                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                    val position = viewHolder.adapterPosition
-                    val book = booksList[position]
-                    val itemView = viewHolder.itemView
-                    Log.d(
-                        "SwipeDetection",
-                        "Swiped book: ${book.booksCategory}, direction: $direction"
-                    )
-                    if (direction == ItemTouchHelper.LEFT) {
-                        // Show confirmation dialog
-//                        itemView.setBackgroundColor(R.drawable.boundary_to_swipe_delete)
-                        itemView.setBackgroundColor(R.drawable.boundary_to_swipe_delete)
-//                        itemView.background = ColorDrawable(Color.parseColor("#FF5252"))
-                        AlertDialog.Builder(requireContext())
-                            .setMessage(R.string.are_you_sure_you_want_to_delete_this_section)
-                            .setPositiveButton(R.string.yes) { _, _ ->
-                                libraryDatabase.libraryDao().deleteBooksWithCategory(book)
-                                getBooksAccToCategory() // Refresh the list
-                            }
-                            .setNegativeButton(R.string.no) { dialog, _ ->
-                                dialog.dismiss()
-//                                itemView.setBackgroundColor(0)// reset the color
-                                booksAdapter.notifyItemChanged(position) // Revert swipe
-                            }
-                            .show()
-                            .setCancelable(false)
-                    } else if (direction == ItemTouchHelper.RIGHT) {
-                        itemView.setBackgroundColor(R.drawable.boundary_to_update)
-                        Toast.makeText(
-                            requireContext(),
-                            "Update book: ${book.booksCategory}",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        val dialogBinding =
-                            CustomBooksAccToCategoryBinding.inflate(layoutInflater)
-                        Dialog(requireContext()).apply {
-                            setContentView(dialogBinding.root)
-                            getWindow()?.setLayout(
-                                ViewGroup.LayoutParams.MATCH_PARENT,
-                                ViewGroup.LayoutParams.WRAP_CONTENT
-                            )
-                            show()
-                            setCancelable(false)
+                super.onChildDraw(c, recyclerView, viewHolder, limitedDx, dY, actionState, isCurrentlyActive)
+            }
 
-                            dialogBinding.btnAddAccToCategory.setOnClickListener {
-                                if (dialogBinding.etCategory.text.toString().trim()
-                                        .isNullOrEmpty()
-                                ) {
-                                    dialogBinding.etCategory.error =
-                                        resources.getString(R.string.enter_category)
-                                } else if (dialogBinding.etAboutCategory.text.toString().trim()
-                                        .isNullOrEmpty()
-                                ) {
-                                    dialogBinding.etAboutCategory.error =
-                                        resources.getString(R.string.enter_description)
-                                } else {
-                                    libraryDatabase.libraryDao().updateBooksWithCategory(
-                                        BooksDataClass(
-                                            booksId = booksList[position].booksId,
-                                            booksCategory = dialogBinding.etCategory.text.toString(),
-                                            booksAbout = dialogBinding.etAboutCategory.text.toString(),
-                                            categoryId = booksList[position].booksId
-                                        )
-                                    )
+            override fun getSwipeThreshold(viewHolder: RecyclerView.ViewHolder): Float {
+                return 1.0f
+            }
+        })
+
+        itemTouchHelper.attachToRecyclerView(binding?.rvBooks)
+
+        binding?.rvBooks?.addOnItemTouchListener(object : RecyclerView.OnItemTouchListener{
+            override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
+                // Detect clicks on delete and edit icons
+                if (e.action == MotionEvent.ACTION_DOWN){
+                    val child = rv.findChildViewUnder(e.x,e.y)
+                    if (child != null){
+                        val viewHolder = rv.getChildViewHolder(child)
+                        val position = viewHolder.adapterPosition
+                        val itemView = viewHolder.itemView
+                        val book = booksList[position]
+
+                        if (deleteIcon.bounds.contains(e.x.toInt(), e.y.toInt())){
+                            AlertDialog.Builder(rv.context)
+                                .setMessage(R.string.are_you_sure_you_want_to_delete_this_section)
+                                .setPositiveButton("Yes"){_,_ ->
+                                    libraryDatabase.libraryDao().deleteBooksWithCategory(book)
                                     getBooksAccToCategory()
-                                    booksAdapter.notifyDataSetChanged()
-                                    dismiss()
                                 }
-                            }
+                                .setNegativeButton(R.string.no){dialog,_ ->
+                                    dialog.dismiss()
+                                    rv.adapter?.notifyItemChanged(viewHolder.adapterPosition)
+                                }
+                                .show()
+                            return true
+                        }else if (editIcon.bounds.contains(e.x.toInt(), e.y.toInt())){
+                            Toast.makeText(rv.context, "edit", Toast.LENGTH_SHORT).show()
+                            return true
                         }
                     }
-
                 }
+                return false
+            }
 
-            })
-        itemTouchHelper.attachToRecyclerView(binding?.rvBooks)
+            override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {
+            }
+
+            override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {
+            }
+        })
+
+
         binding?.fabAdd?.setOnClickListener {
             findNavController().navigate(R.id.booksAccordingToCategoryFragment)
         }
