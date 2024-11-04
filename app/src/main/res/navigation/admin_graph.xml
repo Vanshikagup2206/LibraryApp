@@ -25,4 +25,9 @@
         android:name="com.vanshika.libraryapp.home.BooksSpecificationFragment"
         android:label="fragment_books_specification"
         tools:layout="@layout/fragment_books_specification" />
+    <fragment
+        android:id="@+id/booksDescriptionFragment"
+        android:name="com.vanshika.libraryapp.home.BooksDescriptionFragment"
+        android:label="fragment_books_description"
+        tools:layout="@layout/fragment_books_description" />
 </navigation>

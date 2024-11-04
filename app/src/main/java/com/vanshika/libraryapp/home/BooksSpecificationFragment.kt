@@ -22,7 +22,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [BooksSpecificationFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class BooksSpecificationFragment : Fragment() {
+class BooksSpecificationFragment : Fragment(),BooksClickInterface {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -52,7 +52,7 @@ class BooksSpecificationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         libraryDatabase = LibraryDatabase.getInstance(requireContext())
-        booksSpecificationAdapter = BooksSpecificationAdapter(booksSpecificationList)
+        booksSpecificationAdapter = BooksSpecificationAdapter(booksSpecificationList,this)
         linearLayoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
         binding?.rvBooksSpecification?.layoutManager = linearLayoutManager
         binding?.rvBooksSpecification?.adapter = booksSpecificationAdapter
@@ -63,7 +63,6 @@ class BooksSpecificationFragment : Fragment() {
         binding?.btnFab?.setOnClickListener {
             findNavController().navigate(R.id.booksAdditionFragment)
         }
-
     }
 
     private fun getBooksSpecificationList() {
@@ -90,5 +89,9 @@ class BooksSpecificationFragment : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+    }
+
+    override fun moveToNext(position: Int) {
+        findNavController().navigate(R.id.booksDescriptionFragment)
     }
 }
