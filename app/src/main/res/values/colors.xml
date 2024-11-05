@@ -3,8 +3,11 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="brownish_green">#CCCC99</color>
-    <color name="grey">#CAC3C3</color>
     <color name="blue">#3665F4</color>
     <color name="deep_olive">#475a27</color>
     <color name="colorAccent">#008000</color>
+    <color name="off_white">#FAFAF6</color>
+    <color name="dark_black">#333333</color>
+    <color name="light_green">#EFEFDC</color>
+    <color name="green">#CCCC99</color>
 </resources>

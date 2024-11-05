@@ -5,7 +5,7 @@
     <string name="lets_get_started">Let\'s get started!</string>
     <string name="enter_your_registration_no">Enter your registration no.</string>
     <string name="enter_password">Enter password</string>
-    <string name="registration_no">Registration no.</string>
+    <string name="registration_no">Registration No.</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
     <string name="admin">Admin</string>
@@ -30,7 +30,7 @@
     <string name="select_date">Select Date</string>
     <string name="available">Available</string>
     <string name="status">Status :</string>
-    <string name="issued">issued</string>
+    <string name="issued">Issued</string>
     <string name="enter_brief_description">Enter Brief Description</string>
     <string name="sr_no_topic_name_page_no">sr.no    topic name    page no.</string>
     <string name="add">Add</string>

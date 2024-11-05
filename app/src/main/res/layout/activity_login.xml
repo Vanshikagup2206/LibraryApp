@@ -4,29 +4,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/dp_5"
+    android:padding="@dimen/dp_16"
     android:orientation="vertical"
+    android:background="@color/off_white"
     tools:context=".LoginActivity">
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/dp_10"
+        android:paddingVertical="@dimen/dp_20"
         android:text="@string/lets_get_started"
-        android:textSize="@dimen/sp_20"
+        android:textSize="@dimen/sp_24"
         android:textStyle="bold"
+        android:textColor="@color/dark_black"
         android:gravity="center"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/dp_10"
+        android:paddingBottom="@dimen/dp_8"
         android:text="@string/registration_no"
         android:textSize="@dimen/sp_20"
         android:textStyle="bold"/>
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="@dimen/dp_32"
-        android:backgroundTint="@color/grey">
+        app:cardCornerRadius="@dimen/dp_16"
+        android:elevation="4dp">
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -34,34 +36,34 @@
             android:inputType="number"
             android:maxLength="8"
             android:hint="@string/enter_your_registration_no"
-            android:textSize="@dimen/sp_20"
-            android:textColor="@color/black"
-            android:padding="@dimen/dp_10"
+            android:textColor="@color/dark_black"
+            android:textSize="@dimen/sp_18"
+            android:padding="@dimen/dp_16"
             android:background="@null"/>
     </androidx.cardview.widget.CardView>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textStyle="bold"
+        android:paddingBottom="@dimen/dp_8"
         android:textSize="@dimen/sp_20"
         android:text="@string/password"
-        android:padding="@dimen/dp_10"/>
+        android:paddingTop="@dimen/dp_20"/>
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="@dimen/dp_32"
-        android:padding="@dimen/dp_10"
-        android:backgroundTint="@color/grey">
+        app:cardCornerRadius="@dimen/dp_16"
+        android:elevation="4dp">
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/etPassword"
             android:hint="@string/enter_password"
-            android:inputType="textWebPassword"
+            android:inputType="textPassword"
             android:maxLength="30"
-            android:textColor="@color/black"
-            android:textSize="@dimen/sp_20"
-            android:padding="@dimen/dp_10"
+            android:textColor="@color/dark_black"
+            android:textSize="@dimen/sp_18"
+            android:padding="@dimen/dp_16"
             android:background="@null"/>
     </androidx.cardview.widget.CardView>
     <RadioGroup
@@ -69,19 +71,20 @@
         android:layout_height="wrap_content"
         android:id="@+id/rgUser"
         android:gravity="center"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/dp_20">
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/rbAdmin"
             android:text="@string/admin"
-            android:textSize="@dimen/sp_20"/>
+            android:textSize="@dimen/sp_18"/>
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/rbStudent"
             android:text="@string/student"
-            android:textSize="@dimen/sp_20"/>
+            android:textSize="@dimen/sp_18"/>
     </RadioGroup>
     <Button
         android:layout_width="wrap_content"
@@ -89,7 +92,11 @@
         android:id="@+id/btnLogin"
         android:padding="@dimen/dp_10"
         android:text="@string/login"
+        android:textColor="@color/white"
         android:textSize="@dimen/sp_20"
-        android:layout_gravity="center"/>
+        android:backgroundTint="@color/deep_olive"
+        android:layout_gravity="center"
+        android:elevation="4dp"
+        android:layout_marginTop="@dimen/dp_20"/>
 
 </LinearLayout>
