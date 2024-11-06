@@ -12,105 +12,103 @@
     android:padding="@dimen/dp_10">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <!--        <LinearLayout-->
+        <!--            android:id="@+id/swipeButtons"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:gravity="end"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--            app:layout_constraintTop_toTopOf="parent"-->
+        <!--            android:orientation="vertical"-->
+        <!--            android:layout_gravity="end">-->
+
+        <!--            &lt;!&ndash; Edit button &ndash;&gt;-->
+        <!--            <Button-->
+        <!--                android:id="@+id/btnEdit"-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="match_parent"-->
+        <!--                android:background="@android:color/holo_blue_light"-->
+        <!--                android:src="@drawable/baseline_edit_24" />-->
+
+        <!--            &lt;!&ndash; Delete button &ndash;&gt;-->
+        <!--            <Button-->
+        <!--                android:id="@+id/btnDelete"-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="match_parent"-->
+        <!--                android:background="@android:color/holo_red_dark"-->
+        <!--                android:src="@drawable/baseline_delete_24" />-->
+        <!--        </LinearLayout>-->
+
+        <TextView
+            android:id="@+id/tvBooksCategory"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-<!--        <LinearLayout-->
-<!--            android:id="@+id/swipeButtons"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:gravity="end"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
-<!--            android:orientation="vertical"-->
-<!--            android:layout_gravity="end">-->
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/sp_20"
+            android:text="@string/subject"
+            android:textColor="@color/deep_olive"
+            android:textSize="@dimen/sp_20"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-<!--            &lt;!&ndash; Edit button &ndash;&gt;-->
-<!--            <Button-->
-<!--                android:id="@+id/btnEdit"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:background="@android:color/holo_blue_light"-->
-<!--                android:src="@drawable/baseline_edit_24" />-->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginVertical="@dimen/dp_8"
+            android:id="@+id/dash"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvBooksCategory"
+            android:background="@color/deep_olive" />
 
-<!--            &lt;!&ndash; Delete button &ndash;&gt;-->
-<!--            <Button-->
-<!--                android:id="@+id/btnDelete"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:background="@android:color/holo_red_dark"-->
-<!--                android:src="@drawable/baseline_delete_24" />-->
-<!--        </LinearLayout>-->
+        <TextView
+            android:id="@+id/tvBooksAbout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minLines="2"
+            android:text="@string/about"
+            android:textSize="@dimen/sp_15"
+            app:layout_constraintTop_toBottomOf="@+id/dash" />
 
-            <TextView
-                android:id="@+id/tvBooksCategory"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/sp_20"
-                android:text="@string/subject"
-                android:textColor="@color/deep_olive"
-                android:textSize="@dimen/sp_20"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <LinearLayout
+            android:id="@+id/llSeeOver"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvBooksAbout">
 
             <TextView
-                android:id="@+id/dash"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/dash"
-                android:textColor="@color/deep_olive"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/tvBooksAbout"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvBooksCategory" />
-
-            <TextView
-                android:id="@+id/tvBooksAbout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minLines="2"
-                android:text="@string/about"
+                android:text="@string/see_over"
                 android:textSize="@dimen/sp_15"
-                app:layout_constraintTop_toBottomOf="@+id/dash" />
+                android:textStyle="bold" />
 
-            <LinearLayout
-                android:id="@+id/llSeeOver"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/tvNoOfBooks"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvBooksAbout">
+                android:text="@string/no_of_books"
+                android:textSize="@dimen/sp_15"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/see_over"
-                    android:textSize="@dimen/sp_15"
-                    android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/titles"
+                android:textSize="@dimen/sp_15"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/tvNoOfBooks"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/no_of_books"
-                    android:textSize="@dimen/sp_15"
-                    android:textStyle="bold" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/baseline_arrow_forward_ios_24" />
+        </LinearLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/titles"
-                    android:textSize="@dimen/sp_15"
-                    android:textStyle="bold" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/baseline_arrow_forward_ios_24" />
-            </LinearLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

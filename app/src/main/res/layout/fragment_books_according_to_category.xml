@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/light_green"
     android:orientation="vertical"
     android:padding="@dimen/dp_10"
     tools:context=".home.BooksAccordingToCategoryFragment">
@@ -10,6 +12,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/dp_4"
         android:text="@string/enter_subject_category"
         android:textSize="@dimen/sp_20"
         android:textStyle="bold" />
@@ -18,12 +21,21 @@
         android:id="@+id/etBooksCategory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/edit_text_outline"
         android:hint="@string/just_added_history_business"
+        android:padding="@dimen/dp_10"
         android:textSize="@dimen/sp_20" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginVertical="@dimen/dp_8"
+        android:background="@color/green" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/dp_4"
         android:text="@string/enter_about_the_category"
         android:textSize="@dimen/sp_20"
         android:textStyle="bold" />
@@ -32,28 +44,54 @@
         android:id="@+id/etAboutBooksCategory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/edit_text_outline"
         android:hint="@string/enter_about_the_category"
+        android:padding="@dimen/dp_10"
         android:textSize="@dimen/sp_20" />
-    <TextView
+
+    <View
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/enter_no_of_books_in_this_category"
-        android:textSize="@dimen/sp_20"
-        android:textStyle="bold"/>
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/etNoOfBooks"
-        android:inputType="number"
-        android:hint="@string/one_two"
-        android:textSize="@dimen/sp_20"/>
+        android:layout_height="1dp"
+        android:layout_marginVertical="@dimen/dp_8"
+        android:background="@color/green" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/dp_4"
+        android:text="@string/enter_no_of_books_in_this_category"
+        android:textSize="@dimen/sp_20"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/etNoOfBooks"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edit_text_outline"
+        android:hint="@string/one_two"
+        android:inputType="number"
+        android:padding="@dimen/dp_10"
+        android:textSize="@dimen/sp_20" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginVertical="@dimen/dp_8"
+        android:background="@color/green" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/dp_4"
         android:text="@string/add_images"
         android:textSize="@dimen/sp_20"
         android:textStyle="bold" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginVertical="@dimen/dp_8"
+        android:background="@color/green" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnAddBookAccToCategory"
@@ -61,6 +99,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="@string/add"
+        android:textColor="@color/white"
         android:textSize="@dimen/sp_20"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        app:backgroundTint="@color/deep_olive" />
 </LinearLayout>

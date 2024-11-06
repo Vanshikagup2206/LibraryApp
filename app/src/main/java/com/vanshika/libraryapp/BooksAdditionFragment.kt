@@ -79,28 +79,28 @@ class BooksAdditionFragment : Fragment() {
         }
 
         binding?.btnAdd?.setOnClickListener {
-            if(binding?.etBookAuthorName?.text?.isEmpty() == true){
+            if(binding?.etBookAuthorName?.text?.trim()?.isEmpty() == true){
                 binding?.etBookAuthorName?.error = resources.getString(R.string.enter_author_name)
             }
-            else if(binding?.etBookTitle?.text?.isEmpty() == true){
+            else if(binding?.etBookTitle?.text?.trim()?.isEmpty() == true){
                 binding?.etBookTitle?.error = resources.getString(R.string.enter_book_title)
             }
-            else if(binding?.etPublisher?.text?.isEmpty() == true){
+            else if(binding?.etPublisher?.text?.trim()?.isEmpty() == true){
                 binding?.etPublisher?.error = resources.getString(R.string.enter_publisher)
             }
-            else if(binding?.etShortDescription?.text?.isEmpty() == true){
+            else if(binding?.etShortDescription?.text?.trim()?.isEmpty() == true){
                 binding?.etShortDescription?.error = resources.getString(R.string.enter_short_description)
             }
-            else if(binding?.etDescription?.text?.isEmpty() == true){
+            else if(binding?.etDescription?.text?.trim()?.isEmpty() == true){
                 binding?.etDescription?.error = resources.getString(R.string.enter_description)
             }
-            else if(binding?.etTableOfContent?.text?.isEmpty() == true){
+            else if(binding?.etTableOfContent?.text?.trim()?.isEmpty() == true){
                 binding?.etTableOfContent?.error = resources.getString(R.string.enter_the_table_content)
             }
-            else if(binding?.etCopiesAvailable?.text?.isEmpty() == true){
+            else if(binding?.etCopiesAvailable?.text?.trim()?.isEmpty() == true){
                 binding?.etCopiesAvailable?.error = resources.getString(R.string.enter_copies_available)
             }
-            else if(binding?.etReleaseDate?.text?.isEmpty() == true){
+            else if(binding?.etReleaseDate?.text?.trim()?.isEmpty() == true){
                 binding?.etReleaseDate?.error = resources.getString(R.string.enter_date)
             }
             else if (binding?.rgStatus?.checkedRadioButtonId == -1) {
@@ -130,7 +130,6 @@ class BooksAdditionFragment : Fragment() {
                 )
               findNavController().popBackStack()
             }
-
         }
     }
 

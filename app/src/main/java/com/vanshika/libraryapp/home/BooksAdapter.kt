@@ -3,8 +3,6 @@ package com.vanshika.libraryapp.home
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -19,6 +17,7 @@ class BooksAdapter(
         var tvDescription: TextView = view.findViewById(R.id.tvBooksAbout)
         var tvNoOfBooks : TextView = view.findViewById(R.id.tvNoOfBooks)
         var llSeeOver : LinearLayout = view.findViewById(R.id.llSeeOver)
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

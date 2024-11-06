@@ -9,6 +9,7 @@ import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.view.GestureDetector
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -16,6 +17,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
@@ -180,7 +182,6 @@ class AdminHomeFragment : Fragment(), BooksClickInterface {
             }
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-//                booksAdapter.notifyItemChanged(viewHolder.adapterPosition)
             }
 
             override fun onChildDraw(
@@ -194,7 +195,7 @@ class AdminHomeFragment : Fragment(), BooksClickInterface {
             ) {
                 val itemView = viewHolder.itemView
                 val iconSize = 50
-                val iconMargin = (itemView.height - iconSize * 2)/3
+                val iconMargin = (itemView.height - iconSize * 2) / 3
                 val limitedDx = dX.coerceAtLeast(-swipeThreshold)
 
                 if (limitedDx < 0) { // Swipe left
@@ -227,7 +228,15 @@ class AdminHomeFragment : Fragment(), BooksClickInterface {
                     editIcon.draw(c)
                 }
 
-                super.onChildDraw(c, recyclerView, viewHolder, limitedDx, dY, actionState, isCurrentlyActive)
+                super.onChildDraw(
+                    c,
+                    recyclerView,
+                    viewHolder,
+                    limitedDx,
+                    dY,
+                    actionState,
+                    isCurrentlyActive
+                )
             }
 
             override fun getSwipeThreshold(viewHolder: RecyclerView.ViewHolder): Float {
@@ -237,31 +246,31 @@ class AdminHomeFragment : Fragment(), BooksClickInterface {
 
         itemTouchHelper.attachToRecyclerView(binding?.rvBooks)
 
-        binding?.rvBooks?.addOnItemTouchListener(object : RecyclerView.OnItemTouchListener{
+        binding?.rvBooks?.addOnItemTouchListener(object : RecyclerView.OnItemTouchListener {
             override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
                 // Detect clicks on delete and edit icons
-                if (e.action == MotionEvent.ACTION_DOWN){
-                    val child = rv.findChildViewUnder(e.x,e.y)
-                    if (child != null){
+                if (e.action == MotionEvent.ACTION_DOWN) {
+                    val child = rv.findChildViewUnder(e.x, e.y)
+                    if (child != null) {
                         val viewHolder = rv.getChildViewHolder(child)
                         val position = viewHolder.adapterPosition
                         val itemView = viewHolder.itemView
                         val book = booksList[position]
 
-                        if (deleteIcon.bounds.contains(e.x.toInt(), e.y.toInt())){
+                        if (deleteIcon.bounds.contains(e.x.toInt(), e.y.toInt())) {
                             AlertDialog.Builder(rv.context)
                                 .setMessage(R.string.are_you_sure_you_want_to_delete_this_section)
-                                .setPositiveButton("Yes"){_,_ ->
+                                .setPositiveButton("Yes") { _, _ ->
                                     libraryDatabase.libraryDao().deleteBooksWithCategory(book)
                                     getBooksAccToCategory()
                                 }
-                                .setNegativeButton(R.string.no){dialog,_ ->
+                                .setNegativeButton(R.string.no) { dialog, _ ->
                                     dialog.dismiss()
                                     rv.adapter?.notifyItemChanged(viewHolder.adapterPosition)
                                 }
                                 .show()
                             return true
-                        }else if (editIcon.bounds.contains(e.x.toInt(), e.y.toInt())){
+                        } else if (editIcon.bounds.contains(e.x.toInt(), e.y.toInt())) {
                             Toast.makeText(rv.context, "edit", Toast.LENGTH_SHORT).show()
                             return true
                         }
@@ -276,7 +285,6 @@ class AdminHomeFragment : Fragment(), BooksClickInterface {
             override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {
             }
         })
-
 
         binding?.fabAdd?.setOnClickListener {
             findNavController().navigate(R.id.booksAccordingToCategoryFragment)
