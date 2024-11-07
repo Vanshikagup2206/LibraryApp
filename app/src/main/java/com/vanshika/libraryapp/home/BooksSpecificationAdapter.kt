@@ -37,11 +37,14 @@ var booksClickInterface: BooksClickInterface):
             booksClickInterface.moveToNext(position)
         }
 
-//        when (specifiedList[position].booksStatus) {
-//            0 -> {
-//            }
-//            1->{
-//            }
-//        }
+        when (booksSpecificationList[position].booksStatus) {
+
+        0->{
+            holder.tvBooksStatus.setText(R.string.available)
+        }
+          1->{
+                holder.tvBooksStatus.setText(R.string.issued)
+            }
+        }
     }
 }

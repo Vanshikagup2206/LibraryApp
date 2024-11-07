@@ -21,10 +21,12 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.Gson
 import com.vanshika.libraryapp.LibraryDatabase
 import com.vanshika.libraryapp.R
 import com.vanshika.libraryapp.databinding.CustomBooksAccToCategoryBinding
@@ -318,6 +320,9 @@ class AdminHomeFragment : Fragment(), BooksClickInterface {
     }
 
     override fun moveToNext(position: Int) {
-        findNavController().navigate(R.id.booksSpecificationFragment)
+        var convertToString = Gson().toJson(booksList[position])
+        findNavController().navigate(R.id.booksSpecificationFragment, bundleOf("noOfBooks" to convertToString))
+        findNavController().navigate(R.id.booksSpecificationFragment, bundleOf("booksCategory" to convertToString))
+        findNavController().navigate(R.id.booksSpecificationFragment, bundleOf("aboutBooks" to convertToString))
     }
 }

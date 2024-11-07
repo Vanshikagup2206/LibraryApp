@@ -29,6 +29,7 @@ class BooksAccordingToCategoryFragment : Fragment() {
     // TODO: Rename and change types of parameters
     var binding: FragmentBooksAccordingToCategoryBinding ?= null
     var booksDataClass = BooksDataClass()
+    var booksSpecificationDataClass = BooksSpecificationDataClass()
     var booksList = arrayListOf<BooksDataClass>()
     lateinit var booksAdapter: ArrayAdapter<BooksDataClass>
     lateinit var libraryDatabase: LibraryDatabase
@@ -77,10 +78,11 @@ class BooksAccordingToCategoryFragment : Fragment() {
                         noOfBooks = binding?.etNoOfBooks?.text?.toString()?.toInt()
                     )
                 )
-                var bundle = Bundle()
-                bundle.getInt(booksDataClass.booksId.toString())
-                Log.e(TAG, "onViewCreated: ${booksDataClass.booksId}" )
-                findNavController().popBackStack()
+//                var bundle = Bundle()
+//                bundle.getInt(booksDataClass.noOfBooks.toString())
+//                bundle.getString(booksDataClass.booksCategory.toString())
+//                bundle.getString(booksDataClass.booksAbout.toString())
+//                findNavController().popBackStack()
             }
         }
     }

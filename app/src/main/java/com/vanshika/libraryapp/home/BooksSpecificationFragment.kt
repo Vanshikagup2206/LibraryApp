@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.gson.Gson
 import com.vanshika.libraryapp.LibraryDatabase
 import com.vanshika.libraryapp.R
 import com.vanshika.libraryapp.databinding.FragmentBooksSpecificationBinding
@@ -28,6 +29,7 @@ class BooksSpecificationFragment : Fragment(),BooksClickInterface {
     private var param2: String? = null
     var binding: FragmentBooksSpecificationBinding? = null
     lateinit var linearLayoutManager: LinearLayoutManager
+    var booksDataClass = BooksDataClass()
     var booksSpecificationList = arrayListOf<BooksSpecificationDataClass>()
     lateinit var libraryDatabase: LibraryDatabase
     lateinit var booksSpecificationAdapter: BooksSpecificationAdapter
@@ -51,12 +53,22 @@ class BooksSpecificationFragment : Fragment(),BooksClickInterface {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        arguments?.let {
+            var noOfBooks = it.getString("noOfBooks")
+            booksDataClass = Gson().fromJson(noOfBooks,booksDataClass::class.java)
+            var booksCategory = it.getString("booksCategory")
+            booksDataClass = Gson().fromJson(booksCategory,booksDataClass::class.java)
+            var aboutBooks = it.getString("aboutBooks")
+            booksDataClass = Gson().fromJson(aboutBooks,booksDataClass::class.java)
+        }
         libraryDatabase = LibraryDatabase.getInstance(requireContext())
         booksSpecificationAdapter = BooksSpecificationAdapter(booksSpecificationList,this)
         linearLayoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
+
         binding?.rvBooksSpecification?.layoutManager = linearLayoutManager
         binding?.rvBooksSpecification?.adapter = booksSpecificationAdapter
         getBooksSpecificationList()
+
         binding?.ivBack?.setOnClickListener {
             findNavController().popBackStack()
         }
