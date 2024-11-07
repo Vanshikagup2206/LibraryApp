@@ -1,14 +1,192 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".home.BooksDescriptionFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content">
+        <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/gl_h_4"
+            app:layout_constraintGuide_percent=".4"/>
+        <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/gl_h_20"
+            app:layout_constraintGuide_percent=".2"/>
 
-</FrameLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/deep_olive"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/gl_h_4">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent=".15"
+                android:id="@+id/gl_h_15" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent=".1"
+                android:id="@+id/gl_v_1" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent=".1"
+                android:id="@+id/gl_h_10" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent=".5"
+                android:id="@+id/gl_h_50" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent=".7"
+                android:id="@+id/gl_v_7" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent=".98"
+                android:id="@+id/gl_v_98" />
+
+            <ImageView
+                android:id="@+id/ivBack"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:src="@drawable/baseline_arrow_back_ios_24"
+                app:layout_constraintBottom_toBottomOf="@id/gl_h_15"
+                app:layout_constraintEnd_toEndOf="@+id/gl_v_1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/gl_h_10" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:paddingStart="@dimen/dp_10"
+                android:text="@string/library"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_20"
+                app:layout_constraintBottom_toBottomOf="@id/gl_h_15"
+                app:layout_constraintEnd_toEndOf="@+id/gl_v_7"
+                app:layout_constraintStart_toStartOf="@+id/gl_v_1"
+                app:layout_constraintTop_toTopOf="@id/gl_h_10" />
+
+            <ImageView
+                android:id="@+id/ivDav"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/dav_logo"
+                app:layout_constraintStart_toStartOf="@id/gl_v_7"
+                app:layout_constraintBottom_toBottomOf="@id/gl_h_50"
+                app:layout_constraintEnd_toEndOf="@id/gl_v_98"
+                app:layout_constraintTop_toTopOf="@id/gl_h_10" />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                app:layout_constraintStart_toStartOf="@id/gl_v_1"
+                app:layout_constraintEnd_toEndOf="@id/gl_v_7"
+                app:layout_constraintTop_toTopOf="@+id/gl_h_15"
+                app:layout_constraintBottom_toBottomOf="@+id/gl_h_50">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvBooksAuthorName"
+                    android:text="@string/author_name"
+                    android:textSize="@dimen/sp_15"
+                    android:textColor="@color/white"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp_20"
+                    android:text="@string/book_title"/>
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/gl_h_20"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/dp_10"
+            app:layout_constraintTop_toTopOf="@id/gl_h_4"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dp_10"
+                android:id="@+id/tvBooksStatus"
+                android:text="@string/status"
+                android:textStyle="bold"
+                android:textSize="@dimen/sp_20"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dp_10"
+                android:id="@+id/tvPublisher"
+                android:text="@string/enter_publisher"
+                android:textStyle="bold"
+                android:textSize="@dimen/sp_20"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dp_10"
+                android:id="@+id/tvNoOfBooks"
+                android:text="@string/no_of_copies"
+                android:textStyle="bold"
+                android:textSize="@dimen/sp_20"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dp_10"
+                android:id="@+id/tvReleaseDate"
+                android:text="@string/release_date"
+                android:textStyle="bold"
+                android:textSize="@dimen/sp_20"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dp_10"
+                android:id="@+id/tvBooksDescription"
+                android:textSize="@dimen/sp_15"
+                android:text="@string/description"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dp_10"
+                android:id="@+id/tvTableOfContent"
+                android:text="@string/table_of_content"
+                android:textSize="@dimen/sp_15"/>
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
+

@@ -176,7 +176,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/etTableOfContent"
-            android:hint="@string/sr_no_topic_name_page_no"
+            android:hint="@string/topic_name"
             android:textSize="@dimen/sp_16"
             android:padding="@dimen/dp_10"
             android:minLines="5"
