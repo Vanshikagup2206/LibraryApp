@@ -9,68 +9,91 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_h_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:id="@+id/gl_h_4"
-            app:layout_constraintGuide_percent=".4"/>
+            app:layout_constraintGuide_percent=".2" />
+
         <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_h_3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:id="@+id/gl_h_20"
-            app:layout_constraintGuide_percent=".2"/>
+            app:layout_constraintGuide_percent=".3" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_h_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent=".1" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_v_10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent=".1" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_v_70"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent=".7" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/deep_olive"
+            app:layout_constraintBottom_toBottomOf="@id/gl_h_2"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="@id/gl_h_4">
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_h_15"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent=".15"
-                android:id="@+id/gl_h_15" />
+                app:layout_constraintGuide_percent=".15" />
 
             <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_v_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_percent=".1"
-                android:id="@+id/gl_v_1" />
+                app:layout_constraintGuide_percent=".1" />
 
             <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_h_10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent=".1"
-                android:id="@+id/gl_h_10" />
+                app:layout_constraintGuide_percent=".1" />
 
             <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_h_50"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent=".5"
-                android:id="@+id/gl_h_50" />
+                app:layout_constraintGuide_percent=".5" />
 
             <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_v_7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_percent=".7"
-                android:id="@+id/gl_v_7" />
+                app:layout_constraintGuide_percent=".7" />
 
             <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_v_98"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_percent=".98"
-                android:id="@+id/gl_v_98" />
+                app:layout_constraintGuide_percent=".98" />
 
             <ImageView
                 android:id="@+id/ivBack"
@@ -99,92 +122,109 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:src="@drawable/dav_logo"
-                app:layout_constraintStart_toStartOf="@id/gl_v_7"
                 app:layout_constraintBottom_toBottomOf="@id/gl_h_50"
                 app:layout_constraintEnd_toEndOf="@id/gl_v_98"
+                app:layout_constraintStart_toStartOf="@id/gl_v_7"
                 app:layout_constraintTop_toTopOf="@id/gl_h_10" />
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:gravity="center"
                 android:orientation="vertical"
-                app:layout_constraintStart_toStartOf="@id/gl_v_1"
+                app:layout_constraintBottom_toBottomOf="@+id/gl_h_50"
                 app:layout_constraintEnd_toEndOf="@id/gl_v_7"
-                app:layout_constraintTop_toTopOf="@+id/gl_h_15"
-                app:layout_constraintBottom_toBottomOf="@+id/gl_h_50">
+                app:layout_constraintStart_toStartOf="@id/gl_v_1"
+                app:layout_constraintTop_toTopOf="@+id/gl_h_15">
+
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     android:id="@+id/tvBooksAuthorName"
-                    android:text="@string/author_name"
-                    android:textSize="@dimen/sp_15"
-                    android:textColor="@color/white"/>
-                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:text="@string/author_name"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/sp_20"
-                    android:text="@string/book_title"/>
+                    android:textSize="@dimen/sp_15" />
+
+                <TextView
+                    android:id="@+id/tvBookTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/book_title"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp_20" />
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="@id/gl_h_20"/>
+            android:id="@+id/ivBookImage"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="@+id/gl_h_3"
+            app:layout_constraintEnd_toEndOf="@+id/gl_v_70"
+            app:layout_constraintStart_toStartOf="@+id/gl_v_10"
+            app:layout_constraintTop_toTopOf="@id/gl_h_1" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="@dimen/dp_10"
-            app:layout_constraintTop_toTopOf="@id/gl_h_4"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintTop_toTopOf="@id/gl_h_3">
+
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/dp_10"
                 android:id="@+id/tvBooksStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dp_10"
                 android:text="@string/status"
-                android:textStyle="bold"
-                android:textSize="@dimen/sp_20"/>
+                android:textSize="@dimen/sp_20"
+                android:textStyle="bold" />
+
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/dp_10"
                 android:id="@+id/tvPublisher"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dp_10"
                 android:text="@string/enter_publisher"
-                android:textStyle="bold"
-                android:textSize="@dimen/sp_20"/>
+                android:textSize="@dimen/sp_20"
+                android:textStyle="bold" />
+
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/dp_10"
                 android:id="@+id/tvNoOfBooks"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dp_10"
                 android:text="@string/no_of_copies"
-                android:textStyle="bold"
-                android:textSize="@dimen/sp_20"/>
+                android:textSize="@dimen/sp_20"
+                android:textStyle="bold" />
+
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/dp_10"
                 android:id="@+id/tvReleaseDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dp_10"
                 android:text="@string/release_date"
-                android:textStyle="bold"
-                android:textSize="@dimen/sp_20"/>
+                android:textSize="@dimen/sp_20"
+                android:textStyle="bold" />
+
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/dp_10"
                 android:id="@+id/tvBooksDescription"
-                android:textSize="@dimen/sp_15"
-                android:text="@string/description"/>
-            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/dp_10"
+                android:text="@string/description"
+                android:textSize="@dimen/sp_15" />
+
+            <TextView
                 android:id="@+id/tvTableOfContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dp_10"
                 android:text="@string/table_of_content"
-                android:textSize="@dimen/sp_15"/>
+                android:textSize="@dimen/sp_15" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
