@@ -14,33 +14,6 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <!--        <LinearLayout-->
-        <!--            android:id="@+id/swipeButtons"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:gravity="end"-->
-        <!--            app:layout_constraintEnd_toEndOf="parent"-->
-        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--            app:layout_constraintTop_toTopOf="parent"-->
-        <!--            android:orientation="vertical"-->
-        <!--            android:layout_gravity="end">-->
-
-        <!--            &lt;!&ndash; Edit button &ndash;&gt;-->
-        <!--            <Button-->
-        <!--                android:id="@+id/btnEdit"-->
-        <!--                android:layout_width="match_parent"-->
-        <!--                android:layout_height="match_parent"-->
-        <!--                android:background="@android:color/holo_blue_light"-->
-        <!--                android:src="@drawable/baseline_edit_24" />-->
-
-        <!--            &lt;!&ndash; Delete button &ndash;&gt;-->
-        <!--            <Button-->
-        <!--                android:id="@+id/btnDelete"-->
-        <!--                android:layout_width="match_parent"-->
-        <!--                android:layout_height="match_parent"-->
-        <!--                android:background="@android:color/holo_red_dark"-->
-        <!--                android:src="@drawable/baseline_delete_24" />-->
-        <!--        </LinearLayout>-->
 
         <TextView
             android:id="@+id/tvBooksCategory"
