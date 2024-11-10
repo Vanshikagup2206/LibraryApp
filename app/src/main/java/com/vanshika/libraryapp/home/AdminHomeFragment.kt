@@ -321,6 +321,7 @@ class AdminHomeFragment : Fragment(), BooksClickInterface {
 
     override fun moveToNext(position: Int) {
         var convertToString = Gson().toJson(booksList[position])
+        findNavController().navigate(R.id.booksSpecificationFragment, bundleOf("bookId" to booksList[position].booksId))
         findNavController().navigate(R.id.booksSpecificationFragment, bundleOf("noOfBooks" to convertToString))
         findNavController().navigate(R.id.booksSpecificationFragment, bundleOf("booksCategory" to convertToString))
         findNavController().navigate(R.id.booksSpecificationFragment, bundleOf("aboutBooks" to convertToString))

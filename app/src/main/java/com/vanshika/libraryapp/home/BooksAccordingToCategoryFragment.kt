@@ -82,7 +82,7 @@ class BooksAccordingToCategoryFragment : Fragment() {
 //                bundle.getInt(booksDataClass.noOfBooks.toString())
 //                bundle.getString(booksDataClass.booksCategory.toString())
 //                bundle.getString(booksDataClass.booksAbout.toString())
-//                findNavController().popBackStack()
+                findNavController().popBackStack()
             }
         }
     }

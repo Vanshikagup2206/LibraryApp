@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
@@ -54,6 +55,7 @@ class BooksSpecificationFragment : Fragment(),BooksClickInterface {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         arguments?.let {
+            var bookId = it.getInt("bookId",0)
             var noOfBooks = it.getString("noOfBooks")
             booksDataClass = Gson().fromJson(noOfBooks,booksDataClass::class.java)
             var booksCategory = it.getString("booksCategory")
@@ -104,6 +106,15 @@ class BooksSpecificationFragment : Fragment(),BooksClickInterface {
     }
 
     override fun moveToNext(position: Int) {
-        findNavController().navigate(R.id.booksDescriptionFragment)
+        var convertToString = Gson().toJson(booksSpecificationList[position])
+        findNavController().navigate(R.id.booksDescriptionFragment, bundleOf("bookSpecificationId" to booksSpecificationList[position].booksSpecificationId))
+        findNavController().navigate(R.id.booksDescriptionFragment, bundleOf("authorName" to convertToString))
+        findNavController().navigate(R.id.booksDescriptionFragment, bundleOf("bookName" to convertToString))
+        findNavController().navigate(R.id.booksDescriptionFragment, bundleOf("bookStatus" to convertToString))
+        findNavController().navigate(R.id.booksDescriptionFragment, bundleOf("bookPublisher" to convertToString))
+        findNavController().navigate(R.id.booksDescriptionFragment, bundleOf("noOfCopies" to convertToString))
+        findNavController().navigate(R.id.booksDescriptionFragment, bundleOf("releaseDate" to convertToString))
+        findNavController().navigate(R.id.booksDescriptionFragment, bundleOf("bookDescription" to convertToString))
+        findNavController().navigate(R.id.booksDescriptionFragment, bundleOf("tableOfContent" to convertToString))
     }
 }

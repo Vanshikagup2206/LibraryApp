@@ -5,7 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.gson.Gson
 import com.vanshika.libraryapp.R
+import com.vanshika.libraryapp.databinding.FragmentBooksDescriptionBinding
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -21,6 +23,8 @@ class BooksDescriptionFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    var binding : FragmentBooksDescriptionBinding ?= null
+    var booksSpecificationDataClass = BooksSpecificationDataClass()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +39,31 @@ class BooksDescriptionFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_books_description, container, false)
+        binding = FragmentBooksDescriptionBinding.inflate(layoutInflater)
+        return binding?.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        arguments?.let {
+            var bookId = it.getInt("bookSpecificationId",0)
+            var authorName = it.getString("authorName")
+            booksSpecificationDataClass = Gson().fromJson(authorName,booksSpecificationDataClass::class.java)
+            var bookName = it.getString("bookName")
+            booksSpecificationDataClass = Gson().fromJson(bookName,booksSpecificationDataClass::class.java)
+            var bookStatus = it.getString("bookStatus")
+            booksSpecificationDataClass = Gson().fromJson(bookStatus,booksSpecificationDataClass::class.java)
+            var bookPublisher = it.getString("bookPublisher")
+            booksSpecificationDataClass = Gson().fromJson(bookPublisher,booksSpecificationDataClass::class.java)
+            var noOfCopies = it.getString("noOfCopies")
+            booksSpecificationDataClass = Gson().fromJson(noOfCopies,booksSpecificationDataClass::class.java)
+            var releaseDate = it.getString("releaseDate")
+            booksSpecificationDataClass = Gson().fromJson(releaseDate,booksSpecificationDataClass::class.java)
+            var bookDescription = it.getString("bookDescription")
+            booksSpecificationDataClass = Gson().fromJson(bookDescription,booksSpecificationDataClass::class.java)
+            var tableOfContent = it.getString("tableOfContent")
+            booksSpecificationDataClass = Gson().fromJson(tableOfContent,booksSpecificationDataClass::class.java)
+        }
     }
 
     companion object {
