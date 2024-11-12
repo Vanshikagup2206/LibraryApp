@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.gson.Gson
-import com.vanshika.libraryapp.R
 import com.vanshika.libraryapp.databinding.FragmentBooksDescriptionBinding
 
 // TODO: Rename parameter arguments, choose names that match
@@ -23,8 +22,8 @@ class BooksDescriptionFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    var binding : FragmentBooksDescriptionBinding ?= null
-    var booksSpecificationDataClass = BooksSpecificationDataClass()
+    private var binding : FragmentBooksDescriptionBinding ?= null
+    private var booksSpecificationDataClass = BooksSpecificationDataClass()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,22 +46,31 @@ class BooksDescriptionFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         arguments?.let {
             var bookId = it.getInt("bookSpecificationId",0)
-            var authorName = it.getString("authorName")
+            val authorName = it.getString("authorName")
             booksSpecificationDataClass = Gson().fromJson(authorName,booksSpecificationDataClass::class.java)
-            var bookName = it.getString("bookName")
+            val bookName = it.getString("bookName")
             booksSpecificationDataClass = Gson().fromJson(bookName,booksSpecificationDataClass::class.java)
-            var bookStatus = it.getString("bookStatus")
+            val bookStatus = it.getString("bookStatus")
             booksSpecificationDataClass = Gson().fromJson(bookStatus,booksSpecificationDataClass::class.java)
-            var bookPublisher = it.getString("bookPublisher")
+            val bookPublisher = it.getString("bookPublisher")
             booksSpecificationDataClass = Gson().fromJson(bookPublisher,booksSpecificationDataClass::class.java)
-            var noOfCopies = it.getString("noOfCopies")
+            val noOfCopies = it.getString("noOfCopies")
             booksSpecificationDataClass = Gson().fromJson(noOfCopies,booksSpecificationDataClass::class.java)
-            var releaseDate = it.getString("releaseDate")
+            val releaseDate = it.getString("releaseDate")
             booksSpecificationDataClass = Gson().fromJson(releaseDate,booksSpecificationDataClass::class.java)
-            var bookDescription = it.getString("bookDescription")
+            val bookDescription = it.getString("bookDescription")
             booksSpecificationDataClass = Gson().fromJson(bookDescription,booksSpecificationDataClass::class.java)
-            var tableOfContent = it.getString("tableOfContent")
+            val tableOfContent = it.getString("tableOfContent")
             booksSpecificationDataClass = Gson().fromJson(tableOfContent,booksSpecificationDataClass::class.java)
+
+            binding?.tvBookTitle?.text = bookName
+            binding?.tvBooksAuthorName?.text = authorName
+            binding?.tvBooksStatus?.text = bookStatus
+            binding?.tvPublisher?.text = bookPublisher
+            binding?.tvNoOfBooks?.text = noOfCopies
+            binding?.tvReleaseDate?.text = releaseDate
+            binding?.tvBooksDescription?.text = bookDescription
+            binding?.tvTableOfContent?.text = tableOfContent
         }
     }
 
