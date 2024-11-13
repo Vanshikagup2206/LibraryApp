@@ -108,6 +108,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/tvNoOfBooks"
                 android:paddingStart="@dimen/dp_10"
                 android:textSize="@dimen/sp_15"
                 android:textColor="@color/white"
@@ -115,6 +116,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/tvBooksCategory"
                 android:text="@string/book_category"
                 android:textColor="@color/white"
                 android:textSize="@dimen/sp_20"
@@ -122,6 +124,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/tvBooksDescription"
                 android:text="@string/book_category_description"
                 android:textSize="@dimen/sp_15"
                 android:minLines="2"

@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -56,12 +55,16 @@ class BooksSpecificationFragment : Fragment(),BooksClickInterface {
         super.onViewCreated(view, savedInstanceState)
         arguments?.let {
             var bookId = it.getInt("bookId",0)
-            var noOfBooks = it.getString("noOfBooks")
+            val noOfBooks = it.getString("noOfBooks")
             booksDataClass = Gson().fromJson(noOfBooks,booksDataClass::class.java)
-            var booksCategory = it.getString("booksCategory")
+            val booksCategory = it.getString("booksCategory")
             booksDataClass = Gson().fromJson(booksCategory,booksDataClass::class.java)
-            var aboutBooks = it.getString("aboutBooks")
+            val aboutBooks = it.getString("aboutBooks")
             booksDataClass = Gson().fromJson(aboutBooks,booksDataClass::class.java)
+
+            binding?.tvNoOfBooks?.text = noOfBooks
+            binding?.tvBooksCategory?.text = booksCategory
+            binding?.tvBooksDescription?.text = aboutBooks
         }
         libraryDatabase = LibraryDatabase.getInstance(requireContext())
         booksSpecificationAdapter = BooksSpecificationAdapter(booksSpecificationList,this)
@@ -106,7 +109,7 @@ class BooksSpecificationFragment : Fragment(),BooksClickInterface {
     }
 
     override fun moveToNext(position: Int) {
-        var convertToString = Gson().toJson(booksSpecificationList[position])
+        val convertToString = Gson().toJson(booksSpecificationList[position])
         findNavController().navigate(R.id.booksDescriptionFragment, bundleOf("bookSpecificationId" to booksSpecificationList[position].booksSpecificationId))
         findNavController().navigate(R.id.booksDescriptionFragment, bundleOf("authorName" to convertToString))
         findNavController().navigate(R.id.booksDescriptionFragment, bundleOf("bookName" to convertToString))
