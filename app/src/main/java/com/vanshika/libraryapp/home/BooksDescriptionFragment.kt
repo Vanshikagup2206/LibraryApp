@@ -48,14 +48,14 @@ class BooksDescriptionFragment : Fragment() {
             var bookId = it.getInt("bookSpecificationId",0)
             val authorName = it.getString("authorName")
             booksSpecificationDataClass = Gson().fromJson(authorName,booksSpecificationDataClass::class.java)
-            val bookName = it.getString("bookName")
-            booksSpecificationDataClass = Gson().fromJson(bookName,booksSpecificationDataClass::class.java)
+            val bookTitle = it.getString("bookTitle")
+            booksSpecificationDataClass = Gson().fromJson(bookTitle,booksSpecificationDataClass::class.java)
             val bookStatus = it.getString("bookStatus")
             booksSpecificationDataClass = Gson().fromJson(bookStatus,booksSpecificationDataClass::class.java)
             val bookPublisher = it.getString("bookPublisher")
             booksSpecificationDataClass = Gson().fromJson(bookPublisher,booksSpecificationDataClass::class.java)
-            val noOfCopies = it.getString("noOfCopies")
-            booksSpecificationDataClass = Gson().fromJson(noOfCopies,booksSpecificationDataClass::class.java)
+            val noOfBooks = it.getString("noOfBooks")
+            booksSpecificationDataClass = Gson().fromJson(noOfBooks,booksSpecificationDataClass::class.java)
             val releaseDate = it.getString("releaseDate")
             booksSpecificationDataClass = Gson().fromJson(releaseDate,booksSpecificationDataClass::class.java)
             val bookDescription = it.getString("bookDescription")
@@ -63,11 +63,11 @@ class BooksDescriptionFragment : Fragment() {
             val tableOfContent = it.getString("tableOfContent")
             booksSpecificationDataClass = Gson().fromJson(tableOfContent,booksSpecificationDataClass::class.java)
 
-            binding?.tvBookTitle?.text = bookName
+            binding?.tvBookTitle?.text = bookTitle
             binding?.tvBooksAuthorName?.text = authorName
             binding?.tvBooksStatus?.text = bookStatus
             binding?.tvPublisher?.text = bookPublisher
-            binding?.tvNoOfBooks?.text = noOfCopies
+            binding?.tvNoOfBooks?.text = noOfBooks
             binding?.tvReleaseDate?.text = releaseDate
             binding?.tvBooksDescription?.text = bookDescription
             binding?.tvTableOfContent?.text = tableOfContent

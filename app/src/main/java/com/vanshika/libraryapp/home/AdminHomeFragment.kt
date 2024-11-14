@@ -324,6 +324,6 @@ class AdminHomeFragment : Fragment(), BooksClickInterface {
         findNavController().navigate(R.id.booksSpecificationFragment, bundleOf("bookId" to booksList[position].booksId))
         findNavController().navigate(R.id.booksSpecificationFragment, bundleOf("noOfBooks" to convertToString))
         findNavController().navigate(R.id.booksSpecificationFragment, bundleOf("booksCategory" to convertToString))
-        findNavController().navigate(R.id.booksSpecificationFragment, bundleOf("aboutBooks" to convertToString))
+        findNavController().navigate(R.id.booksSpecificationFragment, bundleOf("booksDescription" to convertToString))
     }
 }

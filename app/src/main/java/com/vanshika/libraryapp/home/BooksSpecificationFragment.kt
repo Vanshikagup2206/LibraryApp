@@ -59,12 +59,12 @@ class BooksSpecificationFragment : Fragment(),BooksClickInterface {
             booksDataClass = Gson().fromJson(noOfBooks,booksDataClass::class.java)
             val booksCategory = it.getString("booksCategory")
             booksDataClass = Gson().fromJson(booksCategory,booksDataClass::class.java)
-            val aboutBooks = it.getString("aboutBooks")
-            booksDataClass = Gson().fromJson(aboutBooks,booksDataClass::class.java)
+            val booksDescription = it.getString("booksDescription")
+            booksDataClass = Gson().fromJson(booksDescription,booksDataClass::class.java)
 
             binding?.tvNoOfBooks?.text = noOfBooks
             binding?.tvBooksCategory?.text = booksCategory
-            binding?.tvBooksDescription?.text = aboutBooks
+            binding?.tvBooksDescription?.text = booksDescription
         }
         libraryDatabase = LibraryDatabase.getInstance(requireContext())
         booksSpecificationAdapter = BooksSpecificationAdapter(booksSpecificationList,this)
@@ -112,10 +112,10 @@ class BooksSpecificationFragment : Fragment(),BooksClickInterface {
         val convertToString = Gson().toJson(booksSpecificationList[position])
         findNavController().navigate(R.id.booksDescriptionFragment, bundleOf("bookSpecificationId" to booksSpecificationList[position].booksSpecificationId))
         findNavController().navigate(R.id.booksDescriptionFragment, bundleOf("authorName" to convertToString))
-        findNavController().navigate(R.id.booksDescriptionFragment, bundleOf("bookName" to convertToString))
+        findNavController().navigate(R.id.booksDescriptionFragment, bundleOf("bookTitle" to convertToString))
         findNavController().navigate(R.id.booksDescriptionFragment, bundleOf("bookStatus" to convertToString))
         findNavController().navigate(R.id.booksDescriptionFragment, bundleOf("bookPublisher" to convertToString))
-        findNavController().navigate(R.id.booksDescriptionFragment, bundleOf("noOfCopies" to convertToString))
+        findNavController().navigate(R.id.booksDescriptionFragment, bundleOf("noOfBooks" to convertToString))
         findNavController().navigate(R.id.booksDescriptionFragment, bundleOf("releaseDate" to convertToString))
         findNavController().navigate(R.id.booksDescriptionFragment, bundleOf("bookDescription" to convertToString))
         findNavController().navigate(R.id.booksDescriptionFragment, bundleOf("tableOfContent" to convertToString))
