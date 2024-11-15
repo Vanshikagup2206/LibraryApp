@@ -1,11 +1,11 @@
 package com.vanshika.libraryapp.home
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
@@ -23,7 +23,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [BooksSpecificationFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class BooksSpecificationFragment : Fragment(),BooksClickInterface {
+class BooksSpecificationFragment : Fragment(), BooksClickInterface {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -54,21 +54,20 @@ class BooksSpecificationFragment : Fragment(),BooksClickInterface {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         arguments?.let {
-            var bookId = it.getInt("bookId",0)
-            val noOfBooks = it.getString("noOfBooks")
-            booksDataClass = Gson().fromJson(noOfBooks,booksDataClass::class.java)
-            val booksCategory = it.getString("booksCategory")
-            booksDataClass = Gson().fromJson(booksCategory,booksDataClass::class.java)
-            val booksDescription = it.getString("booksDescription")
-            booksDataClass = Gson().fromJson(booksDescription,booksDataClass::class.java)
+            val bookId = it.getInt("bookId", 0)
 
-            binding?.tvNoOfBooks?.text = noOfBooks
-            binding?.tvBooksCategory?.text = booksCategory
-            binding?.tvBooksDescription?.text = booksDescription
+            val booksJson = it.getString("noOfBooks")
+            val booksData = Gson().fromJson(booksJson, booksDataClass::class.java)
+
+            binding?.tvNoOfBooks?.text =
+                booksData.noOfBooks.toString()
+            binding?.tvBooksCategory?.text = booksData.booksCategory
+            binding?.tvBooksDescription?.text = booksData.booksAbout
         }
         libraryDatabase = LibraryDatabase.getInstance(requireContext())
-        booksSpecificationAdapter = BooksSpecificationAdapter(booksSpecificationList,this)
-        linearLayoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
+        booksSpecificationAdapter = BooksSpecificationAdapter(booksSpecificationList, this)
+        linearLayoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
         binding?.rvBooksSpecification?.layoutManager = linearLayoutManager
         binding?.rvBooksSpecification?.adapter = booksSpecificationAdapter
@@ -110,14 +109,18 @@ class BooksSpecificationFragment : Fragment(),BooksClickInterface {
 
     override fun moveToNext(position: Int) {
         val convertToString = Gson().toJson(booksSpecificationList[position])
-        findNavController().navigate(R.id.booksDescriptionFragment, bundleOf("bookSpecificationId" to booksSpecificationList[position].booksSpecificationId))
-        findNavController().navigate(R.id.booksDescriptionFragment, bundleOf("authorName" to convertToString))
-        findNavController().navigate(R.id.booksDescriptionFragment, bundleOf("bookTitle" to convertToString))
-        findNavController().navigate(R.id.booksDescriptionFragment, bundleOf("bookStatus" to convertToString))
-        findNavController().navigate(R.id.booksDescriptionFragment, bundleOf("bookPublisher" to convertToString))
-        findNavController().navigate(R.id.booksDescriptionFragment, bundleOf("noOfBooks" to convertToString))
-        findNavController().navigate(R.id.booksDescriptionFragment, bundleOf("releaseDate" to convertToString))
-        findNavController().navigate(R.id.booksDescriptionFragment, bundleOf("bookDescription" to convertToString))
-        findNavController().navigate(R.id.booksDescriptionFragment, bundleOf("tableOfContent" to convertToString))
+        val bundle = bundleOf(
+            "bookSpecificationId" to booksSpecificationList[position].booksSpecificationId,
+            "authorName" to convertToString,
+            "bookTitle" to convertToString,
+            "bookStatus" to convertToString,
+            "bookPublisher" to convertToString,
+            "noOfBooks" to convertToString,
+            "releaseDate" to convertToString,
+            "bookDescription" to convertToString,
+            "tableOfContent" to convertToString
+        )
+        findNavController().navigate(
+            R.id.booksDescriptionFragment, bundle)
     }
 }

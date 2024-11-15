@@ -242,7 +242,7 @@ class AdminHomeFragment : Fragment(), BooksClickInterface {
             }
 
             override fun getSwipeThreshold(viewHolder: RecyclerView.ViewHolder): Float {
-                return 1.0f
+                return 1.5f
             }
         })
 
@@ -320,10 +320,13 @@ class AdminHomeFragment : Fragment(), BooksClickInterface {
     }
 
     override fun moveToNext(position: Int) {
-        var convertToString = Gson().toJson(booksList[position])
-        findNavController().navigate(R.id.booksSpecificationFragment, bundleOf("bookId" to booksList[position].booksId))
-        findNavController().navigate(R.id.booksSpecificationFragment, bundleOf("noOfBooks" to convertToString))
-        findNavController().navigate(R.id.booksSpecificationFragment, bundleOf("booksCategory" to convertToString))
-        findNavController().navigate(R.id.booksSpecificationFragment, bundleOf("booksDescription" to convertToString))
+        val convertToString = Gson().toJson(booksList[position])
+        val bundle = bundleOf(
+            "booksId" to booksList[position].booksId,
+            "noOfBooks" to convertToString,
+            "booksCategory" to convertToString,
+            "booksDescription" to convertToString
+        )
+        findNavController().navigate(R.id.booksSpecificationFragment,bundle)
     }
 }

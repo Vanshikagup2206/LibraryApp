@@ -45,32 +45,20 @@ class BooksDescriptionFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         arguments?.let {
-            var bookId = it.getInt("bookSpecificationId",0)
-            val authorName = it.getString("authorName")
-            booksSpecificationDataClass = Gson().fromJson(authorName,booksSpecificationDataClass::class.java)
-            val bookTitle = it.getString("bookTitle")
-            booksSpecificationDataClass = Gson().fromJson(bookTitle,booksSpecificationDataClass::class.java)
-            val bookStatus = it.getString("bookStatus")
-            booksSpecificationDataClass = Gson().fromJson(bookStatus,booksSpecificationDataClass::class.java)
-            val bookPublisher = it.getString("bookPublisher")
-            booksSpecificationDataClass = Gson().fromJson(bookPublisher,booksSpecificationDataClass::class.java)
-            val noOfBooks = it.getString("noOfBooks")
-            booksSpecificationDataClass = Gson().fromJson(noOfBooks,booksSpecificationDataClass::class.java)
-            val releaseDate = it.getString("releaseDate")
-            booksSpecificationDataClass = Gson().fromJson(releaseDate,booksSpecificationDataClass::class.java)
-            val bookDescription = it.getString("bookDescription")
-            booksSpecificationDataClass = Gson().fromJson(bookDescription,booksSpecificationDataClass::class.java)
-            val tableOfContent = it.getString("tableOfContent")
-            booksSpecificationDataClass = Gson().fromJson(tableOfContent,booksSpecificationDataClass::class.java)
+            var bookSpecificationId = it.getInt("bookSpecificationId",0)
 
-            binding?.tvBookTitle?.text = bookTitle
-            binding?.tvBooksAuthorName?.text = authorName
-            binding?.tvBooksStatus?.text = bookStatus
-            binding?.tvPublisher?.text = bookPublisher
-            binding?.tvNoOfBooks?.text = noOfBooks
-            binding?.tvReleaseDate?.text = releaseDate
-            binding?.tvBooksDescription?.text = bookDescription
-            binding?.tvTableOfContent?.text = tableOfContent
+            val booksJson = it.getString("authorName")
+            val booksData = Gson().fromJson(booksJson, booksSpecificationDataClass::class.java)
+
+            binding?.tvBooksAuthorName?.text = booksData.booksAuthorName
+            binding?.tvBookTitle?.text = booksData.booksName
+            binding?.tvBooksStatus?.text = booksData.booksStatus.toString()
+            binding?.tvPublisher?.text = booksData.booksPublisher
+            binding?.tvNoOfBooks?.text = booksData.noOfBooks.toString()
+            binding?.tvReleaseDate?.text = booksData.booksReleaseDate
+            binding?.tvBooksDescription?.text = booksData.booksBriefDescription
+            binding?.tvTableOfContent?.text = booksData.booksTable
+
         }
     }
 
