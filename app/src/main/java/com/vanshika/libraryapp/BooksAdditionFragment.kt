@@ -33,7 +33,7 @@ class BooksAdditionFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    var binding : FragmentBooksAdditionBinding ?= null
+    var binding: FragmentBooksAdditionBinding? = null
     var booksDataClass = BooksDataClass()
     var booksSpecificationDataClass = BooksSpecificationDataClass()
     lateinit var libraryDatabase: LibraryDatabase
@@ -62,7 +62,7 @@ class BooksAdditionFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         arguments?.let {
-            booksId = it.getInt("booksId",0)
+            booksId = it.getInt("booksId", 0)
         }
         libraryDatabase = LibraryDatabase.getInstance(requireContext())
         binding?.etReleaseDate?.setOnClickListener {
@@ -80,38 +80,35 @@ class BooksAdditionFragment : Fragment() {
         }
 
         binding?.btnAdd?.setOnClickListener {
-            if(binding?.etBookAuthorName?.text?.trim()?.isEmpty() == true){
+            if (binding?.etBookAuthorName?.text?.trim()?.isEmpty() == true) {
                 binding?.etBookAuthorName?.error = resources.getString(R.string.enter_author_name)
-            }
-            else if(binding?.etBookTitle?.text?.trim()?.isEmpty() == true){
+            } else if (binding?.etBookTitle?.text?.trim()?.isEmpty() == true) {
                 binding?.etBookTitle?.error = resources.getString(R.string.enter_book_title)
-            }
-            else if(binding?.etPublisher?.text?.trim()?.isEmpty() == true){
+            } else if (binding?.etPublisher?.text?.trim()?.isEmpty() == true) {
                 binding?.etPublisher?.error = resources.getString(R.string.enter_publisher)
-            }
-            else if(binding?.etShortDescription?.text?.trim()?.isEmpty() == true){
-                binding?.etShortDescription?.error = resources.getString(R.string.enter_short_description)
-            }
-            else if(binding?.etDescription?.text?.trim()?.isEmpty() == true){
+            } else if (binding?.etBookLanguage?.text?.trim()?.isEmpty() == true) {
+                binding?.etBookLanguage?.error =
+                    resources.getString(R.string.enter_language_of_book)
+            } else if (binding?.etShortDescription?.text?.trim()?.isEmpty() == true) {
+                binding?.etShortDescription?.error =
+                    resources.getString(R.string.enter_short_description)
+            } else if (binding?.etDescription?.text?.trim()?.isEmpty() == true) {
                 binding?.etDescription?.error = resources.getString(R.string.enter_description)
-            }
-            else if(binding?.etTableOfContent?.text?.trim()?.isEmpty() == true){
-                binding?.etTableOfContent?.error = resources.getString(R.string.enter_the_table_content)
-            }
-            else if(binding?.etCopiesAvailable?.text?.trim()?.isEmpty() == true){
-                binding?.etCopiesAvailable?.error = resources.getString(R.string.enter_copies_available)
-            }
-            else if(binding?.etReleaseDate?.text?.trim()?.isEmpty() == true){
+            } else if (binding?.etTableOfContent?.text?.trim()?.isEmpty() == true) {
+                binding?.etTableOfContent?.error =
+                    resources.getString(R.string.enter_the_table_content)
+            } else if (binding?.etCopiesAvailable?.text?.trim()?.isEmpty() == true) {
+                binding?.etCopiesAvailable?.error =
+                    resources.getString(R.string.enter_copies_available)
+            } else if (binding?.etReleaseDate?.text?.trim()?.isEmpty() == true) {
                 binding?.etReleaseDate?.error = resources.getString(R.string.enter_date)
-            }
-            else if (binding?.rgStatus?.checkedRadioButtonId == -1) {
-                    Toast.makeText(
-                        requireContext(),
-                        resources.getString(R.string.select_status),
-                        Toast.LENGTH_SHORT
-                    ).show()
-            }
-            else{
+            } else if (binding?.rgStatus?.checkedRadioButtonId == -1) {
+                Toast.makeText(
+                    requireContext(),
+                    resources.getString(R.string.select_status),
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
 
 //                var booksStatus = if (binding?.rbAvailable?.isChecked == true) {
 //                    1
@@ -126,10 +123,16 @@ class BooksAdditionFragment : Fragment() {
                         booksId = booksId,
                         booksAuthorName = binding?.etBookAuthorName?.text?.toString(),
                         booksName = binding?.etBookTitle?.text?.toString(),
-                        booksDescription = binding?.etShortDescription?.text?.toString()
+                        booksDescription = binding?.etShortDescription?.text?.toString(),
+                        booksPublisher = binding?.etPublisher?.text?.toString(),
+                        noOfBooks = binding?.etCopiesAvailable?.text?.toString()?.toInt(),
+                        booksBriefDescription = binding?.etDescription?.text?.toString(),
+                        booksTable = binding?.etTableOfContent?.text?.toString(),
+                        booksReleaseDate = binding?.etReleaseDate?.text?.toString(),
+                        bookLanguage = binding?.etBookLanguage?.text?.toString()
                     )
                 )
-              findNavController().popBackStack()
+                findNavController().popBackStack()
             }
         }
     }
