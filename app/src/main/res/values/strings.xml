@@ -59,4 +59,12 @@
     <string name="select_status">Select status</string>
     <string name="one_two">1,2,…1000…</string>
     <string name="book_title">Book Title</string>
+    <string name="titles_in">TITLES IN</string>
+    <string name="language">LANGUAGE : "</string>
+    <string name="publisher">"PUBLISHER : "</string>
+    <string name="release">"RELEASE : "</string>
+    <string name="copies">"COPIES : "</string>
+    <string name="enter_language_of_book">Enter Language of Book :</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
 </resources>

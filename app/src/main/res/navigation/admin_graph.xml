@@ -30,4 +30,9 @@
         android:name="com.vanshika.libraryapp.home.BooksDescriptionFragment"
         android:label="fragment_books_description"
         tools:layout="@layout/fragment_books_description" />
+    <fragment
+        android:id="@+id/booksUpdateFragment"
+        android:name="com.vanshika.libraryapp.home.BooksUpdateFragment"
+        android:label="fragment_books_update"
+        tools:layout="@layout/fragment_books_update" />
 </navigation>
