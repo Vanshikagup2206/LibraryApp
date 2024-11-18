@@ -37,4 +37,7 @@ interface LibraryDao {
 
     @Update
     fun updateBooksSpecification(booksSpecificationDataClass: BooksSpecificationDataClass)
+
+    @Delete
+    fun deleteBooksSpecification(booksSpecificationDataClass: BooksSpecificationDataClass)
 }

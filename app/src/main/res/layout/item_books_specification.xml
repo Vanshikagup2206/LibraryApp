@@ -26,21 +26,57 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/empty" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingStart="@dimen/dp_10">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginVertical="@dimen/dp_8"
+                android:background="@color/green" />
 
             <TextView
                 android:id="@+id/tvBooksStatus"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/status"
                 android:textSize="@dimen/sp_20"
                 android:textStyle="bold" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginVertical="@dimen/dp_8"
+                android:background="@color/green" />
+
+            <TextView
+                android:id="@+id/tvEdit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/edit"
+                android:textSize="@dimen/sp_20" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginVertical="@dimen/dp_8"
+                android:background="@color/green" />
+
+            <TextView
+                android:id="@+id/tvDelete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/delete"
+                android:textSize="@dimen/sp_20" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginVertical="@dimen/dp_8"
+                android:background="@color/green" />
         </LinearLayout>
     </LinearLayout>
 
@@ -56,4 +92,53 @@
         android:layout_height="1dp"
         android:layout_marginVertical="@dimen/dp_8"
         android:background="@color/black" />
+
+    <TextView
+        android:id="@+id/tvPublisher"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/enter_publisher"
+        android:textSize="@dimen/sp_20"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tvNoOfBooks"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/no_of_books"
+        android:textSize="@dimen/sp_20"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tvBriefDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/enter_brief_description"
+        android:textSize="@dimen/sp_20"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tvTableOfContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/table_of_content"
+        android:textSize="@dimen/sp_20"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tvReleaseDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/release_date"
+        android:textSize="@dimen/sp_20"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tvLanguage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/language"
+        android:textSize="@dimen/sp_20"
+        android:visibility="gone" />
+
 </LinearLayout>

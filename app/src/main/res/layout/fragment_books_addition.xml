@@ -88,6 +88,29 @@
             android:layout_height="1dp"
             android:background="@color/green"
             android:layout_marginVertical="@dimen/dp_8"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="@string/enter_language_of_book"
+            android:textSize="@dimen/sp_18"
+            android:textColor="@color/dark_black"
+            android:paddingBottom="@dimen/dp_4" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/etBookLanguage"
+            android:hint="@string/enter_language_of_book"
+            android:textSize="@dimen/sp_16"
+            android:padding="@dimen/dp_10"
+            android:background="@drawable/edit_text_outline"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/green"
+            android:layout_marginVertical="@dimen/dp_8"/>
 
         <!-- Short Description Section -->
         <TextView

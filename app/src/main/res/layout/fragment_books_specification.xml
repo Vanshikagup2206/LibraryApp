@@ -105,14 +105,26 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/gl_h_5">
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/tvNoOfBooks"
                 android:paddingStart="@dimen/dp_10"
                 android:textSize="@dimen/sp_15"
                 android:textColor="@color/white"
                 android:text="@string/no_of_books"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/dp_5"
+                    android:textSize="@dimen/sp_15"
+                    android:textColor="@color/white"
+                    android:text="@string/titles_in"/>
+            </LinearLayout>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
