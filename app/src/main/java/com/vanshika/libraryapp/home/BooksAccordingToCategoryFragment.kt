@@ -78,10 +78,6 @@ class BooksAccordingToCategoryFragment : Fragment() {
                         noOfBooks = binding?.etNoOfBooks?.text?.toString()?.toInt()
                     )
                 )
-//                var bundle = Bundle()
-//                bundle.getInt(booksDataClass.noOfBooks.toString())
-//                bundle.getString(booksDataClass.booksCategory.toString())
-//                bundle.getString(booksDataClass.booksAbout.toString())
                 findNavController().popBackStack()
             }
         }

@@ -109,15 +109,6 @@ class BooksAdditionFragment : Fragment() {
                     Toast.LENGTH_SHORT
                 ).show()
             } else {
-
-//                var booksStatus = if (binding?.rbAvailable?.isChecked == true) {
-//                    1
-//                } else if(binding?.rbIssued?.isChecked == true) {
-//                    2
-//                }else{
-//                    0
-//                }
-
                 libraryDatabase.libraryDao().insertBooksSpecification(
                     BooksSpecificationDataClass(
                         booksId = booksId,

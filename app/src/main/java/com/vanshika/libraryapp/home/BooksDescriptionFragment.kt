@@ -5,7 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.google.gson.Gson
+import com.vanshika.libraryapp.R
 import com.vanshika.libraryapp.databinding.FragmentBooksDescriptionBinding
 
 // TODO: Rename parameter arguments, choose names that match
@@ -52,13 +54,22 @@ class BooksDescriptionFragment : Fragment() {
 
             binding?.tvBooksAuthorName?.text = booksData.booksAuthorName
             binding?.tvBookTitle?.text = booksData.booksName
-            binding?.tvBooksStatus?.text = booksData.booksStatus.toString()
             binding?.tvPublisher?.text = booksData.booksPublisher
             binding?.tvNoOfBooks?.text = booksData.noOfBooks.toString()
             binding?.tvReleaseDate?.text = booksData.booksReleaseDate
             binding?.tvBooksDescription?.text = booksData.booksBriefDescription
             binding?.tvTableOfContent?.text = booksData.booksTable
+            binding?.tvLanguage?.text = booksData.bookLanguage
 
+            if(booksData.booksStatus == 0){
+                binding?.tvBooksStatus?.text = resources.getString(R.string.available)
+            }else{
+                binding?.tvBooksStatus?.text = resources.getString(R.string.issued)
+            }
+
+        }
+        binding?.llBack?.setOnClickListener {
+            findNavController().popBackStack()
         }
     }
 
