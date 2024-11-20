@@ -25,6 +25,7 @@ data class BooksSpecificationDataClass(
     var noOfBooks : Int ?= 0,
     var booksBriefDescription : String ?="",
     var booksTable : String ?= "",
-    var booksReleaseDate : String ?= ""
+    var booksReleaseDate : String ?= "",
+    var bookLanguage : String ?= ""
     //var isWishlist : Boolean ?= false,
 )

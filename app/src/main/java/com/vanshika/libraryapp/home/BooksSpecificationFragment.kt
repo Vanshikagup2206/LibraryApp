@@ -1,5 +1,6 @@
 package com.vanshika.libraryapp.home
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -23,7 +24,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [BooksSpecificationFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class BooksSpecificationFragment : Fragment(), BooksClickInterface {
+class BooksSpecificationFragment : Fragment(), BooksClickInterface, BooksEditDeleteInterface {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -65,7 +66,7 @@ class BooksSpecificationFragment : Fragment(), BooksClickInterface {
             binding?.tvBooksDescription?.text = booksData.booksAbout
         }
         libraryDatabase = LibraryDatabase.getInstance(requireContext())
-        booksSpecificationAdapter = BooksSpecificationAdapter(booksSpecificationList, this)
+        booksSpecificationAdapter = BooksSpecificationAdapter(booksSpecificationList, this,this)
         linearLayoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
@@ -118,9 +119,27 @@ class BooksSpecificationFragment : Fragment(), BooksClickInterface {
             "noOfBooks" to convertToString,
             "releaseDate" to convertToString,
             "bookDescription" to convertToString,
-            "tableOfContent" to convertToString
+            "tableOfContent" to convertToString,
+            "language" to convertToString
         )
         findNavController().navigate(
             R.id.booksDescriptionFragment, bundle)
+    }
+
+    override fun editBook(position: Int) {
+        findNavController().navigate(R.id.booksUpdateFragment)
+    }
+
+    override fun deleteBook(position: Int) {
+        AlertDialog.Builder(requireContext())
+            .setMessage(resources.getString(R.string.are_you_sure_you_want_to_delete_this_section))
+            .setPositiveButton(resources.getString(R.string.yes)){_,_ ->
+                libraryDatabase.libraryDao().deleteBooksSpecification(booksSpecificationList[position])
+                getBooksSpecificationList()
+            }
+            .setNegativeButton(resources.getString(R.string.no)){dialog,_ ->
+                dialog.dismiss()
+            }
+            .show()
     }
 }

@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/light_green"
+    tools:context=".home.BooksUpdateFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_10"
+        android:orientation="vertical">
+
+        <!-- Author Name Section -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="@string/enter_author_name"
+            android:textSize="@dimen/sp_18"
+            android:textColor="@color/dark_black"
+            android:paddingBottom="@dimen/dp_4" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/etBookAuthorName"
+            android:hint="@string/enter_author_name"
+            android:textSize="@dimen/sp_16"
+            android:padding="@dimen/dp_10"
+            android:background="@drawable/edit_text_outline"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/green"
+            android:layout_marginVertical="@dimen/dp_8"/>
+
+        <!-- Book Title Section -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="@string/enter_book_title"
+            android:textSize="@dimen/sp_18"
+            android:textColor="@color/dark_black"
+            android:paddingBottom="@dimen/dp_4"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/etBookTitle"
+            android:hint="@string/enter_book_title"
+            android:textSize="@dimen/sp_16"
+            android:padding="@dimen/dp_10"
+            android:background="@drawable/edit_text_outline"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/green"
+            android:layout_marginVertical="@dimen/dp_8"/>
+
+        <!-- Publisher Section -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="@string/enter_publisher"
+            android:textSize="@dimen/sp_18"
+            android:textColor="@color/dark_black"
+            android:paddingBottom="@dimen/dp_4" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/etPublisher"
+            android:hint="@string/enter_publisher"
+            android:textSize="@dimen/sp_16"
+            android:padding="@dimen/dp_10"
+            android:background="@drawable/edit_text_outline"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/green"
+            android:layout_marginVertical="@dimen/dp_8"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="@string/enter_language_of_book"
+            android:textSize="@dimen/sp_18"
+            android:textColor="@color/dark_black"
+            android:paddingBottom="@dimen/dp_4" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/etBookLanguage"
+            android:hint="@string/enter_language_of_book"
+            android:textSize="@dimen/sp_16"
+            android:padding="@dimen/dp_10"
+            android:background="@drawable/edit_text_outline"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/green"
+            android:layout_marginVertical="@dimen/dp_8"/>
+
+        <!-- Short Description Section -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="@string/enter_short_description"
+            android:textSize="@dimen/sp_18"
+            android:textColor="@color/dark_black"
+            android:paddingBottom="@dimen/dp_4" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/etShortDescription"
+            android:hint="@string/enter_short_description"
+            android:textSize="@dimen/sp_16"
+            android:padding="@dimen/dp_10"
+            android:maxLines="3"
+            android:minLines="2"
+            android:scrollHorizontally="false"
+            android:inputType="textMultiLine"
+            android:gravity="top|start"
+            android:background="@drawable/edit_text_outline"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/green"
+            android:layout_marginVertical="@dimen/dp_8"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="@string/insert_image_of_the_book"
+            android:textSize="@dimen/sp_18"
+            android:textColor="@color/dark_black"
+            android:paddingBottom="@dimen/dp_4" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/green"
+            android:layout_marginVertical="@dimen/dp_8"/>
+
+        <!-- Brief Description Section -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="@string/enter_brief_description"
+            android:textSize="@dimen/sp_18"
+            android:textColor="@color/dark_black"
+            android:paddingBottom="@dimen/dp_4" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/etDescription"
+            android:hint="@string/enter_brief_description"
+            android:textSize="@dimen/sp_16"
+            android:padding="@dimen/dp_10"
+            android:minLines="5"
+            android:maxLines="50"
+            android:scrollHorizontally="false"
+            android:inputType="textMultiLine"
+            android:gravity="top|start"
+            android:background="@drawable/edit_text_outline"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/green"
+            android:layout_marginVertical="@dimen/dp_8"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="@string/table_of_content"
+            android:textSize="@dimen/sp_18"
+            android:textColor="@color/dark_black"
+            android:paddingBottom="@dimen/dp_4" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/etTableOfContent"
+            android:hint="@string/topic_name"
+            android:textSize="@dimen/sp_16"
+            android:padding="@dimen/dp_10"
+            android:minLines="5"
+            android:maxLines="30"
+            android:scrollHorizontally="false"
+            android:inputType="textMultiLine"
+            android:gravity="top|start"
+            android:background="@drawable/edit_text_outline"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/green"
+            android:layout_marginVertical="@dimen/dp_8"/>
+
+        <!-- Copies Available Section -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="@string/no_of_copies_available"
+            android:textSize="@dimen/sp_18"
+            android:textColor="@color/dark_black"
+            android:paddingBottom="@dimen/dp_4" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/etCopiesAvailable"
+            android:hint="@string/eg_1_2"
+            android:inputType="number"
+            android:textSize="@dimen/sp_16"
+            android:padding="@dimen/dp_10"
+            android:background="@drawable/edit_text_outline"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/green"
+            android:layout_marginVertical="@dimen/dp_8"/>
+
+        <!-- Release Date Section -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/release_date"
+            android:textSize="@dimen/sp_18"
+            android:textStyle="bold"
+            android:textColor="@color/dark_black"
+            android:paddingBottom="@dimen/dp_4" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/etReleaseDate"
+            android:hint="@string/select_date"
+            android:textSize="@dimen/sp_16"
+            android:padding="@dimen/dp_10"
+            android:background="@drawable/edit_text_outline"
+            android:clickable="true"
+            android:focusable="false"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/green"
+            android:layout_marginVertical="@dimen/dp_8"/>
+
+        <!-- Status Section -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/status"
+            android:textStyle="bold"
+            android:textSize="@dimen/sp_18"
+            android:textColor="@color/dark_black"
+            android:paddingBottom="@dimen/dp_4" />
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/rgStatus"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/rbAvailable"
+                android:text="@string/available"
+                android:textColor="@color/dark_black"
+                android:textSize="@dimen/sp_16" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/rbIssued"
+                android:text="@string/issued"
+                android:textColor="@color/dark_black"
+                android:textSize="@dimen/sp_16" />
+        </RadioGroup>
+
+        <!-- Add Button -->
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnUpdate"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/dp_16"
+            android:paddingHorizontal="@dimen/dp_24"
+            android:text="@string/update"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_18"
+            app:backgroundTint="@color/deep_olive"
+            app:cornerRadius="16dp"/>
+    </LinearLayout>
+
+
+</ScrollView>
