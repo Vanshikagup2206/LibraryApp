@@ -1,5 +1,6 @@
 package com.vanshika.libraryapp.home
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,6 +13,8 @@ import com.google.gson.Gson
 import com.vanshika.libraryapp.LibraryDatabase
 import com.vanshika.libraryapp.R
 import com.vanshika.libraryapp.databinding.FragmentBooksUpdateBinding
+import java.text.SimpleDateFormat
+import java.util.Calendar
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -33,6 +36,9 @@ class BooksUpdateFragment : Fragment() {
     lateinit var libraryDatabase: LibraryDatabase
     lateinit var arrayAdapter: ArrayAdapter<BooksSpecificationDataClass>
     var bookSpecificationId = 0
+    var calendar = Calendar.getInstance()
+    var formatDate : String ?= ""
+    var dateFormat = SimpleDateFormat("dd/MMM/yyy")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,6 +80,20 @@ class BooksUpdateFragment : Fragment() {
         when(booksSpecificationDataClass.booksStatus){
             0 -> binding?.rbAvailable?.isChecked = true
             1 -> binding?.rbIssued?.isChecked = true
+        }
+
+        binding?.etReleaseDate?.setOnClickListener {
+            var datePickerDialog = DatePickerDialog(
+                requireContext(), { _, year, month, date ->
+                    calendar = Calendar.getInstance()
+                    calendar.set(year, month, date)
+                    formatDate = dateFormat.format(calendar.time)
+                    binding?.etReleaseDate?.setText(formatDate)
+                }, Calendar.getInstance().get(Calendar.YEAR),
+                Calendar.getInstance().get(Calendar.MONTH),
+                Calendar.getInstance().get(Calendar.DATE)
+            )
+            datePickerDialog.show()
         }
 
         binding?.btnUpdate?.setOnClickListener {
