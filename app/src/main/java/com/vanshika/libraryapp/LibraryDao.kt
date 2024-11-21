@@ -6,9 +6,7 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 import com.vanshika.libraryapp.home.BooksDataClass
-import com.vanshika.libraryapp.home.BooksSpecificationAdapter
 import com.vanshika.libraryapp.home.BooksSpecificationDataClass
-import com.vanshika.libraryapp.home.CategoryDataClass
 
 @Dao
 interface LibraryDao {

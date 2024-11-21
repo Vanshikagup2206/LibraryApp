@@ -1,7 +1,9 @@
 package com.vanshika.libraryapp.home
 
 import android.app.DatePickerDialog
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -45,6 +47,8 @@ class BooksUpdateFragment : Fragment() {
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
+            bookSpecificationId = it.getInt("booksSpecificationId",0)
+            Log.e(TAG, "id: $bookSpecificationId" )
         }
     }
 
@@ -59,12 +63,9 @@ class BooksUpdateFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        arguments?.let {
-            bookSpecificationId = it.getInt("booksSpecificationId",0)
-        }
         libraryDatabase = LibraryDatabase.getInstance(requireContext())
-        getBooksList()
         updateBooks()
+        getBooksList()
     }
 
     private fun updateBooks() {
