@@ -127,20 +127,7 @@ class BooksSpecificationFragment : Fragment(), BooksClickInterface, BooksEditDel
     }
 
     override fun editBook(position: Int) {
-        val convertToString = Gson().toJson(booksSpecificationList[position])
-        val bundle = bundleOf(
-            "bookSpecificationId" to booksSpecificationList[position].booksSpecificationId,
-            "authorName" to convertToString,
-            "bookTitle" to convertToString,
-            "bookStatus" to convertToString,
-            "bookPublisher" to convertToString,
-            "noOfBooks" to convertToString,
-            "releaseDate" to convertToString,
-            "bookDescription" to convertToString,
-            "tableOfContent" to convertToString,
-            "language" to convertToString
-        )
-        findNavController().navigate(R.id.booksUpdateFragment,bundle)
+        findNavController().navigate(R.id.booksUpdateFragment, bundleOf("bookSpecificationId" to booksSpecificationList[position].booksSpecificationId))
     }
 
     override fun deleteBook(position: Int) {

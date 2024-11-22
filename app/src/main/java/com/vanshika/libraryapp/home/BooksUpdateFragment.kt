@@ -47,8 +47,8 @@ class BooksUpdateFragment : Fragment() {
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
-            bookSpecificationId = it.getInt("booksSpecificationId",0)
-            Log.e(TAG, "id: $bookSpecificationId" )
+            bookSpecificationId = it.getInt("bookSpecificationId",0)
+            Log.e(TAG, "id: $bookSpecificationId", )
         }
     }
 

@@ -109,6 +109,11 @@ class BooksAdditionFragment : Fragment() {
                     Toast.LENGTH_SHORT
                 ).show()
             } else {
+                var status = if(binding?.rbAvailable?.isChecked == true){
+                    0
+                }else{
+                    1
+                }
                 libraryDatabase.libraryDao().insertBooksSpecification(
                     BooksSpecificationDataClass(
                         booksId = booksId,
@@ -120,7 +125,8 @@ class BooksAdditionFragment : Fragment() {
                         booksBriefDescription = binding?.etDescription?.text?.toString(),
                         booksTable = binding?.etTableOfContent?.text?.toString(),
                         booksReleaseDate = binding?.etReleaseDate?.text?.toString(),
-                        bookLanguage = binding?.etBookLanguage?.text?.toString()
+                        bookLanguage = binding?.etBookLanguage?.text?.toString(),
+                        booksStatus = status
                     )
                 )
                 findNavController().popBackStack()
