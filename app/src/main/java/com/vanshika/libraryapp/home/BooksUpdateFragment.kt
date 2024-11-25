@@ -64,8 +64,23 @@ class BooksUpdateFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         libraryDatabase = LibraryDatabase.getInstance(requireContext())
-        updateBooks()
+        if (bookSpecificationId > 0) {
+            updateBooks()
+        }
         getBooksList()
+        binding?.etReleaseDate?.setOnClickListener {
+            var datePickerDialog = DatePickerDialog(
+                requireContext(), { _, year, month, date ->
+                    calendar = Calendar.getInstance()
+                    calendar.set(year, month, date)
+                    formatDate = dateFormat.format(calendar.time)
+                    binding?.etReleaseDate?.setText(formatDate)
+                }, Calendar.getInstance().get(Calendar.YEAR),
+                Calendar.getInstance().get(Calendar.MONTH),
+                Calendar.getInstance().get(Calendar.DATE)
+            )
+            datePickerDialog.show()
+        }
     }
 
     private fun updateBooks() {
@@ -81,20 +96,6 @@ class BooksUpdateFragment : Fragment() {
         when(booksSpecificationDataClass.booksStatus){
             0 -> binding?.rbAvailable?.isChecked = true
             1 -> binding?.rbIssued?.isChecked = true
-        }
-
-        binding?.etReleaseDate?.setOnClickListener {
-            var datePickerDialog = DatePickerDialog(
-                requireContext(), { _, year, month, date ->
-                    calendar = Calendar.getInstance()
-                    calendar.set(year, month, date)
-                    formatDate = dateFormat.format(calendar.time)
-                    binding?.etReleaseDate?.setText(formatDate)
-                }, Calendar.getInstance().get(Calendar.YEAR),
-                Calendar.getInstance().get(Calendar.MONTH),
-                Calendar.getInstance().get(Calendar.DATE)
-            )
-            datePickerDialog.show()
         }
 
         binding?.btnUpdate?.setOnClickListener {
