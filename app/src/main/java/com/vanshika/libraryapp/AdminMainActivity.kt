@@ -7,7 +7,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import com.vanshika.libraryapp.databinding.ActivityAdminBinding
 
-class AdminActivity : AppCompatActivity() {
+class AdminMainActivity : AppCompatActivity() {
     var binding : ActivityAdminBinding ?= null
     var navController : NavController ?= null
     var appBarConfiguration : AppBarConfiguration ?= null
@@ -19,6 +19,9 @@ class AdminActivity : AppCompatActivity() {
         binding?.bottomNavigation?.setOnItemSelectedListener {
             when(it.itemId){
                 R.id.navHome -> navController?.navigate(R.id.adminHomeFragment)
+                R.id.navBooks -> navController?.navigate(R.id.adminBooksFragment)
+                R.id.navSearch -> navController?.navigate(R.id.adminSearchFragment)
+                R.id.navProfile -> navController?.navigate(R.id.adminProfileFragment)
             }
             return@setOnItemSelectedListener true
         }
