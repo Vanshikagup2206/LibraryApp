@@ -4,7 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import androidx.navigation.findNavController
 import com.vanshika.libraryapp.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity() {
@@ -23,7 +22,7 @@ class LoginActivity : AppCompatActivity() {
                 Toast.makeText(this, R.string.select_one, Toast.LENGTH_SHORT).show()
             } else {
                 if (binding?.rbAdmin?.isChecked == true) {
-                    val intent = Intent(this, AdminActivity::class.java)
+                    val intent = Intent(this, AdminMainActivity::class.java)
                     startActivity(intent)
                     finish()
                 } else {
