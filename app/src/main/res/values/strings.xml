@@ -67,4 +67,9 @@
     <string name="enter_language_of_book">Enter Language of Book :</string>
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
+    <string name="home">Home</string>
+    <string name="books">Books</string>
+    <string name="search">Search</string>
+    <string name="wishlist">Wishlist</string>
+    <string name="profile">Profile</string>
 </resources>

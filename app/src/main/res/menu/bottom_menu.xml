@@ -2,19 +2,19 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:title="Home"
+    <item android:title="@string/home"
         android:id="@+id/navHome"
         android:icon="@drawable/baseline_home_24"/>
-    <item android:title="Books"
+    <item android:title="@string/books"
         android:id="@+id/navBooks"
         android:icon="@drawable/baseline_menu_book_24"/>
-    <item android:title="Search"
+    <item android:title="@string/search"
         android:id="@+id/navSearch"
         android:icon="@drawable/baseline_search_24"/>
-    <item android:title="Wishlist"
+    <item android:title="@string/wishlist"
         android:id="@+id/navWishlist"
         android:icon="@drawable/baseline_bookmark_24"/>
-    <item android:title="Profile"
+    <item android:title="@string/profile"
         android:id="@+id/navProfile"
         android:icon="@drawable/baseline_person_2_24"/>
 </menu>

@@ -40,4 +40,19 @@
         android:name="com.vanshika.libraryapp.home.AdminHomeUpdateFragment"
         android:label="fragment_admin_home_update"
         tools:layout="@layout/fragment_admin_home_update" />
+    <fragment
+        android:id="@+id/adminProfileFragment"
+        android:name="com.vanshika.libraryapp.profile.AdminProfileFragment"
+        android:label="fragment_admin_profile"
+        tools:layout="@layout/fragment_admin_profile" />
+    <fragment
+        android:id="@+id/adminSearchFragment"
+        android:name="com.vanshika.libraryapp.search.AdminSearchFragment"
+        android:label="fragment_admin_search"
+        tools:layout="@layout/fragment_admin_search" />
+    <fragment
+        android:id="@+id/adminBooksFragment"
+        android:name="com.vanshika.libraryapp.books.AdminBooksFragment"
+        android:label="fragment_admin_books"
+        tools:layout="@layout/fragment_admin_books" />
 </navigation>
