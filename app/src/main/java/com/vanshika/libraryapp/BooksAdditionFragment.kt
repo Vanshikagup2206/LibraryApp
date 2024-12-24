@@ -63,6 +63,10 @@ class BooksAdditionFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         arguments?.let {
             booksId = it.getInt("booksId", 0)
+            val booksJson = it.getString("noOfBooks")
+            val booksData = Gson().fromJson(booksJson, booksDataClass::class.java)
+
+            binding?.tvBooksCategory?.text = booksData.booksCategory
         }
         libraryDatabase = LibraryDatabase.getInstance(requireContext())
         binding?.etReleaseDate?.setOnClickListener {

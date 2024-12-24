@@ -34,6 +34,7 @@ class BooksUpdateFragment : Fragment() {
     private var param2: String? = null
     var binding : FragmentBooksUpdateBinding ?= null
     var booksSpecificationDataClass = BooksSpecificationDataClass()
+    var booksDataClass = BooksDataClass()
     var booksList = arrayListOf<BooksSpecificationDataClass>()
     lateinit var libraryDatabase: LibraryDatabase
     lateinit var arrayAdapter: ArrayAdapter<BooksSpecificationDataClass>
@@ -63,6 +64,12 @@ class BooksUpdateFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        arguments?.let {
+            val booksJson = it.getString("noOfBooks")
+            val booksData = Gson().fromJson(booksJson, booksDataClass::class.java)
+
+            binding?.tvBooksCategory?.text = booksData?.booksCategory
+        }
         libraryDatabase = LibraryDatabase.getInstance(requireContext())
         if (bookSpecificationId > 0) {
             updateBooks()
