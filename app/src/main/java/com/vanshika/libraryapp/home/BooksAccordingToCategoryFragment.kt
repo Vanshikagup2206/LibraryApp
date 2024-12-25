@@ -60,6 +60,7 @@ class BooksAccordingToCategoryFragment : Fragment() {
                 getBooksAccToIdList()
             }
         }
+
         binding?.btnAddBookAccToCategory?.setOnClickListener {
             if (binding?.etBooksCategory?.text?.toString()?.trim()?.isEmpty() == true) {
                 binding?.etBooksCategory?.error = resources.getString(R.string.enter_category)

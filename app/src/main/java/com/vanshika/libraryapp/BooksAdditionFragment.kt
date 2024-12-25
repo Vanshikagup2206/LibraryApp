@@ -1,7 +1,9 @@
 package com.vanshika.libraryapp
 
 import android.app.DatePickerDialog
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -41,6 +43,7 @@ class BooksAdditionFragment : Fragment() {
     var calendar = Calendar.getInstance()
     var formatDate: String? = null
     var booksId = 0
+    var booksCategory = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,11 +66,10 @@ class BooksAdditionFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         arguments?.let {
             booksId = it.getInt("booksId", 0)
-            val booksJson = it.getString("noOfBooks")
-            val booksData = Gson().fromJson(booksJson, booksDataClass::class.java)
-
-            binding?.tvBooksCategory?.text = booksData.booksCategory
+            booksCategory = it.getString("booksCategory").toString()
         }
+        binding?.tvBooksCategory?.text = booksCategory
+
         libraryDatabase = LibraryDatabase.getInstance(requireContext())
         binding?.etReleaseDate?.setOnClickListener {
             var datePickerDialog = DatePickerDialog(

@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
+import com.vanshika.libraryapp.BooksAdditionFragment
 import com.vanshika.libraryapp.LibraryDatabase
 import com.vanshika.libraryapp.R
 import com.vanshika.libraryapp.databinding.FragmentAdminHomeBinding
@@ -212,6 +213,11 @@ class AdminHomeFragment : Fragment(), BooksClickInterface {
             "booksCategory" to convertToString,
             "booksDescription" to convertToString
         )
+        sendDataToFragment(bundle)
         findNavController().navigate(R.id.booksSpecificationFragment,bundle)
+    }
+    fun sendDataToFragment(bundle: Bundle){
+        val targetFragment = BooksAdditionFragment()
+        targetFragment.arguments = bundle
     }
 }
