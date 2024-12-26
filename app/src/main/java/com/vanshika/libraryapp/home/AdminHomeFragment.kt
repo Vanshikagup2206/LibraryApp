@@ -11,6 +11,9 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -40,6 +43,8 @@ class AdminHomeFragment : Fragment(), BooksClickInterface {
     var booksList = arrayListOf<BooksDataClass>()
     lateinit var booksAdapter: BooksAdapter
     lateinit var libraryDatabase: LibraryDatabase
+    val sharedViewModel: SharedBooksViewModel by activityViewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -213,11 +218,10 @@ class AdminHomeFragment : Fragment(), BooksClickInterface {
             "booksCategory" to convertToString,
             "booksDescription" to convertToString
         )
-        sendDataToFragment(bundle)
+        sharedViewModel.booksData.value = bundle
         findNavController().navigate(R.id.booksSpecificationFragment,bundle)
     }
-    fun sendDataToFragment(bundle: Bundle){
-        val targetFragment = BooksAdditionFragment()
-        targetFragment.arguments = bundle
+    class SharedBooksViewModel : ViewModel(){
+        val booksData = MutableLiveData<Bundle>()
     }
 }

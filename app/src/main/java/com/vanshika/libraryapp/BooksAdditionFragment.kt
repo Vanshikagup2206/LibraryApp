@@ -10,10 +10,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
 import com.vanshika.libraryapp.databinding.FragmentBooksAdditionBinding
+import com.vanshika.libraryapp.home.AdminHomeFragment
 import com.vanshika.libraryapp.home.BooksAdapter
 import com.vanshika.libraryapp.home.BooksDataClass
 import com.vanshika.libraryapp.home.BooksSpecificationAdapter
@@ -44,6 +46,7 @@ class BooksAdditionFragment : Fragment() {
     var formatDate: String? = null
     var booksId = 0
     var booksCategory = ""
+    val sharedViewModel: AdminHomeFragment.SharedBooksViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,9 +69,12 @@ class BooksAdditionFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         arguments?.let {
             booksId = it.getInt("booksId", 0)
-            booksCategory = it.getString("booksCategory").toString()
         }
-        binding?.tvBooksCategory?.text = booksCategory
+
+        sharedViewModel.booksData.observe(viewLifecycleOwner){bundle ->
+            val booksCategory = bundle.getString("booksCategory")
+            binding?.tvBooksCategory?.text = booksCategory
+        }
 
         libraryDatabase = LibraryDatabase.getInstance(requireContext())
         binding?.etReleaseDate?.setOnClickListener {
