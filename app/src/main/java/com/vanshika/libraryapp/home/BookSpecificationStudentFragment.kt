@@ -1,18 +1,17 @@
 package com.vanshika.libraryapp.home
 
-import android.app.AlertDialog
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
 import com.vanshika.libraryapp.LibraryDatabase
 import com.vanshika.libraryapp.R
-import com.vanshika.libraryapp.databinding.FragmentBooksSpecificationBinding
+import com.vanshika.libraryapp.databinding.FragmentBookSpecificationStudentBinding
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -21,20 +20,19 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [BooksSpecificationFragment.newInstance] factory method to
+ * Use the [BookSpecificationStudentFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class BooksSpecificationFragment : Fragment(), BooksClickInterface, BooksEditDeleteInterface {
+class BookSpecificationStudentFragment : Fragment(), BooksClickInterface {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    var binding: FragmentBooksSpecificationBinding? = null
+    var binding : FragmentBookSpecificationStudentBinding ?= null
     lateinit var linearLayoutManager: LinearLayoutManager
     var booksDataClass = BooksDataClass()
     var booksSpecificationList = arrayListOf<BooksSpecificationDataClass>()
     lateinit var libraryDatabase: LibraryDatabase
-    lateinit var booksSpecificationAdapter: BooksSpecificationAdapter
-
+    lateinit var booksSpecificationStudentAdapter: BooksSpecificationStudentAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,45 +46,38 @@ class BooksSpecificationFragment : Fragment(), BooksClickInterface, BooksEditDel
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentBooksSpecificationBinding.inflate(layoutInflater)
+        // Inflate the layout for this fragment
+        binding = FragmentBookSpecificationStudentBinding.inflate(layoutInflater)
         return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         arguments?.let {
-            val bookId = it.getInt("bookId", 0)
-
+            val bookId = it.getInt("bookId",0)
             val booksJson = it.getString("noOfBooks")
             val booksData = Gson().fromJson(booksJson, booksDataClass::class.java)
 
-            binding?.tvNoOfBooks?.text =
-                booksData.noOfBooks.toString()
+            binding?.tvNoOfBooks?.text = booksData.noOfBooks.toString()
             binding?.tvBooksCategory?.text = booksData.booksCategory
             binding?.tvBooksDescription?.text = booksData.booksAbout
         }
 
         libraryDatabase = LibraryDatabase.getInstance(requireContext())
-        booksSpecificationAdapter = BooksSpecificationAdapter(booksSpecificationList, this,this)
-        linearLayoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-
+        booksSpecificationStudentAdapter = BooksSpecificationStudentAdapter(booksSpecificationList, this)
+        linearLayoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding?.rvBooksSpecification?.layoutManager = linearLayoutManager
-        binding?.rvBooksSpecification?.adapter = booksSpecificationAdapter
+        binding?.rvBooksSpecification?.adapter = booksSpecificationStudentAdapter
         getBooksSpecificationList()
 
         binding?.ivBack?.setOnClickListener {
             findNavController().popBackStack()
-        }
-        binding?.btnFab?.setOnClickListener {
-            findNavController().navigate(R.id.booksAdditionFragment)
         }
     }
 
     private fun getBooksSpecificationList() {
         booksSpecificationList.clear()
         booksSpecificationList.addAll(libraryDatabase.libraryDao().getBookSpecification())
-        booksSpecificationAdapter.notifyDataSetChanged()
     }
 
     companion object {
@@ -96,12 +87,12 @@ class BooksSpecificationFragment : Fragment(), BooksClickInterface, BooksEditDel
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment BooksSpecificationFragment.
+         * @return A new instance of fragment BookSpecificationStudentFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            BooksSpecificationFragment().apply {
+            BookSpecificationStudentFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)
@@ -123,24 +114,6 @@ class BooksSpecificationFragment : Fragment(), BooksClickInterface, BooksEditDel
             "tableOfContent" to convertToString,
             "language" to convertToString
         )
-        findNavController().navigate(
-            R.id.booksDescriptionFragment, bundle)
-    }
-
-    override fun editBook(position: Int) {
-        findNavController().navigate(R.id.booksUpdateFragment, bundleOf("bookSpecificationId" to booksSpecificationList[position].booksSpecificationId))
-    }
-
-    override fun deleteBook(position: Int) {
-        AlertDialog.Builder(requireContext())
-            .setMessage(resources.getString(R.string.are_you_sure_you_want_to_delete_this_section))
-            .setPositiveButton(resources.getString(R.string.yes)){_,_ ->
-                libraryDatabase.libraryDao().deleteBooksSpecification(booksSpecificationList[position])
-                getBooksSpecificationList()
-            }
-            .setNegativeButton(resources.getString(R.string.no)){dialog,_ ->
-                dialog.dismiss()
-            }
-            .show()
+        findNavController().navigate(R.id.booksDescriptionStudentFragment, bundle)
     }
 }

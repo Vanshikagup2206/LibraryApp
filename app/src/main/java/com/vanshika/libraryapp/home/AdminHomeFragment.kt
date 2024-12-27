@@ -218,7 +218,10 @@ class AdminHomeFragment : Fragment(), BooksClickInterface {
             "booksCategory" to convertToString,
             "booksDescription" to convertToString
         )
-        sharedViewModel.booksData.value = bundle
+        val bundleData = bundleOf(
+            "booksCategory" to convertToString
+        )
+        sharedViewModel.booksData.value = bundleData
         findNavController().navigate(R.id.booksSpecificationFragment,bundle)
     }
     class SharedBooksViewModel : ViewModel(){
