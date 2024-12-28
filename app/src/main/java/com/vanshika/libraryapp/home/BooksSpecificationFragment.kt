@@ -64,6 +64,7 @@ class BooksSpecificationFragment : Fragment(), BooksClickInterface, BooksEditDel
                 booksData.noOfBooks.toString()
             binding?.tvBooksCategory?.text = booksData.booksCategory
             binding?.tvBooksDescription?.text = booksData.booksAbout
+            binding?.btnCategory?.text = booksData.booksCategory
         }
 
         libraryDatabase = LibraryDatabase.getInstance(requireContext())
@@ -74,6 +75,7 @@ class BooksSpecificationFragment : Fragment(), BooksClickInterface, BooksEditDel
         binding?.rvBooksSpecification?.layoutManager = linearLayoutManager
         binding?.rvBooksSpecification?.adapter = booksSpecificationAdapter
         getBooksSpecificationList()
+
 
         binding?.ivBack?.setOnClickListener {
             findNavController().popBackStack()

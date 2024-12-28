@@ -46,7 +46,6 @@ class BooksAdditionFragment : Fragment() {
     var formatDate: String? = null
     var booksId = 0
     var booksCategory = ""
-    val sharedViewModel: AdminHomeFragment.SharedBooksViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,11 +68,6 @@ class BooksAdditionFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         arguments?.let {
             booksId = it.getInt("booksId", 0)
-        }
-
-        sharedViewModel.booksData.observe(viewLifecycleOwner){bundle ->
-            val booksCategory = bundle.getString("booksCategory")
-            binding?.tvBooksCategory?.text = booksCategory
         }
 
         libraryDatabase = LibraryDatabase.getInstance(requireContext())

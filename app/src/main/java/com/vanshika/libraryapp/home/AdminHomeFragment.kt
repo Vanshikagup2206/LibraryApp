@@ -43,7 +43,6 @@ class AdminHomeFragment : Fragment(), BooksClickInterface {
     var booksList = arrayListOf<BooksDataClass>()
     lateinit var booksAdapter: BooksAdapter
     lateinit var libraryDatabase: LibraryDatabase
-    val sharedViewModel: SharedBooksViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -218,13 +217,6 @@ class AdminHomeFragment : Fragment(), BooksClickInterface {
             "booksCategory" to convertToString,
             "booksDescription" to convertToString
         )
-        val bundleData = bundleOf(
-            "booksCategory" to convertToString
-        )
-        sharedViewModel.booksData.value = bundleData
         findNavController().navigate(R.id.booksSpecificationFragment,bundle)
-    }
-    class SharedBooksViewModel : ViewModel(){
-        val booksData = MutableLiveData<Bundle>()
     }
 }
