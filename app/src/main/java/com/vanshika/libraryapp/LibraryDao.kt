@@ -7,6 +7,7 @@ import androidx.room.Query
 import androidx.room.Update
 import com.vanshika.libraryapp.home.BooksDataClass
 import com.vanshika.libraryapp.home.BooksSpecificationDataClass
+import com.vanshika.libraryapp.home.CategoryDataClass
 
 @Dao
 interface LibraryDao {
@@ -38,4 +39,5 @@ interface LibraryDao {
 
     @Delete
     fun deleteBooksSpecification(booksSpecificationDataClass: BooksSpecificationDataClass)
+
 }

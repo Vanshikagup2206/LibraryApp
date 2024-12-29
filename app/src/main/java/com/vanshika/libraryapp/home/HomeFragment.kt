@@ -5,7 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.gson.Gson
 import com.vanshika.libraryapp.LibraryDatabase
 import com.vanshika.libraryapp.MainActivity
 import com.vanshika.libraryapp.R
@@ -21,10 +24,14 @@ private const val ARG_PARAM2 = "param2"
  * Use the [HomeFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), BooksClickInterface {
     private var param1: String? = null
     private var param2: String? = null
     lateinit var binding: FragmentHomeBinding
+    lateinit var linearLayoutManager: LinearLayoutManager
+    var booksList = arrayListOf<BooksDataClass>()
+    lateinit var booksAdapter: BooksAdapter
+    lateinit var libraryDatabase: LibraryDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,9 +51,19 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
+        libraryDatabase = LibraryDatabase.getInstance(requireContext())
+        booksAdapter = BooksAdapter(booksList,this)
+        linearLayoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        binding?.rvBooks?.layoutManager = linearLayoutManager
+        binding?.rvBooks?.adapter = booksAdapter
+        getBooksAccToCategory()
     }
+
+    private fun getBooksAccToCategory() {
+        booksList.clear()
+        booksList.addAll(libraryDatabase.libraryDao().getBooksAccToCategory())
+    }
+
     companion object {
         /**
          * Use this factory method to create a new instance of
@@ -65,5 +82,16 @@ class HomeFragment : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+    }
+
+    override fun moveToNext(position: Int) {
+        val convertToString = Gson().toJson(booksList[position])
+        val bundle = bundleOf(
+            "booksId" to booksList[position].booksId,
+            "noOfBooks" to convertToString,
+            "booksCategory" to convertToString,
+            "booksDescription" to convertToString
+        )
+        findNavController().navigate(R.id.bookSpecificationStudentFragment, bundle)
     }
 }
