@@ -2,6 +2,8 @@ package com.vanshika.libraryapp
 
 import android.app.DatePickerDialog
 import android.content.ContentValues.TAG
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -46,6 +48,8 @@ class BooksAdditionFragment : Fragment() {
     var formatDate: String? = null
     var booksId = 0
     var booksCategory = ""
+    lateinit var sharedPreferences: SharedPreferences
+    lateinit var editor : SharedPreferences.Editor
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,6 +75,12 @@ class BooksAdditionFragment : Fragment() {
         }
 
         libraryDatabase = LibraryDatabase.getInstance(requireContext())
+
+        sharedPreferences = requireContext().getSharedPreferences(resources.getString(R.string.app_name), Context.MODE_PRIVATE)
+        editor = sharedPreferences.edit()
+        val selectedCategory = sharedPreferences.getString("selectedCategory","")
+        binding?.tvBooksCategory?.text = selectedCategory
+
         binding?.etReleaseDate?.setOnClickListener {
             var datePickerDialog = DatePickerDialog(
                 requireContext(), { _, year, month, date ->
@@ -132,7 +142,8 @@ class BooksAdditionFragment : Fragment() {
                         booksTable = binding?.etTableOfContent?.text?.toString(),
                         booksReleaseDate = binding?.etReleaseDate?.text?.toString(),
                         bookLanguage = binding?.etBookLanguage?.text?.toString(),
-                        booksStatus = status
+                        booksStatus = status,
+//                        booksCategory = binding?.tvBooksCategory?.text?.toString()
                     )
                 )
                 findNavController().popBackStack()

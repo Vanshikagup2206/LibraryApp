@@ -76,8 +76,12 @@ class BookSpecificationStudentFragment : Fragment(), BooksClickInterface {
     }
 
     private fun getBooksSpecificationList() {
+        val selectedCategory = arguments?.getString("selectedCategory")
         booksSpecificationList.clear()
-        booksSpecificationList.addAll(libraryDatabase.libraryDao().getBookSpecification())
+        booksSpecificationList.addAll(libraryDatabase.libraryDao().getBookSpecification().filter {
+            it.booksCategory == selectedCategory
+        })
+        booksSpecificationStudentAdapter.notifyDataSetChanged()
     }
 
     companion object {

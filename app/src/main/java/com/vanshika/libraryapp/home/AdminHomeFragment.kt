@@ -1,5 +1,7 @@
 package com.vanshika.libraryapp.home
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -11,15 +13,11 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
-import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
-import com.vanshika.libraryapp.BooksAdditionFragment
 import com.vanshika.libraryapp.LibraryDatabase
 import com.vanshika.libraryapp.R
 import com.vanshika.libraryapp.databinding.FragmentAdminHomeBinding
@@ -43,6 +41,8 @@ class AdminHomeFragment : Fragment(), BooksClickInterface {
     var booksList = arrayListOf<BooksDataClass>()
     lateinit var booksAdapter: BooksAdapter
     lateinit var libraryDatabase: LibraryDatabase
+    lateinit var sharedPreferences: SharedPreferences
+    lateinit var editor: SharedPreferences.Editor
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,6 +71,10 @@ class AdminHomeFragment : Fragment(), BooksClickInterface {
         binding?.rvBooks?.layoutManager = linearLayoutManager
         binding?.rvBooks?.adapter = booksAdapter
         getBooksAccToCategory()
+
+        sharedPreferences = requireContext().getSharedPreferences(resources.getString(R.string.app_name),
+            Context.MODE_PRIVATE)
+        editor = sharedPreferences.edit()
 
         val itemTouchHelper = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
 
@@ -211,11 +215,14 @@ class AdminHomeFragment : Fragment(), BooksClickInterface {
 
     override fun moveToNext(position: Int) {
         val convertToString = Gson().toJson(booksList[position])
+        val selectedCategory = booksList[position].booksCategory
+        sharedPreferences.edit().putString("selectedCategory",selectedCategory).apply()
         val bundle = bundleOf(
             "booksId" to booksList[position].booksId,
             "noOfBooks" to convertToString,
             "booksCategory" to convertToString,
-            "booksDescription" to convertToString
+            "booksDescription" to convertToString,
+            "selectedCategory" to selectedCategory
         )
         findNavController().navigate(R.id.booksSpecificationFragment,bundle)
     }
