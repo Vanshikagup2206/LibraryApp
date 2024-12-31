@@ -143,7 +143,7 @@ class BooksAdditionFragment : Fragment() {
                         booksReleaseDate = binding?.etReleaseDate?.text?.toString(),
                         bookLanguage = binding?.etBookLanguage?.text?.toString(),
                         booksStatus = status,
-//                        booksCategory = binding?.tvBooksCategory?.text?.toString()
+                        booksCategory = binding?.tvBooksCategory?.text?.toString()
                     )
                 )
                 findNavController().popBackStack()

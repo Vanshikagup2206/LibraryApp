@@ -24,6 +24,7 @@ class BooksSpecificationAdapter(
         var tvBooksTable: TextView = view.findViewById(R.id.tvTableOfContent)
         var tvBooksReleaseDate: TextView = view.findViewById(R.id.tvReleaseDate)
         var tvLanguage: TextView = view.findViewById(R.id.tvLanguage)
+        var tvBooksCategory : TextView = view.findViewById(R.id.tvBooksCategory)
         var tvEdit: TextView = view.findViewById(R.id.tvEdit)
         var tvDelete: TextView = view.findViewById(R.id.tvDelete)
     }
@@ -50,6 +51,7 @@ class BooksSpecificationAdapter(
         holder.tvBooksTable.text = booksSpecificationList[position].booksTable
         holder.tvBooksReleaseDate.text = booksSpecificationList[position].booksReleaseDate
         holder.tvLanguage.text = booksSpecificationList[position].bookLanguage
+        holder.tvBooksCategory.text = booksSpecificationList[position].booksCategory
 
         holder.tvEdit.setOnClickListener {
             booksEditDeleteInterface.editBook(position)
