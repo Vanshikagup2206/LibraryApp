@@ -27,8 +27,8 @@ data class BooksSpecificationDataClass(
     var booksTable : String ?= "",
     var booksReleaseDate : String ?= "",
     var bookLanguage : String ?= "",
-    var booksCategory : String ?=""
-    //var isWishlist : Boolean ?= false,
+    var booksCategory : String ?="",
+    var isWishlist : String ?= ""
 ){
     override fun toString(): String {
         return "$booksName"

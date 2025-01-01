@@ -64,7 +64,6 @@ class BooksSpecificationFragment : Fragment(), BooksClickInterface, BooksEditDel
                 booksData.noOfBooks.toString()
             binding?.tvBooksCategory?.text = booksData.booksCategory
             binding?.tvBooksDescription?.text = booksData.booksAbout
-            binding?.btnCategory?.text = booksData.booksCategory
         }
 
         libraryDatabase = LibraryDatabase.getInstance(requireContext())
@@ -86,8 +85,9 @@ class BooksSpecificationFragment : Fragment(), BooksClickInterface, BooksEditDel
     }
 
     private fun getBooksSpecificationList() {
+        val selectedCategory = arguments?.getString("selectedCategory")?:""
         booksSpecificationList.clear()
-        booksSpecificationList.addAll(libraryDatabase.libraryDao().getBookSpecification())
+        booksSpecificationList.addAll(libraryDatabase.libraryDao().getBooksSpecificationAccToCategory(selectedCategory))
         booksSpecificationAdapter.notifyDataSetChanged()
     }
 

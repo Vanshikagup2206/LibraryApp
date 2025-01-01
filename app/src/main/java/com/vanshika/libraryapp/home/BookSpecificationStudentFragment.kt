@@ -1,5 +1,6 @@
 package com.vanshika.libraryapp.home
 
+import android.app.AlertDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,6 +13,7 @@ import com.google.gson.Gson
 import com.vanshika.libraryapp.LibraryDatabase
 import com.vanshika.libraryapp.R
 import com.vanshika.libraryapp.databinding.FragmentBookSpecificationStudentBinding
+import com.vanshika.libraryapp.wishlist.IsWishlistInterface
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -23,7 +25,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [BookSpecificationStudentFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class BookSpecificationStudentFragment : Fragment(), BooksClickInterface {
+class BookSpecificationStudentFragment : Fragment(), BooksClickInterface,IsWishlistInterface {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -64,7 +66,7 @@ class BookSpecificationStudentFragment : Fragment(), BooksClickInterface {
         }
 
         libraryDatabase = LibraryDatabase.getInstance(requireContext())
-        booksSpecificationStudentAdapter = BooksSpecificationStudentAdapter(booksSpecificationList, this)
+        booksSpecificationStudentAdapter = BooksSpecificationStudentAdapter(booksSpecificationList, this, this)
         linearLayoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding?.rvBooksSpecification?.layoutManager = linearLayoutManager
         binding?.rvBooksSpecification?.adapter = booksSpecificationStudentAdapter
@@ -76,11 +78,9 @@ class BookSpecificationStudentFragment : Fragment(), BooksClickInterface {
     }
 
     private fun getBooksSpecificationList() {
-        val selectedCategory = arguments?.getString("selectedCategory")
+        val selectedCategory = arguments?.getString("selectedCategory")?:""
         booksSpecificationList.clear()
-        booksSpecificationList.addAll(libraryDatabase.libraryDao().getBookSpecification().filter {
-            it.booksCategory == selectedCategory
-        })
+        booksSpecificationList.addAll(libraryDatabase.libraryDao().getBooksSpecificationAccToCategory(selectedCategory))
         booksSpecificationStudentAdapter.notifyDataSetChanged()
     }
 
@@ -119,5 +119,18 @@ class BookSpecificationStudentFragment : Fragment(), BooksClickInterface {
             "language" to convertToString
         )
         findNavController().navigate(R.id.booksDescriptionStudentFragment, bundle)
+    }
+
+    override fun isWishlist(position: Int) {
+        AlertDialog.Builder(requireContext())
+            .setMessage(resources.getString(R.string.you_want_to_wishlist_this_book))
+            .setPositiveButton(resources.getString(R.string.yes)){_,_ ->
+                libraryDatabase.libraryDao().getWishlistBooks()
+//                getBooksSpecificationList()
+            }
+            .setNegativeButton(resources.getString(R.string.no)){dialog,_ ->
+                dialog.dismiss()
+            }
+            .show()
     }
 }
