@@ -7,10 +7,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.vanshika.libraryapp.R
+import com.vanshika.libraryapp.wishlist.IsWishlistInterface
 
 class BooksSpecificationStudentAdapter(
     var booksSpecificationList : ArrayList<BooksSpecificationDataClass>,
-    var booksClickInterface: BooksClickInterface
+    var booksClickInterface: BooksClickInterface,
+    var isWishlistInterface: IsWishlistInterface
 ) : RecyclerView.Adapter<BooksSpecificationStudentAdapter.ViewHolder>(){
     class ViewHolder(var view : View) : RecyclerView.ViewHolder(view){
         var tvBooksAuthorName: TextView = view.findViewById(R.id.tvBooksAuthorName)
@@ -54,6 +56,10 @@ class BooksSpecificationStudentAdapter(
         }
         holder.tvBookName.setOnClickListener {
             booksClickInterface.moveToNext(position)
+        }
+
+        holder.ivWishlist.setOnClickListener {
+            isWishlistInterface.isWishlist(position)
         }
 
         when (booksSpecificationList[position].booksStatus) {
