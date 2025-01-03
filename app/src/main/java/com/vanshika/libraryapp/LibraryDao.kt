@@ -34,10 +34,21 @@ interface LibraryDao {
     @Query("SELECT * FROM BooksDataClass WHERE booksId =:booksId")
     fun getBooksAccToId(booksId : Int): BooksDataClass
 
+    @Query("SELECT * FROM BooksSpecificationDataClass WHERE booksName =:booksName")
+    fun getSearchedBooks(booksName : String): List<BooksSpecificationDataClass>
+
+    @Query("SELECT * FROM BooksSpecificationDataClass WHERE booksCategory =:booksCategory")
+    fun getBooksSpecificationAccToCategory(booksCategory : String): List<BooksSpecificationDataClass>
+
     @Update
     fun updateBooksSpecification(booksSpecificationDataClass: BooksSpecificationDataClass)
 
     @Delete
     fun deleteBooksSpecification(booksSpecificationDataClass: BooksSpecificationDataClass)
+
+    // Queries for wishlist
+
+    @Query("SELECT *FROM BooksSpecificationDataClass WHERE isWishlist =:isWishlist")
+    fun getWishlistBooks(isWishlist : Boolean): List<BooksSpecificationDataClass>
 
 }

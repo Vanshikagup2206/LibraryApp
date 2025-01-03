@@ -27,7 +27,7 @@ private const val ARG_PARAM2 = "param2"
 class HomeFragment : Fragment(), BooksClickInterface {
     private var param1: String? = null
     private var param2: String? = null
-    lateinit var binding: FragmentHomeBinding
+    var binding: FragmentHomeBinding ?= null
     lateinit var linearLayoutManager: LinearLayoutManager
     var booksList = arrayListOf<BooksDataClass>()
     lateinit var booksAdapter: BooksAdapter
@@ -46,7 +46,7 @@ class HomeFragment : Fragment(), BooksClickInterface {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentHomeBinding.inflate(layoutInflater)
-        return binding.root
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -86,11 +86,13 @@ class HomeFragment : Fragment(), BooksClickInterface {
 
     override fun moveToNext(position: Int) {
         val convertToString = Gson().toJson(booksList[position])
+        val selectedCategory = booksList[position].booksCategory
         val bundle = bundleOf(
             "booksId" to booksList[position].booksId,
             "noOfBooks" to convertToString,
             "booksCategory" to convertToString,
-            "booksDescription" to convertToString
+            "booksDescription" to convertToString,
+            "selectedCategory" to selectedCategory
         )
         findNavController().navigate(R.id.bookSpecificationStudentFragment, bundle)
     }

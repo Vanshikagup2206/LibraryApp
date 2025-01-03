@@ -125,13 +125,16 @@ class BookSpecificationStudentFragment : Fragment(), BooksClickInterface,IsWishl
         AlertDialog.Builder(requireContext())
             .setMessage(resources.getString(R.string.you_want_to_wishlist_this_book))
             .setPositiveButton(resources.getString(R.string.yes)){_,_ ->
-                val isWishlist = true
-                val bundle = bundleOf(
-                    "isWishlist" to isWishlist
-                )
-                findNavController().navigate(R.id.wishlistFragment, bundle)
+                booksSpecificationList[position].isWishlist = true
+//                val isWishlist = true
+//                val bundle = bundleOf(
+//                    "isWishlist" to isWishlist
+//                )
+//                findNavController().navigate(R.id.wishlistFragment, bundle)
+                findNavController().navigate(R.id.wishlistFragment)
             }
             .setNegativeButton(resources.getString(R.string.no)){dialog,_ ->
+                booksSpecificationList[position].isWishlist = false
                 dialog.dismiss()
             }
             .show()
