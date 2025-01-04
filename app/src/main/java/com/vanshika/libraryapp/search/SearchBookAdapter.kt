@@ -1,20 +1,18 @@
-package com.vanshika.libraryapp.home
+package com.vanshika.libraryapp.search
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckBox
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.vanshika.libraryapp.R
-import com.vanshika.libraryapp.wishlist.IsWishlistInterface
+import com.vanshika.libraryapp.home.BooksClickInterface
+import com.vanshika.libraryapp.home.BooksSpecificationDataClass
 
-class BooksSpecificationStudentAdapter(
+class SearchBookAdapter (
     var booksSpecificationList : ArrayList<BooksSpecificationDataClass>,
-    var booksClickInterface: BooksClickInterface,
-    var isWishlistInterface: IsWishlistInterface
-) : RecyclerView.Adapter<BooksSpecificationStudentAdapter.ViewHolder>(){
+    var booksClickInterface: BooksClickInterface
+) : RecyclerView.Adapter<SearchBookAdapter.ViewHolder>(){
     class ViewHolder(var view : View) : RecyclerView.ViewHolder(view){
         var tvBooksAuthorName: TextView = view.findViewById(R.id.tvBooksAuthorName)
         var tvBookName: TextView = view.findViewById(R.id.tvBookName)
@@ -26,13 +24,11 @@ class BooksSpecificationStudentAdapter(
         var tvBooksTable: TextView = view.findViewById(R.id.tvTableOfContent)
         var tvBooksReleaseDate: TextView = view.findViewById(R.id.tvReleaseDate)
         var tvLanguage: TextView = view.findViewById(R.id.tvLanguage)
-        var cbWishlist: CheckBox = view.findViewById(R.id.cbWishlist)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         var view = LayoutInflater.from(parent.context).inflate(
-            R.layout.item_books_specification_student
-            , parent, false
+            R.layout.item_books_search, parent, false
         )
         return ViewHolder(view)
     }
@@ -57,10 +53,6 @@ class BooksSpecificationStudentAdapter(
         }
         holder.tvBookName.setOnClickListener {
             booksClickInterface.moveToNext(position)
-        }
-
-        holder.cbWishlist.setOnClickListener {
-            isWishlistInterface.isWishlist(position)
         }
 
         when (booksSpecificationList[position].booksStatus) {
