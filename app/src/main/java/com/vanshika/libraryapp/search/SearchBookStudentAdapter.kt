@@ -1,38 +1,36 @@
-package com.vanshika.libraryapp.home
+package com.vanshika.libraryapp.search
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.vanshika.libraryapp.R
-import com.vanshika.libraryapp.wishlist.IsWishlistInterface
+import com.vanshika.libraryapp.home.BooksClickInterface
+import com.vanshika.libraryapp.home.BooksSpecificationDataClass
 
-class BooksSpecificationStudentAdapter(
+class SearchBookStudentAdapter (
     var booksSpecificationList : ArrayList<BooksSpecificationDataClass>,
-    var booksClickInterface: BooksClickInterface,
-    var isWishlistInterface: IsWishlistInterface
-) : RecyclerView.Adapter<BooksSpecificationStudentAdapter.ViewHolder>(){
-    class ViewHolder(var view : View) : RecyclerView.ViewHolder(view){
-        var tvBooksAuthorName: TextView = view.findViewById(R.id.tvBooksAuthorName)
-        var tvBookName: TextView = view.findViewById(R.id.tvBookName)
-        var tvBooksStatus: TextView = view.findViewById(R.id.tvBooksStatus)
-        var tvBooksDescription: TextView = view.findViewById(R.id.tvBooksDescription)
-        var tvBooksPublisher: TextView = view.findViewById(R.id.tvPublisher)
-        var tvNoOfBooks: TextView = view.findViewById(R.id.tvNoOfBooks)
-        var tvBriefDescription: TextView = view.findViewById(R.id.tvBriefDescription)
-        var tvBooksTable: TextView = view.findViewById(R.id.tvTableOfContent)
-        var tvBooksReleaseDate: TextView = view.findViewById(R.id.tvReleaseDate)
-        var tvLanguage: TextView = view.findViewById(R.id.tvLanguage)
-        var cbWishlist: CheckBox = view.findViewById(R.id.cbWishlist)
-    }
+    var booksClickInterface: BooksClickInterface
+        ) : RecyclerView.Adapter<SearchBookStudentAdapter.ViewHolder>(){
+            class ViewHolder(var view : View) : RecyclerView.ViewHolder(view){
+                var tvBooksAuthorName: TextView = view.findViewById(R.id.tvBooksAuthorName)
+                var tvBookName: TextView = view.findViewById(R.id.tvBookName)
+                var tvBooksStatus: TextView = view.findViewById(R.id.tvBooksStatus)
+                var tvBooksDescription: TextView = view.findViewById(R.id.tvBooksDescription)
+                var tvBooksPublisher: TextView = view.findViewById(R.id.tvPublisher)
+                var tvNoOfBooks: TextView = view.findViewById(R.id.tvNoOfBooks)
+                var tvBriefDescription: TextView = view.findViewById(R.id.tvBriefDescription)
+                var tvBooksTable: TextView = view.findViewById(R.id.tvTableOfContent)
+                var tvBooksReleaseDate: TextView = view.findViewById(R.id.tvReleaseDate)
+                var tvLanguage: TextView = view.findViewById(R.id.tvLanguage)
+                var tvWishlist : ImageView = view.findViewById(R.id.ivWishlist)
+            }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         var view = LayoutInflater.from(parent.context).inflate(
-            R.layout.item_books_specification_student
-            , parent, false
+            R.layout.item_books_specification_student, parent, false
         )
         return ViewHolder(view)
     }
@@ -58,12 +56,6 @@ class BooksSpecificationStudentAdapter(
         holder.tvBookName.setOnClickListener {
             booksClickInterface.moveToNext(position)
         }
-
-        holder.cbWishlist.setOnClickListener {
-            isWishlistInterface.isWishlist(position, holder.cbWishlist.isChecked)
-        }
-
-        holder.cbWishlist.isChecked = booksSpecificationList[position].isWishlist ?: false
 
         when (booksSpecificationList[position].booksStatus) {
             0 -> {

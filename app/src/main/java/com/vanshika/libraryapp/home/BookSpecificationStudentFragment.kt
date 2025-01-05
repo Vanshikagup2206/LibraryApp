@@ -121,20 +121,19 @@ class BookSpecificationStudentFragment : Fragment(), BooksClickInterface,IsWishl
         findNavController().navigate(R.id.booksDescriptionStudentFragment, bundle)
     }
 
-    override fun isWishlist(position: Int) {
+    override fun isWishlist(position: Int, isWishlist : Boolean) {
         AlertDialog.Builder(requireContext())
             .setMessage(resources.getString(R.string.you_want_to_wishlist_this_book))
             .setPositiveButton(resources.getString(R.string.yes)){_,_ ->
                 booksSpecificationList[position].isWishlist = true
-//                val isWishlist = true
-//                val bundle = bundleOf(
-//                    "isWishlist" to isWishlist
-//                )
-//                findNavController().navigate(R.id.wishlistFragment, bundle)
+                libraryDatabase.libraryDao().updateBooksSpecification(booksSpecificationList[position])
+                booksSpecificationStudentAdapter.notifyItemChanged(position)
                 findNavController().navigate(R.id.wishlistFragment)
             }
             .setNegativeButton(resources.getString(R.string.no)){dialog,_ ->
                 booksSpecificationList[position].isWishlist = false
+                libraryDatabase.libraryDao().updateBooksSpecification(booksSpecificationList[position])
+                booksSpecificationStudentAdapter.notifyItemChanged(position)
                 dialog.dismiss()
             }
             .show()
