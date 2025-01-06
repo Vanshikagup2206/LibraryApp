@@ -3,16 +3,18 @@ package com.vanshika.libraryapp.search
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.vanshika.libraryapp.R
 import com.vanshika.libraryapp.home.BooksClickInterface
 import com.vanshika.libraryapp.home.BooksSpecificationDataClass
+import com.vanshika.libraryapp.wishlist.IsWishlistInterface
 
 class SearchBookStudentAdapter (
     var booksSpecificationList : ArrayList<BooksSpecificationDataClass>,
-    var booksClickInterface: BooksClickInterface
+    var booksClickInterface: BooksClickInterface, var isWishlistInterface: IsWishlistInterface
         ) : RecyclerView.Adapter<SearchBookStudentAdapter.ViewHolder>(){
             class ViewHolder(var view : View) : RecyclerView.ViewHolder(view){
                 var tvBooksAuthorName: TextView = view.findViewById(R.id.tvBooksAuthorName)
@@ -25,7 +27,7 @@ class SearchBookStudentAdapter (
                 var tvBooksTable: TextView = view.findViewById(R.id.tvTableOfContent)
                 var tvBooksReleaseDate: TextView = view.findViewById(R.id.tvReleaseDate)
                 var tvLanguage: TextView = view.findViewById(R.id.tvLanguage)
-                var tvWishlist : ImageView = view.findViewById(R.id.ivWishlist)
+                var cbWishlist : CheckBox = view.findViewById(R.id.cbWishlist)
             }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -56,6 +58,12 @@ class SearchBookStudentAdapter (
         holder.tvBookName.setOnClickListener {
             booksClickInterface.moveToNext(position)
         }
+
+        holder.cbWishlist.setOnClickListener {
+            isWishlistInterface.isWishlist(position, holder.cbWishlist.isChecked)
+        }
+
+        holder.cbWishlist.isChecked = booksSpecificationList[position].isWishlist ?: false
 
         when (booksSpecificationList[position].booksStatus) {
             0 -> {
