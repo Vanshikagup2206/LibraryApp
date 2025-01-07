@@ -17,7 +17,6 @@ class BooksAdapter(
         var tvDescription: TextView = view.findViewById(R.id.tvBooksAbout)
         var tvNoOfBooks : TextView = view.findViewById(R.id.tvNoOfBooks)
         var llSeeOver : LinearLayout = view.findViewById(R.id.llSeeOver)
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

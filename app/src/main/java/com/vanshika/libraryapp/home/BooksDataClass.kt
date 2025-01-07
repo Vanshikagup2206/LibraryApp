@@ -11,6 +11,6 @@ data class BooksDataClass(
     var categoryId : Int ?= 0,
     var booksAbout : String ?= "",
     var booksCategory : String ?= "",
-    var noOfBooks : Int ?= 0
-//    var BooksPhotos : Photo ?= ""
+    var noOfBooks : Int ?= 0,
+    var BooksPhotos : List<String> = emptyList()
 )
