@@ -4,6 +4,7 @@ import android.app.DatePickerDialog
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.SharedPreferences
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -12,9 +13,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.google.gson.Gson
 import com.vanshika.libraryapp.databinding.FragmentBooksAdditionBinding
 import com.vanshika.libraryapp.home.AdminHomeFragment
@@ -50,6 +54,9 @@ class BooksAdditionFragment : Fragment() {
     var booksCategory = ""
     lateinit var sharedPreferences: SharedPreferences
     lateinit var editor : SharedPreferences.Editor
+//    private lateinit var imagePickerLauncher : ActivityResultLauncher<String>
+//    private val selectedImages = mutableListOf<String>()
+    private var  selectedImageUri : Uri ?= null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -93,6 +100,25 @@ class BooksAdditionFragment : Fragment() {
                 Calendar.getInstance().get(Calendar.DATE)
             )
             datePickerDialog.show()
+        }
+
+//        imagePickerLauncher = registerForActivityResult(ActivityResultContracts.GetContent()){ uri: Uri? ->
+//            uri?.let {
+//                selectedImages.add(it.toString())
+//            }
+//        }
+
+        val pickImage = registerForActivityResult(ActivityResultContracts.GetContent()){ uri: Uri? ->
+            uri.let {
+                selectedImageUri = it
+                Glide.with(requireContext())
+                    .load(it)
+                    .into(binding?.ivSelectedImage!!)
+            }
+        }
+
+        binding?.btnAddImage?.setOnClickListener {
+            pickImage.launch("image/*")
         }
 
         binding?.btnAdd?.setOnClickListener {
@@ -143,7 +169,8 @@ class BooksAdditionFragment : Fragment() {
                         booksReleaseDate = binding?.etReleaseDate?.text?.toString(),
                         bookLanguage = binding?.etBookLanguage?.text?.toString(),
                         booksStatus = status,
-                        booksCategory = binding?.tvBooksCategory?.text?.toString()
+                        booksCategory = binding?.tvBooksCategory?.text?.toString(),
+                        booksPhoto = selectedImageUri?.toString()
                     )
                 )
                 findNavController().popBackStack()
