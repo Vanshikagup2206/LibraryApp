@@ -54,8 +54,6 @@ class BooksAdditionFragment : Fragment() {
     var booksCategory = ""
     lateinit var sharedPreferences: SharedPreferences
     lateinit var editor : SharedPreferences.Editor
-//    private lateinit var imagePickerLauncher : ActivityResultLauncher<String>
-//    private val selectedImages = mutableListOf<String>()
     private var  selectedImageUri : Uri ?= null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -101,12 +99,6 @@ class BooksAdditionFragment : Fragment() {
             )
             datePickerDialog.show()
         }
-
-//        imagePickerLauncher = registerForActivityResult(ActivityResultContracts.GetContent()){ uri: Uri? ->
-//            uri?.let {
-//                selectedImages.add(it.toString())
-//            }
-//        }
 
         val pickImage = registerForActivityResult(ActivityResultContracts.GetContent()){ uri: Uri? ->
             uri.let {

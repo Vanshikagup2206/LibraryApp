@@ -51,6 +51,7 @@ class AdminHomeUpdateFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         libraryDatabase = LibraryDatabase.getInstance(requireContext())
+        getBooksAccToIdList()
 
         binding?.etBooksCategory?.setText(booksDataClass.booksCategory)
         binding?.etAboutBooksCategory?.setText(booksDataClass.booksAbout)

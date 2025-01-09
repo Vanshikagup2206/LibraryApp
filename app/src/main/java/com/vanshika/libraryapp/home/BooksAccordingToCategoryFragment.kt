@@ -36,8 +36,6 @@ class BooksAccordingToCategoryFragment : Fragment() {
     var booksId = 0
     private var param1: String? = null
     private var param2: String? = null
-    private val selectedImageUris = mutableListOf<String>()
-    private lateinit var imagesAdapter : ImageAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,29 +58,12 @@ class BooksAccordingToCategoryFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         libraryDatabase = LibraryDatabase.getInstance(requireContext())
 
-        imagesAdapter = ImageAdapter(selectedImageUris)
-        binding?.rvSelectedImages?.adapter = imagesAdapter
-        binding?.rvSelectedImages?.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         arguments?.let {
             booksId = it.getInt("booksId",0)
             if (booksId>0){
                 getBooksAccToIdList()
             }
         }
-
-        val pickImagesLauncher =
-            registerForActivityResult(ActivityResultContracts.GetMultipleContents()) { uris ->
-                if (uris.isNotEmpty()) {
-                    selectedImageUris.clear()
-                    selectedImageUris.addAll(uris.map { it.toString() }) // Convert to string URIs
-                    imagesAdapter.notifyDataSetChanged() // Notify adapter for preview update
-                }
-            }
-
-        binding?.btnPickImages?.setOnClickListener {
-            pickImagesLauncher.launch("image/*")
-        }
-
 
         binding?.btnAddBookAccToCategory?.setOnClickListener {
             if (binding?.etBooksCategory?.text?.toString()?.trim()?.isEmpty() == true) {
