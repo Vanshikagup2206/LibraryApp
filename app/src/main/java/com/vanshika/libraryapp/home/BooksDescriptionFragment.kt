@@ -1,11 +1,13 @@
 package com.vanshika.libraryapp.home
 
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.google.gson.Gson
 import com.vanshika.libraryapp.R
 import com.vanshika.libraryapp.databinding.FragmentBooksDescriptionBinding
@@ -60,6 +62,14 @@ class BooksDescriptionFragment : Fragment() {
             binding?.tvBooksDescription?.text = booksData.booksBriefDescription
             binding?.tvTableOfContent?.text = booksData.booksTable
             binding?.tvLanguage?.text = booksData.bookLanguage
+            binding?.ivBookPhoto?.let { imageView ->
+                booksData.booksPhoto?.let { photoUri ->
+                    Glide.with(requireContext())
+                        .load(photoUri)
+                        .placeholder(R.drawable.empty)
+                        .into(imageView)
+                }
+            }
 
             if(booksData.booksStatus == 0){
                 binding?.tvBooksStatus?.text = resources.getString(R.string.available)
