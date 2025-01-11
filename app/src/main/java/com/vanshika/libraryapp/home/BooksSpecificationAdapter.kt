@@ -3,8 +3,10 @@ package com.vanshika.libraryapp.home
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.vanshika.libraryapp.R
 
 class BooksSpecificationAdapter(
@@ -27,6 +29,7 @@ class BooksSpecificationAdapter(
         var tvBooksCategory : TextView = view.findViewById(R.id.tvBooksCategory)
         var tvEdit: TextView = view.findViewById(R.id.tvEdit)
         var tvDelete: TextView = view.findViewById(R.id.tvDelete)
+        var ivBookPhoto : ImageView = view.findViewById(R.id.ivBookPhoto)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -66,6 +69,16 @@ class BooksSpecificationAdapter(
         }
         holder.tvBookName.setOnClickListener {
             booksClickInterface.moveToNext(position)
+        }
+
+        val bookPhoto = booksSpecificationList[position].booksPhoto
+        if (bookPhoto?.isNotEmpty() == true){
+            Glide.with(holder.itemView.context)
+                .load(booksSpecificationList[position].booksPhoto)
+                .placeholder(R.drawable.empty)
+                .into(holder.ivBookPhoto)
+        }else{
+            holder.ivBookPhoto.setImageResource(R.drawable.empty)
         }
 
         when (booksSpecificationList[position].booksStatus) {
