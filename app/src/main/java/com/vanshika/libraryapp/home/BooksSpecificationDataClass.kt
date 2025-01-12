@@ -1,17 +1,8 @@
 package com.vanshika.libraryapp.home
 
 import androidx.room.Entity
-import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 
-//@Entity(foreignKeys = [
-//    ForeignKey(
-//        entity = BooksDataClass :: class,
-//        parentColumns = ["booksId"],
-//        childColumns = ["booksSpecificationId"],
-//        onDelete = ForeignKey.CASCADE
-//    )
-//])
 @Entity
 data class BooksSpecificationDataClass(
     @PrimaryKey(autoGenerate = true)
@@ -28,7 +19,8 @@ data class BooksSpecificationDataClass(
     var booksReleaseDate : String ?= "",
     var bookLanguage : String ?= "",
     var booksCategory : String ?="",
-    var isWishlist : Boolean ?= false
+    var isWishlist : Boolean ?= false,
+    var booksPhoto: String ?= null
 ){
     override fun toString(): String {
         return "$booksName"
