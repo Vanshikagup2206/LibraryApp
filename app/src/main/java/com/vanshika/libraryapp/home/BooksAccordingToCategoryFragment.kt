@@ -80,6 +80,11 @@ class BooksAccordingToCategoryFragment : Fragment() {
                         noOfBooks = binding?.etNoOfBooks?.text?.toString()?.toInt()
                     )
                 )
+                libraryDatabase.libraryDao().insertBookCategory(
+                    CategoryDataClass(
+                        categoryName = binding?.etBooksCategory?.text?.toString()
+                    )
+                )
                 findNavController().popBackStack()
             }
         }

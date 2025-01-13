@@ -32,14 +32,17 @@ private const val ARG_PARAM2 = "param2"
  * Use the [AdminHomeFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class AdminHomeFragment : Fragment(), BooksClickInterface {
+class AdminHomeFragment : Fragment(), BooksClickInterface, CategoryClickInterface{
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
     var binding: FragmentAdminHomeBinding? = null
-    lateinit var linearLayoutManager: LinearLayoutManager
+    private lateinit var linearLayoutManager: LinearLayoutManager
+    lateinit var linearLayoutManagerCategory: LinearLayoutManager
     var booksList = arrayListOf<BooksDataClass>()
+    var categoryList = arrayListOf<CategoryDataClass>()
     lateinit var booksAdapter: BooksAdapter
+    lateinit var booksCategoryAdapter: BooksCategoryAdapter
     lateinit var libraryDatabase: LibraryDatabase
     lateinit var sharedPreferences: SharedPreferences
     lateinit var editor: SharedPreferences.Editor
@@ -75,6 +78,12 @@ class AdminHomeFragment : Fragment(), BooksClickInterface {
         sharedPreferences = requireContext().getSharedPreferences(resources.getString(R.string.app_name),
             Context.MODE_PRIVATE)
         editor = sharedPreferences.edit()
+
+        linearLayoutManagerCategory = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding?.rvCategory?.layoutManager = linearLayoutManagerCategory
+        booksCategoryAdapter = BooksCategoryAdapter(categoryList, this)
+        binding?.rvCategory?.adapter = booksCategoryAdapter
+        getCategoryList()
 
         val itemTouchHelper = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
 
@@ -187,6 +196,13 @@ class AdminHomeFragment : Fragment(), BooksClickInterface {
         }
     }
 
+    private fun getCategoryList() {
+        categoryList.clear()
+        categoryList.add(CategoryDataClass(-1,"All"))
+        categoryList.addAll(libraryDatabase.libraryDao().getCategory())
+        booksCategoryAdapter.notifyDataSetChanged()
+    }
+
     private fun getBooksAccToCategory() {
         booksList.clear()
         booksList.addAll(libraryDatabase.libraryDao().getBooksAccToCategory())
@@ -225,5 +241,16 @@ class AdminHomeFragment : Fragment(), BooksClickInterface {
             "selectedCategory" to selectedCategory
         )
         findNavController().navigate(R.id.booksSpecificationFragment,bundle)
+    }
+
+    override fun onItemClick(position: Int) {
+        booksCategoryAdapter.updatePosition(position)
+        categoryList.clear()
+        if (categoryList[position].categoryId == -1){
+            getBooksAccToCategory()
+        }else{
+            booksList.addAll(libraryDatabase.libraryDao().getHomeBooksAccToCategory(categoryList[position].categoryName.toString()))
+            booksAdapter.notifyDataSetChanged()
+        }
     }
 }
