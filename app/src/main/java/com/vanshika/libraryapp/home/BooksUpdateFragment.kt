@@ -2,6 +2,9 @@ package com.vanshika.libraryapp.home
 
 import android.app.DatePickerDialog
 import android.content.ContentValues.TAG
+import android.content.Context
+import android.content.SharedPreferences
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -10,7 +13,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.google.gson.Gson
 import com.vanshika.libraryapp.LibraryDatabase
 import com.vanshika.libraryapp.R
@@ -35,12 +40,15 @@ class BooksUpdateFragment : Fragment() {
     var binding : FragmentBooksUpdateBinding ?= null
     var booksSpecificationDataClass = BooksSpecificationDataClass()
     var booksDataClass = BooksDataClass()
-    var booksList = arrayListOf<BooksSpecificationDataClass>()
+    var booksSpecificationList = arrayListOf<BooksSpecificationDataClass>()
     lateinit var libraryDatabase: LibraryDatabase
-    lateinit var arrayAdapter: ArrayAdapter<BooksSpecificationDataClass>
+    lateinit var booksSpecificationAdapter: ArrayAdapter<BooksSpecificationDataClass>
     var bookSpecificationId = 0
     var calendar = Calendar.getInstance()
     var formatDate : String ?= ""
+    lateinit var sharedPreferences: SharedPreferences
+    lateinit var editor : SharedPreferences.Editor
+    private var selectedImageUri : Uri ?= null
     var dateFormat = SimpleDateFormat("dd/MMM/yyy")
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,15 +74,15 @@ class BooksUpdateFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         arguments?.let {
             val booksJson = it.getString("noOfBooks")
-            val booksData = Gson().fromJson(booksJson, booksDataClass::class.java)
-
-            binding?.tvBooksCategory?.text = booksData?.booksCategory
         }
         libraryDatabase = LibraryDatabase.getInstance(requireContext())
-        if (bookSpecificationId > 0) {
-            updateBooks()
-        }
+
+        sharedPreferences = requireContext().getSharedPreferences(resources.getString(R.string.app_name), Context.MODE_PRIVATE)
+        editor = sharedPreferences.edit()
+        val selectedCategory = sharedPreferences.getString("selectedCategory","")
+        binding?.tvBooksCategory?.text = selectedCategory
         getBooksList()
+
         binding?.etReleaseDate?.setOnClickListener {
             var datePickerDialog = DatePickerDialog(
                 requireContext(), { _, year, month, date ->
@@ -88,9 +96,7 @@ class BooksUpdateFragment : Fragment() {
             )
             datePickerDialog.show()
         }
-    }
 
-    private fun updateBooks() {
         binding?.etBookAuthorName?.setText(booksSpecificationDataClass.booksAuthorName)
         binding?.etBookTitle?.setText(booksSpecificationDataClass.booksName)
         binding?.etPublisher?.setText(booksSpecificationDataClass.booksPublisher)
@@ -100,9 +106,31 @@ class BooksUpdateFragment : Fragment() {
         binding?.etDescription?.setText(booksSpecificationDataClass.booksBriefDescription)
         binding?.etTableOfContent?.setText(booksSpecificationDataClass.booksTable)
         binding?.etBookLanguage?.setText(booksSpecificationDataClass.bookLanguage)
+        binding?.ivBookPhoto?.let {imageView ->
+            booksSpecificationDataClass.booksPhoto?.let { photoUri ->
+                Glide.with(requireContext())
+                    .load(photoUri)
+                    .placeholder(R.drawable.empty)
+                    .into(imageView)
+            }
+        }
+
         when(booksSpecificationDataClass.booksStatus){
             0 -> binding?.rbAvailable?.isChecked = true
             1 -> binding?.rbIssued?.isChecked = true
+        }
+
+        val pickImage = registerForActivityResult(ActivityResultContracts.GetContent()){uri: Uri? ->
+            uri.let {
+                selectedImageUri = it
+                Glide.with(requireContext())
+                    .load(it)
+                    .into(binding?.ivBookPhoto!!)
+            }
+        }
+
+        binding?.btnUpdateImage?.setOnClickListener {
+            pickImage.launch("image/*")
         }
 
         binding?.btnUpdate?.setOnClickListener {
@@ -152,18 +180,18 @@ class BooksUpdateFragment : Fragment() {
                         booksTable = binding?.etTableOfContent?.text?.toString(),
                         noOfBooks = binding?.etCopiesAvailable?.text?.toString()?.toInt(),
                         booksReleaseDate = binding?.etReleaseDate?.text?.toString(),
-                        booksStatus = status
+                        booksStatus = status,
+                        booksPhoto = selectedImageUri?.toString(),
+                        booksCategory = binding?.tvBooksCategory?.text?.toString()
                     )
                 )
                 findNavController().popBackStack()
             }
         }
-        getBooksList()
     }
 
     private fun getBooksList() {
-        booksList.clear()
-        booksList.addAll(libraryDatabase.libraryDao().getBookSpecification())
+        booksSpecificationDataClass = libraryDatabase.libraryDao().getBooksAccToSpecificationId(bookSpecificationId)
     }
 
     companion object {
