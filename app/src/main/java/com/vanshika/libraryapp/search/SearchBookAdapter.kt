@@ -3,8 +3,10 @@ package com.vanshika.libraryapp.search
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.vanshika.libraryapp.R
 import com.vanshika.libraryapp.home.BooksClickInterface
 import com.vanshika.libraryapp.home.BooksSpecificationDataClass
@@ -24,6 +26,7 @@ class SearchBookAdapter (
         var tvBooksTable: TextView = view.findViewById(R.id.tvTableOfContent)
         var tvBooksReleaseDate: TextView = view.findViewById(R.id.tvReleaseDate)
         var tvLanguage: TextView = view.findViewById(R.id.tvLanguage)
+        var ivBookPhoto: ImageView = view.findViewById(R.id.ivBookPhoto)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -53,6 +56,14 @@ class SearchBookAdapter (
         }
         holder.tvBookName.setOnClickListener {
             booksClickInterface.moveToNext(position)
+        }
+
+        val bookPhoto = booksSpecificationList[position].booksPhoto
+        if (bookPhoto?.isNotEmpty() == true){
+            Glide.with(holder.itemView.context)
+                .load(booksSpecificationList[position].booksPhoto)
+                .placeholder(R.drawable.empty)
+                .into(holder.ivBookPhoto)
         }
 
         when (booksSpecificationList[position].booksStatus) {
