@@ -10,4 +10,10 @@
     <color name="dark_black">#333333</color>
     <color name="light_green">#EFEFDC</color>
     <color name="green">#CCCC99</color>
+    <color name="grey">#C0BEBE</color>
+    <color name="dark_slate_blue">#483D8B</color>
+    <color name="dark_teal">#102027</color>
+    <color name="darkGreen">#336633</color>
+    <color name="dark_blue">#020B49</color>
+    <color name="light_blue">#C9E3F1</color>
 </resources>

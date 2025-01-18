@@ -72,4 +72,18 @@
     <string name="search">Search</string>
     <string name="wishlist">Wishlist</string>
     <string name="profile">Profile</string>
+    <string name="search_results">Search Results</string>
+    <string name="you_want_to_wishlist_this_book">You want to wishlist this book?</string>
+    <string name="tag">Tag</string>
+    <string name="pick_images">Pick Images</string>
+    <string name="update_image">Update Image</string>
+    <string name="student_profile">Student Profile</string>
+    <string name="for_search">For search…</string>
+    <string name="student_name">Student Name</string>
+    <string name="department">Department</string>
+    <string name="mobile_no">Mobile No</string>
+    <string name="insert_image_of_the_student">Insert image of the student</string>
+    <string name="enter_student_name">Enter Student Name</string>
+    <string name="enter_department">Enter Department</string>
+    <string name="enter_mobile_no">Enter mobile no.</string>
 </resources>
