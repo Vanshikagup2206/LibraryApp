@@ -1,32 +1,21 @@
 package com.vanshika.libraryapp
 
 import android.app.DatePickerDialog
-import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import android.widget.Toast
-import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
-import com.google.gson.Gson
 import com.vanshika.libraryapp.databinding.FragmentBooksAdditionBinding
-import com.vanshika.libraryapp.home.AdminHomeFragment
-import com.vanshika.libraryapp.home.BooksAdapter
 import com.vanshika.libraryapp.home.BooksDataClass
-import com.vanshika.libraryapp.home.BooksSpecificationAdapter
 import com.vanshika.libraryapp.home.BooksSpecificationDataClass
-import com.vanshika.libraryapp.home.CategoryDataClass
 import java.text.SimpleDateFormat
 import java.util.Calendar
 
@@ -54,8 +43,8 @@ class BooksAdditionFragment : Fragment() {
     var booksId = 0
     var booksCategory = ""
     lateinit var sharedPreferences: SharedPreferences
-    lateinit var editor : SharedPreferences.Editor
-    private var  selectedImageUri : Uri ?= null
+    lateinit var editor: SharedPreferences.Editor
+    private var selectedImageUri: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -82,9 +71,12 @@ class BooksAdditionFragment : Fragment() {
 
         libraryDatabase = LibraryDatabase.getInstance(requireContext())
 
-        sharedPreferences = requireContext().getSharedPreferences(resources.getString(R.string.app_name), Context.MODE_PRIVATE)
+        sharedPreferences = requireContext().getSharedPreferences(
+            resources.getString(R.string.app_name),
+            Context.MODE_PRIVATE
+        )
         editor = sharedPreferences.edit()
-        val selectedCategory = sharedPreferences.getString("selectedCategory","")
+        val selectedCategory = sharedPreferences.getString("selectedCategory", "")
         binding?.tvBooksCategory?.text = selectedCategory
 
         binding?.etReleaseDate?.setOnClickListener {
@@ -101,14 +93,15 @@ class BooksAdditionFragment : Fragment() {
             datePickerDialog.show()
         }
 
-        val pickImage = registerForActivityResult(ActivityResultContracts.GetContent()){ uri: Uri? ->
-            uri.let {
-                selectedImageUri = it
-                Glide.with(requireContext())
-                    .load(it)
-                    .into(binding?.ivSelectedImage!!)
+        val pickImage =
+            registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+                uri.let {
+                    selectedImageUri = it
+                    Glide.with(requireContext())
+                        .load(it)
+                        .into(binding?.ivSelectedImage!!)
+                }
             }
-        }
 
         binding?.btnAddImage?.setOnClickListener {
             pickImage.launch("image/*")
@@ -143,10 +136,14 @@ class BooksAdditionFragment : Fragment() {
                     resources.getString(R.string.select_status),
                     Toast.LENGTH_SHORT
                 ).show()
+            } else if (binding?.etShelfNo?.text?.isEmpty() == true) {
+                binding?.etShelfNo?.error = resources.getString(R.string.enter_shelf_no)
+            } else if (binding?.etBookNo?.text?.isEmpty() == true) {
+                binding?.etBookNo?.error = resources.getString(R.string.enter_book_no)
             } else {
-                var status = if(binding?.rbAvailable?.isChecked == true){
+                var status = if (binding?.rbAvailable?.isChecked == true) {
                     0
-                }else{
+                } else {
                     1
                 }
                 libraryDatabase.libraryDao().insertBooksSpecification(
@@ -163,7 +160,9 @@ class BooksAdditionFragment : Fragment() {
                         bookLanguage = binding?.etBookLanguage?.text?.toString(),
                         booksStatus = status,
                         booksCategory = binding?.tvBooksCategory?.text?.toString(),
-                        booksPhoto = selectedImageUri?.toString()
+                        booksPhoto = selectedImageUri?.toString(),
+                        shelfNo = binding?.etShelfNo?.text?.toString(),
+                        bookNo = binding?.etBookNo?.text?.toString()
                     )
                 )
                 findNavController().popBackStack()

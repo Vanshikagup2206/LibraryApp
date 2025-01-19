@@ -61,6 +61,9 @@ class BooksDescriptionStudentFragment : Fragment() {
             binding?.tvBooksDescription?.text = booksData.booksBriefDescription
             binding?.tvTableOfContent?.text = booksData.booksTable
             binding?.tvLanguage?.text = booksData.bookLanguage
+            binding?.tvShelfNo?.text = booksData.shelfNo
+            binding?.tvBookNo?.text = booksData.bookNo
+
             binding?.ivBookPhoto?.let { imageView ->
                 booksData.booksPhoto?.let { photoUri ->
                     Glide.with(requireContext())
