@@ -30,4 +30,19 @@
         android:name="com.vanshika.libraryapp.wishlist.WishlistFragment"
         android:label="fragment_wishlist"
         tools:layout="@layout/fragment_wishlist" />
+    <fragment
+        android:id="@+id/bookSpecificationStudentFragment"
+        android:name="com.vanshika.libraryapp.home.BookSpecificationStudentFragment"
+        android:label="fragment_book_specification_student"
+        tools:layout="@layout/fragment_book_specification_student" />
+    <fragment
+        android:id="@+id/booksDescriptionStudentFragment"
+        android:name="com.vanshika.libraryapp.home.BooksDescriptionStudentFragment"
+        android:label="fragment_books_description_student"
+        tools:layout="@layout/fragment_books_description_student" />
+    <fragment
+        android:id="@+id/searchedBooksStudentFragment"
+        android:name="com.vanshika.libraryapp.search.SearchedBooksStudentFragment"
+        android:label="fragment_searched_books_student"
+        tools:layout="@layout/fragment_searched_books_student" />
 </navigation>

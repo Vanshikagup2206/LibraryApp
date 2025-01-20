@@ -16,4 +16,13 @@
     <color name="darkGreen">#336633</color>
     <color name="dark_blue">#020B49</color>
     <color name="light_blue">#C9E3F1</color>
+    <color name="forest_green">#013220</color>
+    <color name="black_olive_green">#354733</color>
+    <color name="pantone_forest_green">#013220</color>
+    <color name="pine_green">#043927</color>
+    <color name="gray">#555555</color>
+    <color name="primary">#6200EE</color>
+    <color name="accent">#03DAC5</color>
+    <color name="mint_green">#E8F5E9</color>
+    <color name="dark_shade_green">#333333</color>
 </resources>

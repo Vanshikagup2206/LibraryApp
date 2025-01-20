@@ -86,4 +86,17 @@
     <string name="enter_student_name">Enter Student Name</string>
     <string name="enter_department">Enter Department</string>
     <string name="enter_mobile_no">Enter mobile no.</string>
+    <string name="shelf_no">SHELF NO. :</string>
+    <string name="book_no">BOOK NO. :</string>
+    <string name="enter_shelf_no">Enter shelf no</string>
+    <string name="enter_book_no">Enter book no</string>
+    <string name="enter_registration_no">Enter Registration No...</string>
+    <string name="semester">Semester</string>
+    <string name="enter_valid_mobile_no">Enter valid mobile no</string>
+    <string name="enter_semester">Enter semester</string>
+    <string name="issued_books">Issued Books</string>
+    <string name="previously_issued_books">Previously Issued</string>
+    <string name="s_no">S. NO.</string>
+    <string name="issued_date">Issued Date</string>
+    <string name="_1">1</string>
 </resources>
