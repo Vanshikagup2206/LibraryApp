@@ -30,6 +30,8 @@ class BooksSpecificationAdapter(
         var tvEdit: TextView = view.findViewById(R.id.tvEdit)
         var tvDelete: TextView = view.findViewById(R.id.tvDelete)
         var ivBookPhoto : ImageView = view.findViewById(R.id.ivBookPhoto)
+        var tvBookNo : TextView = view.findViewById(R.id.tvBookNo)
+        var tvShelfNo : TextView = view.findViewById(R.id.tvShelfNo)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -55,6 +57,8 @@ class BooksSpecificationAdapter(
         holder.tvBooksReleaseDate.text = booksSpecificationList[position].booksReleaseDate
         holder.tvLanguage.text = booksSpecificationList[position].bookLanguage
         holder.tvBooksCategory.text = booksSpecificationList[position].booksCategory
+        holder.tvBookNo.text = booksSpecificationList[position].bookNo
+        holder.tvShelfNo.text = booksSpecificationList[position].shelfNo
 
         holder.tvEdit.setOnClickListener {
             booksEditDeleteInterface.editBook(position)
