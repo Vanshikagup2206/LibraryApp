@@ -106,6 +106,9 @@ class BooksUpdateFragment : Fragment() {
         binding?.etDescription?.setText(booksSpecificationDataClass.booksBriefDescription)
         binding?.etTableOfContent?.setText(booksSpecificationDataClass.booksTable)
         binding?.etBookLanguage?.setText(booksSpecificationDataClass.bookLanguage)
+        binding?.etShelfNo?.setText(booksSpecificationDataClass.shelfNo)
+        binding?.etBookNo?.setText(booksSpecificationDataClass.bookNo)
+
         binding?.ivBookPhoto?.let {imageView ->
             booksSpecificationDataClass.booksPhoto?.let { photoUri ->
                 Glide.with(requireContext())
@@ -162,7 +165,14 @@ class BooksUpdateFragment : Fragment() {
                     resources.getString(R.string.select_status),
                     Toast.LENGTH_SHORT
                 ).show()
-            } else {
+            }
+            else if (binding?.etShelfNo?.text?.isEmpty() == true){
+                binding?.etShelfNo?.error = resources.getString(R.string.enter_shelf_no)
+            }
+                else if (binding?.etBookNo?.text?.isEmpty() == true){
+                    binding?.etBookNo?.error = resources.getString(R.string.enter_book_no)
+            }
+                else {
                 var status = if (binding?.rbAvailable?.isChecked == true){
                     0
                 }else{
@@ -182,7 +192,9 @@ class BooksUpdateFragment : Fragment() {
                         booksReleaseDate = binding?.etReleaseDate?.text?.toString(),
                         booksStatus = status,
                         booksPhoto = selectedImageUri?.toString(),
-                        booksCategory = binding?.tvBooksCategory?.text?.toString()
+                        booksCategory = binding?.tvBooksCategory?.text?.toString(),
+                        bookNo = binding?.etBookNo?.text?.toString(),
+                        shelfNo = binding?.etShelfNo?.text?.toString()
                     )
                 )
                 findNavController().popBackStack()

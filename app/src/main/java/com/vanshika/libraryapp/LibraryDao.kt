@@ -8,6 +8,7 @@ import androidx.room.Update
 import com.vanshika.libraryapp.home.BooksDataClass
 import com.vanshika.libraryapp.home.BooksSpecificationDataClass
 import com.vanshika.libraryapp.home.CategoryDataClass
+import com.vanshika.libraryapp.profile.StudentInformationDataClass
 
 @Dao
 interface LibraryDao {
@@ -63,5 +64,25 @@ interface LibraryDao {
 
     @Query("SELECT *FROM BooksSpecificationDataClass WHERE isWishlist =:isWishlist")
     fun getWishlistBooks(isWishlist : Boolean): List<BooksSpecificationDataClass>
+
+    // Queries for student data
+
+    @Insert
+    fun insertStudentData(studentInformationDataClass: StudentInformationDataClass)
+
+    @Query("SELECT * FROM StudentInformationDataClass")
+    fun getStudentData() : List<StudentInformationDataClass>
+
+    @Delete
+    fun deleteStudentData(studentInformationDataClass: StudentInformationDataClass)
+
+    @Update
+    fun updateStudentData(studentInformationDataClass: StudentInformationDataClass)
+
+    @Query("SELECT * FROM StudentInformationDataClass WHERE studentId =:studentId")
+    fun getStudentDataAccToId(studentId : Int): StudentInformationDataClass
+
+    @Query("SELECT * FROM StudentInformationDataClass WHERE registrationNo =:registrationNo")
+    fun getSearchedStudent(registrationNo : Int) : List<StudentInformationDataClass>
 
 }

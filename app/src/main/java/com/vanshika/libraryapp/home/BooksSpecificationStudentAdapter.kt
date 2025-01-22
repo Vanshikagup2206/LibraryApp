@@ -29,6 +29,8 @@ class BooksSpecificationStudentAdapter(
         var tvLanguage: TextView = view.findViewById(R.id.tvLanguage)
         var cbWishlist: CheckBox = view.findViewById(R.id.cbWishlist)
         var ivBookPhoto: ImageView = view.findViewById(R.id.ivBookPhoto)
+        var tvBookNo : TextView = view.findViewById(R.id.tvBookNo)
+        var tvShelfNo : TextView = view.findViewById(R.id.tvShelfNo)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -53,6 +55,8 @@ class BooksSpecificationStudentAdapter(
         holder.tvBooksTable.text = booksSpecificationList[position].booksTable
         holder.tvBooksReleaseDate.text = booksSpecificationList[position].booksReleaseDate
         holder.tvLanguage.text = booksSpecificationList[position].bookLanguage
+        holder.tvShelfNo.text = booksSpecificationList[position].shelfNo
+        holder.tvShelfNo.text = booksSpecificationList[position].shelfNo
 
         holder.tvBooksDescription.setOnClickListener {
             booksClickInterface.moveToNext(position)
