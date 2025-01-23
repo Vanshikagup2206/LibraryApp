@@ -8,9 +8,10 @@ import com.vanshika.libraryapp.home.BooksDataClass
 import com.vanshika.libraryapp.home.BooksDescriptionDataClass
 import com.vanshika.libraryapp.home.BooksSpecificationDataClass
 import com.vanshika.libraryapp.home.CategoryDataClass
+import com.vanshika.libraryapp.profile.StudentInformationDataClass
 
 @Database(
-    entities = [BooksDataClass::class, BooksDescriptionDataClass::class, BooksSpecificationDataClass::class, CategoryDataClass::class],
+    entities = [BooksDataClass::class, BooksDescriptionDataClass::class, BooksSpecificationDataClass::class, CategoryDataClass::class, StudentInformationDataClass::class],
     version = 1,
     exportSchema = true
 )

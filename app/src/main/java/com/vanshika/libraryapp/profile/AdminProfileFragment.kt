@@ -1,12 +1,24 @@
 package com.vanshika.libraryapp.profile
 
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.vanshika.libraryapp.LibraryDatabase
 import com.vanshika.libraryapp.R
 import com.vanshika.libraryapp.databinding.FragmentAdminProfileBinding
+import com.vanshika.libraryapp.home.BooksClickInterface
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -18,11 +30,16 @@ private const val ARG_PARAM2 = "param2"
  * Use the [AdminProfileFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class AdminProfileFragment : Fragment() {
+class AdminProfileFragment : Fragment(), BooksClickInterface {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    var binding : FragmentAdminProfileBinding ?= null
+    var binding: FragmentAdminProfileBinding? = null
+    lateinit var linearLayoutManager: LinearLayoutManager
+    var studentInformationDataClass = StudentInformationDataClass()
+    var studentDataList = arrayListOf<StudentInformationDataClass>()
+    lateinit var libraryDatabase: LibraryDatabase
+    lateinit var studentDataAdapter: StudentDataAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +61,149 @@ class AdminProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        libraryDatabase = LibraryDatabase.getInstance(requireContext())
+        studentDataAdapter = StudentDataAdapter(studentDataList, this)
+        linearLayoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+
+        binding?.rvStudent?.layoutManager = linearLayoutManager
+        binding?.rvStudent?.adapter = studentDataAdapter
+        getStudentDataList()
+
+        binding?.llStudentSearch?.setOnClickListener {
+            findNavController().navigate(R.id.searchStudentFragment)
+        }
+
+        binding?.fabAdd?.setOnClickListener {
+            findNavController().navigate(R.id.studentDataFragment)
+        }
+
+        val itemTouchHelper = ItemTouchHelper(object :
+            ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
+
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                return false // No drag-and-drop functionality
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val position = viewHolder.adapterPosition
+                val student = studentDataList[position]
+
+                if (direction == ItemTouchHelper.LEFT) {
+                    // Perform action for left swipe
+                    AlertDialog.Builder(requireContext())
+                        .setMessage(R.string.are_you_sure_you_want_to_delete_this_section)
+                        .setPositiveButton(R.string.yes) { _, _ ->
+                            libraryDatabase.libraryDao().deleteStudentData(student)
+                            getStudentDataList() // Refresh the list
+                        }
+                        .setNegativeButton(R.string.no) { dialog, _ ->
+                            dialog.dismiss()
+                            studentDataAdapter.notifyItemChanged(position) // Reset item
+                        }
+                        .show()
+                } else if (direction == ItemTouchHelper.RIGHT) {
+                    findNavController().navigate(
+                        R.id.updateStudentDataFragment,
+                        bundleOf("studentId" to studentDataList[position].studentId)
+                    )
+                }
+            }
+
+            override fun onChildDraw(
+                c: Canvas,
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                dX: Float,
+                dY: Float,
+                actionState: Int,
+                isCurrentlyActive: Boolean
+            ) {
+                val itemView = viewHolder.itemView
+                val iconMargin = 55 // Margin between the icon and the item edges
+                val limit = itemView.width * 0.3f // Allow swipe up to 30% of item width
+//                A positive dX indicates a swipe to the right.
+//                A negative dX indicates a swipe to the left.
+                val clampedDx = if (dX > 0) dX.coerceAtMost(limit) else dX.coerceAtLeast(-limit)
+
+                val background = ColorDrawable()
+
+                // Draw background and icon for swipe directions
+                if (clampedDx > 0) { // Swiping right (edit action)
+                    background.color = Color.parseColor("#CCCC99")
+                    background.setBounds(
+                        itemView.left,
+                        itemView.top,
+                        itemView.left + clampedDx.toInt(),
+                        itemView.bottom
+                    )
+                    background.draw(c)
+
+                    // Draw the edit icon
+                    val editIcon =
+                        ContextCompat.getDrawable(requireContext(), R.drawable.baseline_edit_24)
+                    editIcon?.let {
+                        val iconTop = itemView.top + (itemView.height - it.intrinsicHeight) / 2
+                        val iconLeft = itemView.left + iconMargin
+                        val iconRight = iconLeft + it.intrinsicWidth
+                        val iconBottom = iconTop + it.intrinsicHeight
+                        it.setBounds(iconLeft, iconTop, iconRight, iconBottom)
+                        it.draw(c)
+                    }
+
+                } else if (clampedDx < 0) { // Swiping left (delete action)
+                    background.color = Color.parseColor("#fe5757")
+                    background.setBounds(
+                        itemView.right + clampedDx.toInt(),
+                        itemView.top,
+                        itemView.right,
+                        itemView.bottom
+                    )
+                    background.draw(c)
+
+                    // Draw the delete icon
+                    val deleteIcon =
+                        ContextCompat.getDrawable(requireContext(), R.drawable.baseline_delete_24)
+                    deleteIcon?.let {
+                        val iconTop = itemView.top + (itemView.height - it.intrinsicHeight) / 2
+                        val iconRight = itemView.right - iconMargin
+                        val iconLeft = iconRight - it.intrinsicWidth
+                        val iconBottom = iconTop + it.intrinsicHeight
+                        it.setBounds(iconLeft, iconTop, iconRight, iconBottom)
+                        it.draw(c)
+                    }
+                }
+
+                super.onChildDraw(
+                    c,
+                    recyclerView,
+                    viewHolder,
+                    clampedDx,
+                    dY,
+                    actionState,
+                    isCurrentlyActive
+                )
+            }
+
+
+            override fun getSwipeThreshold(viewHolder: RecyclerView.ViewHolder): Float {
+                return 1.0f // Prevent full swipe (clamping already applied in onChildDraw)
+            }
+        })
+
+        itemTouchHelper.attachToRecyclerView(binding?.rvStudent)
+
+
+    }
+
+    private fun getStudentDataList() {
+        studentDataList.clear()
+        studentDataList.addAll(libraryDatabase.libraryDao().getStudentData())
+        studentDataAdapter.notifyDataSetChanged()
     }
 
     companion object {
@@ -64,5 +224,9 @@ class AdminProfileFragment : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+    }
+
+    override fun moveToNext(position: Int) {
+        findNavController().navigate(R.id.studentAllRecordFragment)
     }
 }
