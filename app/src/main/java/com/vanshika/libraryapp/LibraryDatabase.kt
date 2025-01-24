@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.vanshika.libraryapp.books.IssuedBooksDataClass
 import com.vanshika.libraryapp.home.BooksDataClass
 import com.vanshika.libraryapp.home.BooksDescriptionDataClass
 import com.vanshika.libraryapp.home.BooksSpecificationDataClass
@@ -11,7 +12,7 @@ import com.vanshika.libraryapp.home.CategoryDataClass
 import com.vanshika.libraryapp.profile.StudentInformationDataClass
 
 @Database(
-    entities = [BooksDataClass::class, BooksDescriptionDataClass::class, BooksSpecificationDataClass::class, CategoryDataClass::class, StudentInformationDataClass::class],
+    entities = [BooksDataClass::class, BooksDescriptionDataClass::class, BooksSpecificationDataClass::class, CategoryDataClass::class, StudentInformationDataClass::class, IssuedBooksDataClass::class],
     version = 1,
     exportSchema = true
 )
