@@ -2,14 +2,14 @@ package com.vanshika.libraryapp.books
 
 import android.app.DatePickerDialog
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.vanshika.libraryapp.LibraryDatabase
 import com.vanshika.libraryapp.R
-import com.vanshika.libraryapp.databinding.FragmentIssuedBooksBinding
+import com.vanshika.libraryapp.databinding.FragmentUpdateIssuedBooksBinding
 import java.text.SimpleDateFormat
 import java.util.Calendar
 
@@ -20,25 +20,28 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [IssuedBooksFragment.newInstance] factory method to
+ * Use the [UpdateIssuedBooksFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class IssuedBooksFragment : Fragment() {
+class UpdateIssuedBooksFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    var binding: FragmentIssuedBooksBinding? = null
-    var dateFormat = SimpleDateFormat("dd/MMM/yyy")
-    var calendar = Calendar.getInstance()
-    var formatDate: String ?= null
+    var binding : FragmentUpdateIssuedBooksBinding ?= null
     var issuedBooksDataClass = IssuedBooksDataClass()
+    var issuedBooksList = arrayListOf<IssuedBooksDataClass>()
     lateinit var libraryDatabase: LibraryDatabase
+    var issueId = 0
+    var calendar = Calendar.getInstance()
+    var formatDate : String ?=""
+    var dateFormat = SimpleDateFormat("dd/MMM/yyy")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
+            issueId = it.getInt("issueId", 0)
         }
     }
 
@@ -47,7 +50,7 @@ class IssuedBooksFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding = FragmentIssuedBooksBinding.inflate(layoutInflater)
+        binding = FragmentUpdateIssuedBooksBinding.inflate(layoutInflater)
         return binding?.root
     }
 
@@ -55,8 +58,9 @@ class IssuedBooksFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         libraryDatabase = LibraryDatabase.getInstance(requireContext())
+        getIssuedBooksList()
 
-        binding?.etIssueDate?.setOnClickListener{
+        binding?.etIssueDate?.setOnClickListener {
             var datePickerDialog = DatePickerDialog(
                 requireContext(),{_, year, month, date ->
                     calendar = Calendar.getInstance()
@@ -84,7 +88,14 @@ class IssuedBooksFragment : Fragment() {
             datePickerDialog.show()
         }
 
-        binding?.btnAdd?.setOnClickListener {
+        binding?.etStudentName?.setText(issuedBooksDataClass.studentName)
+        binding?.etRegistrationNo?.setText(issuedBooksDataClass.regNo.toString())
+        binding?.etSemester?.setText(issuedBooksDataClass.semester.toString())
+        binding?.etBookName?.setText(issuedBooksDataClass.bookName)
+        binding?.etIssueDate?.setText(issuedBooksDataClass.issueDate)
+        binding?.etReturnDate?.setText(issuedBooksDataClass.returnDate)
+
+        binding?.btnUpdate?.setOnClickListener {
             if (binding?.etStudentName?.text?.isEmpty() == true) {
                 binding?.etStudentName?.error = resources.getString(R.string.enter_student_name)
             } else if (binding?.etRegistrationNo?.text?.isEmpty() == true) {
@@ -99,11 +110,12 @@ class IssuedBooksFragment : Fragment() {
             } else if (binding?.etReturnDate?.text?.isEmpty() == true) {
                 binding?.etReturnDate?.error = resources.getString(R.string.enter_return_date)
             } else {
-                libraryDatabase.libraryDao().insertIssuedBooks(
+                libraryDatabase.libraryDao().updateIssuedBooks(
                     IssuedBooksDataClass(
+                        issueId = issueId,
                         studentName = binding?.etStudentName?.text?.toString(),
-                        semester = binding?.etRegistrationNo?.text?.toString()?.toInt(),
                         regNo = binding?.etRegistrationNo?.text?.toString()?.toInt(),
+                        semester = binding?.etSemester?.text?.toString()?.toInt(),
                         bookName = binding?.etBookName?.text?.toString(),
                         issueDate = binding?.etIssueDate?.text?.toString(),
                         returnDate = binding?.etReturnDate?.text?.toString()
@@ -114,6 +126,10 @@ class IssuedBooksFragment : Fragment() {
         }
     }
 
+    private fun getIssuedBooksList() {
+        issuedBooksDataClass = libraryDatabase.libraryDao().getIssuedBooksAccToId(issueId)
+    }
+
     companion object {
         /**
          * Use this factory method to create a new instance of
@@ -121,12 +137,12 @@ class IssuedBooksFragment : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment IssuedBooksFragment.
+         * @return A new instance of fragment UpdateIssuedBooksFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            IssuedBooksFragment().apply {
+            UpdateIssuedBooksFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)

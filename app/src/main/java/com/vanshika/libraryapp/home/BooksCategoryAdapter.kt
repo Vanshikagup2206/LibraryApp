@@ -32,6 +32,7 @@ class BooksCategoryAdapter(
         holder.btnCategory.setOnClickListener {
             categoryClickInterface.onItemClick(position)
         }
+         holder.itemView.setOnClickListener {  }
     }
 
     fun updatePosition(position: Int) {
