@@ -11,7 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.vanshika.libraryapp.LibraryDatabase
 import com.vanshika.libraryapp.R
-import com.vanshika.libraryapp.databinding.FragmentAdminBooksBinding
+import com.vanshika.libraryapp.databinding.FragmentSearchedStudentIssuedBinding
 import com.vanshika.libraryapp.home.BooksEditDeleteInterface
 
 // TODO: Rename parameter arguments, choose names that match
@@ -21,18 +21,17 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [AdminBooksFragment.newInstance] factory method to
+ * Use the [SearchedStudentIssuedFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class AdminBooksFragment : Fragment(), BooksEditDeleteInterface {
+class SearchedStudentIssuedFragment : Fragment(), BooksEditDeleteInterface{
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    var binding : FragmentAdminBooksBinding?= null
+    var binding : FragmentSearchedStudentIssuedBinding?= null
     lateinit var libraryDatabase: LibraryDatabase
-    var issuedBooksDataClass = IssuedBooksDataClass()
-    var issuedBooksList = arrayListOf<IssuedBooksDataClass>()
     lateinit var linearLayoutManager: LinearLayoutManager
+    var studentList = arrayListOf<IssuedBooksDataClass>()
     lateinit var issuedBooksAdapter : IssuedBooksAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,33 +47,30 @@ class AdminBooksFragment : Fragment(), BooksEditDeleteInterface {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding = FragmentAdminBooksBinding.inflate(layoutInflater)
+        binding = FragmentSearchedStudentIssuedBinding.inflate(layoutInflater)
         return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         libraryDatabase = LibraryDatabase.getInstance(requireContext())
-        issuedBooksAdapter = IssuedBooksAdapter(issuedBooksList,this)
+        issuedBooksAdapter = IssuedBooksAdapter(studentList, this)
         linearLayoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
-        binding?.rvIssuedBooks?.layoutManager = linearLayoutManager
-        binding?.rvIssuedBooks?.adapter = issuedBooksAdapter
-        getIssuedBooksList()
+        binding?.rvStudent?.layoutManager = linearLayoutManager
+        binding?.rvStudent?.adapter = issuedBooksAdapter
+        getStudentData()
 
-        binding?.fabAdd?.setOnClickListener {
-            findNavController().navigate(R.id.issuedBooksFragment)
-        }
-
-        binding?.llStudentSearch?.setOnClickListener {
-            findNavController().navigate(R.id.searchStudentIssuedFragment)
+        binding?.ivBack?.setOnClickListener {
+            findNavController().popBackStack()
         }
     }
 
-    private fun getIssuedBooksList() {
-        issuedBooksList.clear()
-        issuedBooksList.addAll(libraryDatabase.libraryDao().getIssuedBooks())
+    private fun getStudentData() {
+        val selectedStudentRegNo = arguments?.getInt("selectedStudentRegNo") ?: ""
+        studentList.clear()
+        studentList.addAll(libraryDatabase.libraryDao().getIssuedBooksAccToRegNo(selectedStudentRegNo.toString().toInt()))
+        issuedBooksAdapter.notifyDataSetChanged()
     }
 
     companion object {
@@ -84,12 +80,12 @@ class AdminBooksFragment : Fragment(), BooksEditDeleteInterface {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment AdminBooksFragment.
+         * @return A new instance of fragment SearchedStudentIssuedFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            AdminBooksFragment().apply {
+            SearchedStudentIssuedFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)
@@ -98,16 +94,16 @@ class AdminBooksFragment : Fragment(), BooksEditDeleteInterface {
     }
 
     override fun editBook(position: Int) {
-        findNavController().navigate(R.id.updateIssuedBooksFragment, bundleOf("issueId" to issuedBooksList[position].issueId))
+        findNavController().navigate(R.id.updateIssuedBooksFragment, bundleOf("issueId" to studentList[position].issueId))
     }
 
     override fun deleteBook(position: Int) {
         AlertDialog.Builder(requireContext())
             .setMessage(resources.getString(R.string.are_you_sure_you_want_to_delete_this_section))
             .setPositiveButton(resources.getString(R.string.yes)){_,_ ->
-                libraryDatabase.libraryDao().deleteIssuedBooks(issuedBooksList[position])
+                libraryDatabase.libraryDao().deleteIssuedBooks(studentList[position])
                 issuedBooksAdapter.notifyDataSetChanged()
-                getIssuedBooksList()
+                getStudentData()
             }
             .setNegativeButton(resources.getString(R.string.no)){dialog,_ ->
                 dialog.dismiss()

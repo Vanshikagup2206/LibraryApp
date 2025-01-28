@@ -13,4 +13,8 @@ data class IssuedBooksDataClass(
     var bookName : String ?= "",
     var issueDate : String ?= "",
     var returnDate : String ?= ""
-)
+){
+    override fun toString(): String {
+        return "$regNo"
+    }
+}
