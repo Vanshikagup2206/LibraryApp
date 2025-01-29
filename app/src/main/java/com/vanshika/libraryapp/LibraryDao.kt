@@ -5,6 +5,8 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
+import com.vanshika.libraryapp.books.IssuedBooksDataClass
+import com.vanshika.libraryapp.books.IssuedBooksFragment
 import com.vanshika.libraryapp.home.BooksDataClass
 import com.vanshika.libraryapp.home.BooksSpecificationDataClass
 import com.vanshika.libraryapp.home.CategoryDataClass
@@ -84,5 +86,25 @@ interface LibraryDao {
 
     @Query("SELECT * FROM StudentInformationDataClass WHERE registrationNo =:registrationNo")
     fun getSearchedStudent(registrationNo : Int) : List<StudentInformationDataClass>
+
+    //Queries for issued books by students
+
+    @Insert
+    fun insertIssuedBooks(issuedBooksDataClass: IssuedBooksDataClass)
+
+    @Query("SELECT * FROM IssuedBooksDataClass")
+    fun getIssuedBooks() : List<IssuedBooksDataClass>
+
+    @Delete
+    fun deleteIssuedBooks(issuedBooksDataClass: IssuedBooksDataClass)
+
+    @Update
+    fun updateIssuedBooks(issuedBooksDataClass: IssuedBooksDataClass)
+
+    @Query("SELECT * FROM IssuedBooksDataClass WHERE issueId =:issueId")
+    fun getIssuedBooksAccToId(issueId : Int): IssuedBooksDataClass
+
+    @Query("SELECT * FROM IssuedBooksDataClass WHERE regNo =:regNo")
+    fun getIssuedBooksAccToRegNo(regNo : Int): List<IssuedBooksDataClass>
 
 }
