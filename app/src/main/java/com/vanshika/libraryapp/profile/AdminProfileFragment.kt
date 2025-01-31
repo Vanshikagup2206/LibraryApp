@@ -1,5 +1,7 @@
 package com.vanshika.libraryapp.profile
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -15,6 +17,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.Gson
 import com.vanshika.libraryapp.LibraryDatabase
 import com.vanshika.libraryapp.R
 import com.vanshika.libraryapp.databinding.FragmentAdminProfileBinding
@@ -40,6 +43,8 @@ class AdminProfileFragment : Fragment(), BooksClickInterface {
     var studentDataList = arrayListOf<StudentInformationDataClass>()
     lateinit var libraryDatabase: LibraryDatabase
     lateinit var studentDataAdapter: StudentDataAdapter
+    lateinit var sharedPreferences : SharedPreferences
+    lateinit var editor: SharedPreferences.Editor
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -197,6 +202,8 @@ class AdminProfileFragment : Fragment(), BooksClickInterface {
 
         itemTouchHelper.attachToRecyclerView(binding?.rvStudent)
 
+        sharedPreferences = requireContext().getSharedPreferences(resources.getString(R.string.app_name), Context.MODE_PRIVATE)
+        editor = sharedPreferences.edit()
 
     }
 
@@ -227,6 +234,15 @@ class AdminProfileFragment : Fragment(), BooksClickInterface {
     }
 
     override fun moveToNext(position: Int) {
-        findNavController().navigate(R.id.studentAllRecordFragment)
+        val convertToString = Gson().toJson(studentDataList[position])
+        val selectedRegNo = studentDataList[position].registrationNo
+        sharedPreferences.edit().putInt("selectedRegNo", selectedRegNo.toString().toInt()).apply()
+        val bundle = bundleOf(
+            "studentId" to studentDataList[position].studentId,
+            "studentName" to convertToString,
+            "regNo" to convertToString,
+            "studentPhoto" to convertToString
+        )
+        findNavController().navigate(R.id.studentAllRecordFragment,bundle)
     }
 }
