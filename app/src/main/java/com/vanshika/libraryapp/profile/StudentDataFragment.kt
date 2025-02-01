@@ -1,11 +1,17 @@
 package com.vanshika.libraryapp.profile
 
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
+import com.vanshika.libraryapp.LibraryDatabase
 import com.vanshika.libraryapp.R
+import com.vanshika.libraryapp.databinding.FragmentStudentDataBinding
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -21,6 +27,10 @@ class StudentDataFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    var binding : FragmentStudentDataBinding ?= null
+    var studentInformationDataClass = StudentInformationDataClass()
+    lateinit var libraryDatabase: LibraryDatabase
+    private var selectedImageUri: Uri ?= null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +45,58 @@ class StudentDataFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_student_data, container, false)
+        binding = FragmentStudentDataBinding.inflate(layoutInflater)
+        return binding?.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        libraryDatabase = LibraryDatabase.getInstance(requireContext())
+
+        val pickImage = registerForActivityResult(ActivityResultContracts.GetContent()){ uri: Uri? ->
+            uri.let {
+                selectedImageUri = it
+                Glide.with(requireContext())
+                    .load(it)
+                    .into(binding?.ivSelectedImage!!)
+            }
+        }
+
+        binding?.btnAddImage?.setOnClickListener {
+            pickImage.launch("image/*")
+        }
+
+        binding?.btnAdd?.setOnClickListener {
+            if(binding?.etStudentName?.text?.trim()?.isEmpty() == true){
+                binding?.etStudentName?.error = resources.getString(R.string.enter_student_name)
+            }
+            else if (binding?.etRegistrationNo?.text?.trim()?.isEmpty() == true){
+                binding?.etRegistrationNo?.error = resources.getString(R.string.enter_your_registration_no)
+            }
+            else if (binding?.etDepartment?.text?.trim()?.isEmpty() == true){
+                binding?.etDepartment?.error = resources.getString(R.string.enter_department)
+            }
+            else if (binding?.etMobileNo?.text?.trim()?.isEmpty() == true){
+                binding?.etMobileNo?.error = resources.getString(R.string.enter_mobile_no)
+            }
+            else if (binding?.etSemester?.text?.isEmpty() == true){
+                binding?.etSemester?.error = resources.getString(R.string.enter_semester)
+            }
+            else{
+                libraryDatabase.libraryDao().insertStudentData(
+                    StudentInformationDataClass(
+                        studentName = binding?.etStudentName?.text?.toString(),
+                        registrationNo = binding?.etRegistrationNo?.text?.toString()?.toInt(),
+                        department = binding?.etDepartment?.text?.toString(),
+                        mobileNo = binding?.etMobileNo?.text?.toString(),
+                        studentPhoto = selectedImageUri?.toString(),
+                        semester = binding?.etSemester?.text?.toString()?.toInt()
+                    )
+                )
+                findNavController().popBackStack()
+            }
+        }
     }
 
     companion object {
