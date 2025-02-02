@@ -12,7 +12,8 @@ data class IssuedBooksDataClass(
     var semester : Int ?= 0,
     var bookName : String ?= "",
     var issueDate : String ?= "",
-    var returnDate : String ?= ""
+    var returnDate : String ?= "",
+    var enroll : Int ?= 0
 ){
     override fun toString(): String {
         return "$regNo"

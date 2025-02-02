@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.vanshika.libraryapp.LibraryDatabase
@@ -98,7 +99,18 @@ class IssuedBooksFragment : Fragment() {
                 binding?.etIssueDate?.error = resources.getString(R.string.enter_issue_date)
             } else if (binding?.etReturnDate?.text?.isEmpty() == true) {
                 binding?.etReturnDate?.error = resources.getString(R.string.enter_return_date)
-            } else {
+            } else if (binding?.rgEnroll?.checkedRadioButtonId == -1){
+                Toast.makeText(requireContext(), resources.getString(R.string.select_one), Toast.LENGTH_SHORT).show()
+            }
+            else {
+                var enroll = if (binding?.rbGraduation?.isChecked == true) {
+                    0
+                } else if (binding?.rbMaster?.isChecked == true){
+                    1
+                }else{
+                    2
+                }
+
                 libraryDatabase.libraryDao().insertIssuedBooks(
                     IssuedBooksDataClass(
                         studentName = binding?.etStudentName?.text?.toString(),
@@ -106,7 +118,8 @@ class IssuedBooksFragment : Fragment() {
                         regNo = binding?.etRegistrationNo?.text?.toString()?.toInt(),
                         bookName = binding?.etBookName?.text?.toString(),
                         issueDate = binding?.etIssueDate?.text?.toString(),
-                        returnDate = binding?.etReturnDate?.text?.toString()
+                        returnDate = binding?.etReturnDate?.text?.toString(),
+                        enroll = enroll
                     )
                 )
                 findNavController().popBackStack()

@@ -18,6 +18,7 @@ class IssuedBooksAdapter(
         var tvBookName: TextView = view.findViewById(R.id.tvBookName)
         var tvIssuedDate: TextView = view.findViewById(R.id.tvIssuedDate)
         var tvReturnDate: TextView = view.findViewById(R.id.tvReturnDate)
+        var tvEnroll: TextView = view.findViewById(R.id.tvEnroll)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -38,6 +39,8 @@ class IssuedBooksAdapter(
         holder.tvIssuedDate.setText(issuedBooksList[position].issueDate)
         holder.tvReturnDate.setText(issuedBooksList[position].returnDate)
 
+        holder.tvIssuedDate
+
         holder.itemView.setOnClickListener {
             booksEditDeleteInterface.editBook(position)
         }
@@ -45,6 +48,18 @@ class IssuedBooksAdapter(
         holder.itemView.setOnLongClickListener {
             booksEditDeleteInterface.deleteBook(position)
             return@setOnLongClickListener true
+        }
+
+        when (issuedBooksList[position].enroll) {
+            0 -> {
+                holder.tvEnroll.setText(R.string.graduation)
+            }
+            1 -> {
+                holder.tvEnroll.setText(R.string.master)
+            }
+            3 -> {
+                holder.tvEnroll.setText(R.string.doctorate)
+            }
         }
     }
 }
