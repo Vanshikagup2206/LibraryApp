@@ -29,10 +29,12 @@ class BooksCategoryAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.btnCategory.setText(categoryList[position].categoryName)
-        holder.btnCategory.setOnClickListener {
-            categoryClickInterface.onItemClick(position)
-        }
-         holder.itemView.setOnClickListener {  }
+//        holder.btnCategory.setOnClickListener {
+//            categoryClickInterface.onItemClick(position)
+//        }
+         holder.itemView.setOnClickListener {
+             categoryClickInterface.onItemClick(position)
+         }
     }
 
     fun updatePosition(position: Int) {
