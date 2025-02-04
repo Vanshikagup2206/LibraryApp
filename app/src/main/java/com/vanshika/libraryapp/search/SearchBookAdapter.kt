@@ -27,6 +27,8 @@ class SearchBookAdapter (
         var tvBooksReleaseDate: TextView = view.findViewById(R.id.tvReleaseDate)
         var tvLanguage: TextView = view.findViewById(R.id.tvLanguage)
         var ivBookPhoto: ImageView = view.findViewById(R.id.ivBookPhoto)
+        var tvBookNo : TextView = view.findViewById(R.id.tvBookNo)
+        var tvShelNo : TextView = view.findViewById(R.id.tvShelfNo)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -50,6 +52,8 @@ class SearchBookAdapter (
         holder.tvBooksTable.text = booksSpecificationList[position].booksTable
         holder.tvBooksReleaseDate.text = booksSpecificationList[position].booksReleaseDate
         holder.tvLanguage.text = booksSpecificationList[position].bookLanguage
+        holder.tvBookNo.text = booksSpecificationList[position].bookNo
+        holder.tvShelNo.text = booksSpecificationList[position].shelfNo
 
         holder.tvBooksDescription.setOnClickListener {
             booksClickInterface.moveToNext(position)
