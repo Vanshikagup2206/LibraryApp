@@ -111,7 +111,9 @@ class SearchedBooksStudentFragment : Fragment(), BooksClickInterface, IsWishlist
             "bookDescription" to convertToString,
             "tableOfContent" to convertToString,
             "language" to convertToString,
-            "bookPhoto" to convertToString
+            "bookPhoto" to convertToString,
+            "shelfNo" to convertToString,
+            "bookNo" to convertToString
         )
         findNavController().navigate(
             R.id.booksDescriptionStudentFragment, bundle)
