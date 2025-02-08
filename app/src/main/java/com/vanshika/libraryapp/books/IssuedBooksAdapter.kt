@@ -3,13 +3,14 @@ package com.vanshika.libraryapp.books
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.vanshika.libraryapp.R
 import com.vanshika.libraryapp.home.BooksEditDeleteInterface
 
 class IssuedBooksAdapter(
-    var issuedBooksList: ArrayList<IssuedBooksDataClass>, var booksEditDeleteInterface: BooksEditDeleteInterface
+    var issuedBooksList: ArrayList<IssuedBooksDataClass>, var booksEditDeleteInterface: BooksEditDeleteInterface, var isReturnedInterface: IsReturnedInterface
 ) : RecyclerView.Adapter<IssuedBooksAdapter.ViewHolder>() {
     class ViewHolder(var view: View) : RecyclerView.ViewHolder(view) {
         var tvStudentName: TextView = view.findViewById(R.id.tvStudentName)
@@ -19,6 +20,7 @@ class IssuedBooksAdapter(
         var tvIssuedDate: TextView = view.findViewById(R.id.tvIssuedDate)
         var tvReturnDate: TextView = view.findViewById(R.id.tvReturnDate)
         var tvEnroll: TextView = view.findViewById(R.id.tvEnroll)
+        var cbReturned: CheckBox = view.findViewById(R.id.cbReturned)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -39,8 +41,6 @@ class IssuedBooksAdapter(
         holder.tvIssuedDate.setText(issuedBooksList[position].issueDate)
         holder.tvReturnDate.setText(issuedBooksList[position].returnDate)
 
-        holder.tvIssuedDate
-
         holder.itemView.setOnClickListener {
             booksEditDeleteInterface.editBook(position)
         }
@@ -49,6 +49,12 @@ class IssuedBooksAdapter(
             booksEditDeleteInterface.deleteBook(position)
             return@setOnLongClickListener true
         }
+
+        holder.cbReturned.setOnClickListener {
+            isReturnedInterface.isReturned(position, holder.cbReturned.isChecked)
+        }
+
+        holder.cbReturned.isChecked = issuedBooksList[position].isReturned ?: false
 
         when (issuedBooksList[position].enroll) {
             0 -> {
@@ -61,5 +67,7 @@ class IssuedBooksAdapter(
                 holder.tvEnroll.setText(R.string.doctorate)
             }
         }
+
+
     }
 }

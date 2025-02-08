@@ -1,6 +1,7 @@
 package com.vanshika.libraryapp.books
 
 import android.app.AlertDialog
+import android.app.Dialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.vanshika.libraryapp.LibraryDatabase
 import com.vanshika.libraryapp.R
+import com.vanshika.libraryapp.databinding.CustomDialogReturnedBinding
 import com.vanshika.libraryapp.databinding.FragmentAdminBooksBinding
 import com.vanshika.libraryapp.home.BooksEditDeleteInterface
 
@@ -24,7 +26,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [AdminBooksFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class AdminBooksFragment : Fragment(), BooksEditDeleteInterface {
+class AdminBooksFragment : Fragment(), BooksEditDeleteInterface, IsReturnedInterface{
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -56,7 +58,7 @@ class AdminBooksFragment : Fragment(), BooksEditDeleteInterface {
         super.onViewCreated(view, savedInstanceState)
 
         libraryDatabase = LibraryDatabase.getInstance(requireContext())
-        issuedBooksAdapter = IssuedBooksAdapter(issuedBooksList,this)
+        issuedBooksAdapter = IssuedBooksAdapter(issuedBooksList,this,this)
         linearLayoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
         binding?.rvIssuedBooks?.layoutManager = linearLayoutManager
@@ -113,5 +115,17 @@ class AdminBooksFragment : Fragment(), BooksEditDeleteInterface {
                 dialog.dismiss()
             }
             .show()
+    }
+
+    override fun isReturned(position: Int, isReturned: Boolean) {
+        Dialog(requireContext()).apply {
+            val dialogBinding = CustomDialogReturnedBinding.inflate(layoutInflater)
+            setContentView(dialogBinding.root)
+            window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+            show()
+            dialogBinding.btnOk.setOnClickListener {
+
+            }
+        }
     }
 }
