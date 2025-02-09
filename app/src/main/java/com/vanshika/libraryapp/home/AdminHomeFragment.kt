@@ -244,7 +244,8 @@ class AdminHomeFragment : Fragment(), BooksClickInterface, CategoryClickInterfac
     }
 
     override fun onItemClick(position: Int) {
-        booksCategoryAdapter.updatePosition(position)
+        libraryDatabase.libraryDao().updateBooksWithCategory(booksList[position])
+//        booksCategoryAdapter.updatePosition(position)
         categoryList.clear()
         if (categoryList[position].categoryId == -1){
             getBooksAccToCategory()

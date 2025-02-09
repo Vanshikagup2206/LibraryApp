@@ -95,6 +95,11 @@ class UpdateIssuedBooksFragment : Fragment() {
         binding?.etBookName?.setText(issuedBooksDataClass.bookName)
         binding?.etIssueDate?.setText(issuedBooksDataClass.issueDate)
         binding?.etReturnDate?.setText(issuedBooksDataClass.returnDate)
+        when(issuedBooksDataClass.enroll){
+            0 -> binding?.rbGraduation?.isChecked = true
+            1 -> binding?.rbMaster?.isChecked = true
+            2 -> binding?.rbDoctorate?.isChecked = true
+        }
 
         binding?.btnUpdate?.setOnClickListener {
             if (binding?.etStudentName?.text?.isEmpty() == true) {
