@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/dp_10">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/sp_20"
+        android:layout_marginBottom="@dimen/dp_10"
+        android:textStyle="bold"
+        android:text="@string/expected_return_date"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/etExpectedReturnDate"
+        android:background="@drawable/edit_text_outline"
+        android:hint="@string/return_date"
+        android:textSize="@dimen/sp_16"
+        android:padding="@dimen/dp_10"
+        android:clickable="false"
+        android:focusable="false"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/sp_20"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginBottom="@dimen/dp_10"
+        android:textStyle="bold"
+        android:text="@string/actual_return_date"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/etActualReturnDate"
+        android:background="@drawable/edit_text_outline"
+        android:hint="@string/return_date"
+        android:textSize="@dimen/sp_16"
+        android:padding="@dimen/dp_10"
+        android:clickable="false"
+        android:focusable="false"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnOk"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_gravity="center"
+        android:textSize="@dimen/sp_16"
+        android:text="@string/ok"/>
+
+</LinearLayout>
