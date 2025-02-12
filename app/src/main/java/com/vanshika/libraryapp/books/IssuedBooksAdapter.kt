@@ -63,7 +63,7 @@ class IssuedBooksAdapter(
             1 -> {
                 holder.tvEnroll.setText(R.string.master)
             }
-            3 -> {
+            2 -> {
                 holder.tvEnroll.setText(R.string.doctorate)
             }
         }

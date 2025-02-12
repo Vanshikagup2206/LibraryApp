@@ -24,7 +24,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [SearchedStudentIssuedFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class SearchedStudentIssuedFragment : Fragment(), BooksEditDeleteInterface{
+class SearchedStudentIssuedFragment : Fragment(), BooksEditDeleteInterface, IsReturnedInterface{
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -54,7 +54,7 @@ class SearchedStudentIssuedFragment : Fragment(), BooksEditDeleteInterface{
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         libraryDatabase = LibraryDatabase.getInstance(requireContext())
-        issuedBooksAdapter = IssuedBooksAdapter(studentList, this)
+        issuedBooksAdapter = IssuedBooksAdapter(studentList, this, this)
         linearLayoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
         binding?.rvStudent?.layoutManager = linearLayoutManager
@@ -109,5 +109,9 @@ class SearchedStudentIssuedFragment : Fragment(), BooksEditDeleteInterface{
                 dialog.dismiss()
             }
             .show()
+    }
+
+    override fun isReturned(position: Int, isReturned: Boolean) {
+
     }
 }
