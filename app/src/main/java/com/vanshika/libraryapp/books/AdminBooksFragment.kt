@@ -138,10 +138,14 @@ class AdminBooksFragment : Fragment(), BooksEditDeleteInterface, IsReturnedInter
             setContentView(dialogBinding.root)
             window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
             show()
-            arguments?.let {
-                val enroll = it.getString("enroll")
-                dialogBinding.tvEnroll.text = enroll
+            setCancelable(false)
+
+            when(issuedBooksList[position].enroll){
+                0 -> dialogBinding.tvEnroll.text = resources.getString(R.string.graduation)
+                1 -> dialogBinding.tvEnroll.text = resources.getString(R.string.master)
+                2 -> dialogBinding.tvEnroll.text = resources.getString(R.string.doctorate)
             }
+
             dialogBinding.etExpectedReturnDate.setOnClickListener {
                 var datePickerDialog = DatePickerDialog(requireContext(), {_, year, month, date ->
                     calendar = Calendar.getInstance()
@@ -172,7 +176,10 @@ class AdminBooksFragment : Fragment(), BooksEditDeleteInterface, IsReturnedInter
                 }else if (dialogBinding.etActualReturnDate.text.toString().isEmpty()){
                     dialogBinding.etActualReturnDate.error = resources.getString(R.string.enter_return_date)
                 }else{
-
+                    issuedBooksList[position].isReturned = true
+                    libraryDatabase.libraryDao().updateIssuedBooks(issuedBooksList[position])
+                    issuedBooksAdapter.notifyItemChanged(position)
+                    dismiss()
                 }
             }
             if (dialogBinding.tvEnroll.text.toString() == resources.getString(R.string.graduation)){

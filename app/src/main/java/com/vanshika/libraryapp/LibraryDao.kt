@@ -107,4 +107,7 @@ interface LibraryDao {
     @Query("SELECT * FROM IssuedBooksDataClass WHERE regNo =:regNo")
     fun getIssuedBooksAccToRegNo(regNo : Int): List<IssuedBooksDataClass>
 
+    @Query("SELECT * FROM IssuedBooksDataClass WHERE isReturned =:isReturned AND regNo =:regNo")
+    fun getReturnedBooks(isReturned : Boolean, regNo: Int): List<IssuedBooksDataClass>
+
 }

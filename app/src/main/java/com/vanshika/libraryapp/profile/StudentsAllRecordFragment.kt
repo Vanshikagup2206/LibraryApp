@@ -82,9 +82,29 @@ class StudentsAllRecordFragment : Fragment() {
         binding?.rvStudentIssuedBooks?.layoutManager = linearLayoutManager
         binding?.rvStudentIssuedBooks?.adapter = issuedDetailsAdapter
 
-        binding?.llIssuedBooks?.setOnClickListener { }
+        binding?.llIssuedBooks?.setOnClickListener {
+            getIssuedBooks()
+        }
 
-        binding?.llPreviouslyIssued?.setOnClickListener { }
+        binding?.llPreviouslyIssued?.setOnClickListener {
+            getReturnedBooks()
+        }
+    }
+
+    private fun getReturnedBooks() {
+        val isReturned = true
+        val studentId = arguments?.getInt("studentId",0)
+        studentDataList.clear()
+        studentDataList.addAll(libraryDatabase.libraryDao().getReturnedBooks(isReturned,studentId.toString().toInt()))
+        issuedDetailsAdapter.notifyDataSetChanged()
+    }
+
+    private fun getIssuedBooks() {
+        val isReturned = false
+        val studentId = arguments?.getInt("studentId",0)
+        studentDataList.clear()
+        studentDataList.addAll(libraryDatabase.libraryDao().getReturnedBooks(isReturned, studentId.toString().toInt()))
+        issuedDetailsAdapter.notifyDataSetChanged()
     }
 
     companion object {
