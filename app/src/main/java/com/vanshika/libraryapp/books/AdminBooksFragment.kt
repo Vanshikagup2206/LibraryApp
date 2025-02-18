@@ -41,9 +41,9 @@ class AdminBooksFragment : Fragment(), BooksEditDeleteInterface, IsReturnedInter
     var issuedBooksList = arrayListOf<IssuedBooksDataClass>()
     lateinit var linearLayoutManager: LinearLayoutManager
     lateinit var issuedBooksAdapter : IssuedBooksAdapter
-    var calendar = Calendar.getInstance()
-    var formatDate: String?= null
-    var dateFormat = SimpleDateFormat("dd/MMM/yyy")
+    private var calendar = Calendar.getInstance()
+    private var formatDate: String?= null
+    private var dateFormat = SimpleDateFormat("dd/MMM/yyy")
     lateinit var sharedPreferences: SharedPreferences
     lateinit var editor: SharedPreferences.Editor
 
@@ -147,7 +147,7 @@ class AdminBooksFragment : Fragment(), BooksEditDeleteInterface, IsReturnedInter
             }
 
             dialogBinding.etExpectedReturnDate.setOnClickListener {
-                var datePickerDialog = DatePickerDialog(requireContext(), {_, year, month, date ->
+                val datePickerDialog = DatePickerDialog(requireContext(), {_, year, month, date ->
                     calendar = Calendar.getInstance()
                     calendar.set(year, month, date)
                     formatDate = dateFormat.format(calendar.time)
@@ -159,7 +159,7 @@ class AdminBooksFragment : Fragment(), BooksEditDeleteInterface, IsReturnedInter
             }
 
             dialogBinding.etActualReturnDate.setOnClickListener {
-                var datePickerDialog = DatePickerDialog(requireContext(), {_, year, month, date ->
+                val datePickerDialog = DatePickerDialog(requireContext(), {_, year, month, date ->
                     calendar = Calendar.getInstance()
                     calendar.set(year, month, date)
                     formatDate = dateFormat.format(calendar.time)
@@ -176,7 +176,9 @@ class AdminBooksFragment : Fragment(), BooksEditDeleteInterface, IsReturnedInter
                 }else if (dialogBinding.etActualReturnDate.text.toString().isEmpty()){
                     dialogBinding.etActualReturnDate.error = resources.getString(R.string.enter_return_date)
                 }else{
+                    val bookName = issuedBooksList[position].bookName ?:""
                     issuedBooksList[position].isReturned = true
+                    libraryDatabase.libraryDao().updateBooksStatus(bookName,0)
                     libraryDatabase.libraryDao().updateIssuedBooks(issuedBooksList[position])
                     issuedBooksAdapter.notifyItemChanged(position)
                     dismiss()

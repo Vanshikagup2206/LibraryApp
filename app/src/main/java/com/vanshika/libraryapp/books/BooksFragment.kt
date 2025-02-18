@@ -5,8 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
+import com.vanshika.libraryapp.LibraryDatabase
 import com.vanshika.libraryapp.R
+import com.vanshika.libraryapp.databinding.FragmentBooksBinding
+import com.vanshika.libraryapp.profile.StudentInformationDataClass
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -22,6 +26,12 @@ class BooksFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    var binding: FragmentBooksBinding ?= null
+    lateinit var linearLayoutManager: LinearLayoutManager
+    var studentInformationDataClass = StudentInformationDataClass()
+    var studentDataList = arrayListOf<IssuedBooksDataClass>()
+    lateinit var libraryDatabase: LibraryDatabase
+    lateinit var issuedDetailsAdapter: IssuedDetailsAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +46,56 @@ class BooksFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_books, container, false)
+        binding = FragmentBooksBinding.inflate(layoutInflater)
+        return binding?.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val enteredRegNo = arguments?.getString("enteredRegNo") ?:""
+        binding?.tvRegistrationNo?.text = enteredRegNo
+        val studentDetails = libraryDatabase.libraryDao().getStudentRegNo(enteredRegNo.toInt())
+        studentDetails.let {
+            binding?.tvStudentName?.text = it.studentName
+            binding?.ivStudentPhoto?.let { imageView ->
+                it.studentPhoto?.let { photoUri ->
+                    Glide.with(requireContext())
+                        .load(photoUri)
+                        .placeholder(R.drawable.empty)
+                        .into(imageView)
+                }
+            }
+        }
+        libraryDatabase = LibraryDatabase.getInstance(requireContext())
+        issuedDetailsAdapter = IssuedDetailsAdapter(studentDataList)
+        linearLayoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+
+        binding?.rvStudentIssuedBooks?.layoutManager = linearLayoutManager
+        binding?.rvStudentIssuedBooks?.adapter = issuedDetailsAdapter
+
+        binding?.llIssuedBooks?.setOnClickListener {
+            getIssuedBooks()
+        }
+
+        binding?.llPreviouslyIssued?.setOnClickListener {
+            getReturnedBooks()
+        }
+    }
+
+    private fun getReturnedBooks() {
+        val isReturned = true
+        val enteredRegNo = arguments?.getInt("enteredRegNo",0)
+        studentDataList.clear()
+        studentDataList.addAll(libraryDatabase.libraryDao().getReturnedBooks(isReturned, enteredRegNo.toString().toInt()))
+        issuedDetailsAdapter.notifyDataSetChanged()
+    }
+
+    private fun getIssuedBooks() {
+        val isReturned = false
+        val enteredRegNo = arguments?.getInt("enteredRegNo",0)
+        studentDataList.clear()
+        studentDataList.addAll(libraryDatabase.libraryDao().getReturnedBooks(isReturned, enteredRegNo.toString().toInt()))
+        issuedDetailsAdapter.notifyDataSetChanged()
     }
 
     companion object {
