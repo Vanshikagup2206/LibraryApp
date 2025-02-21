@@ -29,10 +29,9 @@ class IssuedBooksFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     var binding: FragmentIssuedBooksBinding? = null
-    var dateFormat = SimpleDateFormat("dd/MMM/yyy")
-    var calendar = Calendar.getInstance()
-    var formatDate: String ?= null
-    var issuedBooksDataClass = IssuedBooksDataClass()
+    private var dateFormat = SimpleDateFormat("dd/MMM/yyy")
+    private var calendar = Calendar.getInstance()
+    private var formatDate: String ?= null
     lateinit var libraryDatabase: LibraryDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,7 +57,7 @@ class IssuedBooksFragment : Fragment() {
         libraryDatabase = LibraryDatabase.getInstance(requireContext())
 
         binding?.etIssueDate?.setOnClickListener{
-            var datePickerDialog = DatePickerDialog(
+            val datePickerDialog = DatePickerDialog(
                 requireContext(),{_, year, month, date ->
                     calendar = Calendar.getInstance()
                     calendar.set(year, month, date)
@@ -72,7 +71,7 @@ class IssuedBooksFragment : Fragment() {
         }
 
         binding?.etReturnDate?.setOnClickListener {
-            var datePickerDialog = DatePickerDialog(
+            val datePickerDialog = DatePickerDialog(
                 requireContext(),{_, year, month, date ->
                     calendar = Calendar.getInstance()
                     calendar.set(year, month, date)
@@ -103,7 +102,7 @@ class IssuedBooksFragment : Fragment() {
                 Toast.makeText(requireContext(), resources.getString(R.string.select_one), Toast.LENGTH_SHORT).show()
             }
             else {
-                var enroll = if (binding?.rbGraduation?.isChecked == true) {
+                val enroll = if (binding?.rbGraduation?.isChecked == true) {
                     0
                 } else if (binding?.rbMaster?.isChecked == true){
                     1
@@ -114,7 +113,7 @@ class IssuedBooksFragment : Fragment() {
                 libraryDatabase.libraryDao().insertIssuedBooks(
                     IssuedBooksDataClass(
                         studentName = binding?.etStudentName?.text?.toString(),
-                        semester = binding?.etRegistrationNo?.text?.toString()?.toInt(),
+                        semester = binding?.etSemester?.text?.toString()?.toInt(),
                         regNo = binding?.etRegistrationNo?.text?.toString()?.toInt(),
                         bookName = binding?.etBookName?.text?.toString(),
                         issueDate = binding?.etIssueDate?.text?.toString(),
@@ -122,6 +121,8 @@ class IssuedBooksFragment : Fragment() {
                         enroll = enroll
                     )
                 )
+                val bookName = binding?.etBookName?.text?.toString()?:""
+                libraryDatabase.libraryDao().updateBooksStatus(bookName,1)
                 findNavController().popBackStack()
             }
         }

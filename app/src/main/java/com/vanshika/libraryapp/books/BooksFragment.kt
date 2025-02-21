@@ -1,10 +1,12 @@
 package com.vanshika.libraryapp.books
 
+import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.vanshika.libraryapp.LibraryDatabase
@@ -26,7 +28,7 @@ class BooksFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    var binding: FragmentBooksBinding ?= null
+    var binding: FragmentBooksBinding? = null
     lateinit var linearLayoutManager: LinearLayoutManager
     var studentInformationDataClass = StudentInformationDataClass()
     var studentDataList = arrayListOf<IssuedBooksDataClass>()
@@ -52,9 +54,30 @@ class BooksFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val enteredRegNo = arguments?.getString("enteredRegNo") ?:""
+
+        libraryDatabase = LibraryDatabase.getInstance(requireContext())
+        issuedDetailsAdapter = IssuedDetailsAdapter(studentDataList)
+        linearLayoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+
+        binding?.rvStudentIssuedBooks?.layoutManager = linearLayoutManager
+        binding?.rvStudentIssuedBooks?.adapter = issuedDetailsAdapter
+
+        val sharedPreferences = requireContext().getSharedPreferences(
+            resources.getString(R.string.app_name),
+            Context.MODE_PRIVATE
+        )
+        val enteredRegNo = sharedPreferences.getString("enteredRegNo", null)
+
+        if (enteredRegNo.isNullOrEmpty()) {
+            Toast.makeText(requireContext(), "Registration number not found!", Toast.LENGTH_SHORT)
+                .show()
+            return
+        }
+
         binding?.tvRegistrationNo?.text = enteredRegNo
         val studentDetails = libraryDatabase.libraryDao().getStudentRegNo(enteredRegNo.toInt())
+
         studentDetails.let {
             binding?.tvStudentName?.text = it.studentName
             binding?.ivStudentPhoto?.let { imageView ->
@@ -66,12 +89,6 @@ class BooksFragment : Fragment() {
                 }
             }
         }
-        libraryDatabase = LibraryDatabase.getInstance(requireContext())
-        issuedDetailsAdapter = IssuedDetailsAdapter(studentDataList)
-        linearLayoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-
-        binding?.rvStudentIssuedBooks?.layoutManager = linearLayoutManager
-        binding?.rvStudentIssuedBooks?.adapter = issuedDetailsAdapter
 
         binding?.llIssuedBooks?.setOnClickListener {
             getIssuedBooks()
@@ -84,17 +101,31 @@ class BooksFragment : Fragment() {
 
     private fun getReturnedBooks() {
         val isReturned = true
-        val enteredRegNo = arguments?.getInt("enteredRegNo",0)
+        val sharedPreferences = requireContext().getSharedPreferences(
+            resources.getString(R.string.app_name),
+            Context.MODE_PRIVATE
+        )
+        val enteredRegNo = sharedPreferences.getString("enteredRegNo", null)
         studentDataList.clear()
-        studentDataList.addAll(libraryDatabase.libraryDao().getReturnedBooks(isReturned, enteredRegNo.toString().toInt()))
+        studentDataList.addAll(
+            libraryDatabase.libraryDao()
+                .getReturnedBooks(isReturned, enteredRegNo.toString().toInt())
+        )
         issuedDetailsAdapter.notifyDataSetChanged()
     }
 
     private fun getIssuedBooks() {
         val isReturned = false
-        val enteredRegNo = arguments?.getInt("enteredRegNo",0)
+        val sharedPreferences = requireContext().getSharedPreferences(
+            resources.getString(R.string.app_name),
+            Context.MODE_PRIVATE
+        )
+        val enteredRegNo = sharedPreferences.getString("enteredRegNo", null)
         studentDataList.clear()
-        studentDataList.addAll(libraryDatabase.libraryDao().getReturnedBooks(isReturned, enteredRegNo.toString().toInt()))
+        studentDataList.addAll(
+            libraryDatabase.libraryDao()
+                .getReturnedBooks(isReturned, enteredRegNo.toString().toInt())
+        )
         issuedDetailsAdapter.notifyDataSetChanged()
     }
 

@@ -5,12 +5,13 @@ import android.app.DatePickerDialog
 import android.app.Dialog
 import android.content.Context
 import android.content.SharedPreferences
+import android.graphics.Color
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.vanshika.libraryapp.LibraryDatabase
@@ -20,6 +21,7 @@ import com.vanshika.libraryapp.databinding.FragmentAdminBooksBinding
 import com.vanshika.libraryapp.home.BooksEditDeleteInterface
 import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Locale
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -31,18 +33,18 @@ private const val ARG_PARAM2 = "param2"
  * Use the [AdminBooksFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class AdminBooksFragment : Fragment(), BooksEditDeleteInterface, IsReturnedInterface{
+class AdminBooksFragment : Fragment(), BooksEditDeleteInterface, IsReturnedInterface {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    var binding : FragmentAdminBooksBinding?= null
+    var binding: FragmentAdminBooksBinding? = null
     lateinit var libraryDatabase: LibraryDatabase
     var issuedBooksDataClass = IssuedBooksDataClass()
     var issuedBooksList = arrayListOf<IssuedBooksDataClass>()
     lateinit var linearLayoutManager: LinearLayoutManager
-    lateinit var issuedBooksAdapter : IssuedBooksAdapter
+    lateinit var issuedBooksAdapter: IssuedBooksAdapter
     private var calendar = Calendar.getInstance()
-    private var formatDate: String?= null
+    private var formatDate: String? = null
     private var dateFormat = SimpleDateFormat("dd/MMM/yyy")
     lateinit var sharedPreferences: SharedPreferences
     lateinit var editor: SharedPreferences.Editor
@@ -68,15 +70,19 @@ class AdminBooksFragment : Fragment(), BooksEditDeleteInterface, IsReturnedInter
         super.onViewCreated(view, savedInstanceState)
 
         libraryDatabase = LibraryDatabase.getInstance(requireContext())
-        issuedBooksAdapter = IssuedBooksAdapter(issuedBooksList,this,this)
-        linearLayoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        issuedBooksAdapter = IssuedBooksAdapter(issuedBooksList, this, this)
+        linearLayoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
         binding?.rvIssuedBooks?.layoutManager = linearLayoutManager
         binding?.rvIssuedBooks?.adapter = issuedBooksAdapter
         getIssuedBooksList()
 
         val enroll = issuedBooksDataClass.enroll
-        sharedPreferences = requireContext().getSharedPreferences(resources.getString(R.string.app_name), Context.MODE_PRIVATE)
+        sharedPreferences = requireContext().getSharedPreferences(
+            resources.getString(R.string.app_name),
+            Context.MODE_PRIVATE
+        )
         editor = sharedPreferences.edit()
         sharedPreferences.edit().putString("enroll", enroll.toString()).apply()
 
@@ -115,81 +121,113 @@ class AdminBooksFragment : Fragment(), BooksEditDeleteInterface, IsReturnedInter
     }
 
     override fun editBook(position: Int) {
-        findNavController().navigate(R.id.updateIssuedBooksFragment, bundleOf("issueId" to issuedBooksList[position].issueId))
+        findNavController().navigate(
+            R.id.updateIssuedBooksFragment,
+            bundleOf("issueId" to issuedBooksList[position].issueId)
+        )
     }
 
     override fun deleteBook(position: Int) {
         AlertDialog.Builder(requireContext())
             .setMessage(resources.getString(R.string.are_you_sure_you_want_to_delete_this_section))
-            .setPositiveButton(resources.getString(R.string.yes)){_,_ ->
+            .setPositiveButton(resources.getString(R.string.yes)) { _, _ ->
                 libraryDatabase.libraryDao().deleteIssuedBooks(issuedBooksList[position])
                 issuedBooksAdapter.notifyDataSetChanged()
                 getIssuedBooksList()
             }
-            .setNegativeButton(resources.getString(R.string.no)){dialog,_ ->
+            .setNegativeButton(resources.getString(R.string.no)) { dialog, _ ->
                 dialog.dismiss()
             }
             .show()
     }
 
     override fun isReturned(position: Int, isReturned: Boolean) {
+        val graduationDays = 14
+        val masterDoctorateDays = 21
+        val graduationBookLimit = 2
+        val masterDoctorateBookLimit = 3
+
         Dialog(requireContext()).apply {
             val dialogBinding = CustomDialogReturnedBinding.inflate(layoutInflater)
             setContentView(dialogBinding.root)
-            window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+            window?.setLayout(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
             show()
             setCancelable(false)
 
-            when(issuedBooksList[position].enroll){
-                0 -> dialogBinding.tvEnroll.text = resources.getString(R.string.graduation)
-                1 -> dialogBinding.tvEnroll.text = resources.getString(R.string.master)
-                2 -> dialogBinding.tvEnroll.text = resources.getString(R.string.doctorate)
+            val enrollmentType = when (issuedBooksList[position].enroll) {
+                0 -> resources.getString(R.string.graduation)
+                1 -> resources.getString(R.string.master)
+                2 -> resources.getString(R.string.doctorate)
+                else -> ""
+            }
+            dialogBinding.tvEnroll.text = enrollmentType
+
+            val maxdays = if (enrollmentType == resources.getString(R.string.graduation)) {
+                graduationDays
+            } else {
+                masterDoctorateDays
             }
 
             dialogBinding.etExpectedReturnDate.setOnClickListener {
-                val datePickerDialog = DatePickerDialog(requireContext(), {_, year, month, date ->
-                    calendar = Calendar.getInstance()
-                    calendar.set(year, month, date)
-                    formatDate = dateFormat.format(calendar.time)
-                    dialogBinding.etExpectedReturnDate.setText(formatDate)
-                }, Calendar.getInstance().get(Calendar.YEAR),
-                Calendar.getInstance().get(Calendar.MONTH),
-                Calendar.getInstance().get(Calendar.DATE))
+                val datePickerDialog = DatePickerDialog(
+                    requireContext(), { _, year, month, date ->
+                        calendar = Calendar.getInstance()
+                        calendar.set(year, month, date)
+                        formatDate = dateFormat.format(calendar.time)
+                        dialogBinding.etExpectedReturnDate.setText(formatDate)
+                    }, Calendar.getInstance().get(Calendar.YEAR),
+                    Calendar.getInstance().get(Calendar.MONTH),
+                    Calendar.getInstance().get(Calendar.DATE)
+                )
                 datePickerDialog.show()
             }
 
             dialogBinding.etActualReturnDate.setOnClickListener {
-                val datePickerDialog = DatePickerDialog(requireContext(), {_, year, month, date ->
-                    calendar = Calendar.getInstance()
-                    calendar.set(year, month, date)
-                    formatDate = dateFormat.format(calendar.time)
-                    dialogBinding.etActualReturnDate.setText(formatDate)
-                }, Calendar.getInstance().get(Calendar.YEAR),
+                val datePickerDialog = DatePickerDialog(
+                    requireContext(), { _, year, month, date ->
+                        calendar = Calendar.getInstance()
+                        calendar.set(year, month, date)
+                        formatDate = dateFormat.format(calendar.time)
+                        dialogBinding.etActualReturnDate.setText(formatDate)
+                    }, Calendar.getInstance().get(Calendar.YEAR),
                     Calendar.getInstance().get(Calendar.MONTH),
-                    Calendar.getInstance().get(Calendar.DATE))
+                    Calendar.getInstance().get(Calendar.DATE)
+                )
                 datePickerDialog.show()
             }
 
             dialogBinding.btnOk.setOnClickListener {
-                if (dialogBinding.etExpectedReturnDate.text.toString().isEmpty()){
-                    dialogBinding.etExpectedReturnDate.error = resources.getString(R.string.enter_return_date)
-                }else if (dialogBinding.etActualReturnDate.text.toString().isEmpty()){
-                    dialogBinding.etActualReturnDate.error = resources.getString(R.string.enter_return_date)
-                }else{
-                    val bookName = issuedBooksList[position].bookName ?:""
+                if (dialogBinding.etExpectedReturnDate.text.toString().isEmpty()) {
+                    dialogBinding.etExpectedReturnDate.error =
+                        resources.getString(R.string.enter_return_date)
+                } else if (dialogBinding.etActualReturnDate.text.toString().isEmpty()) {
+                    dialogBinding.etActualReturnDate.error =
+                        resources.getString(R.string.enter_return_date)
+                } else {
+                    val sdf = SimpleDateFormat("dd/MMM/yyyy", Locale.getDefault())
+                    val expectedReturnDate =
+                        sdf.parse(dialogBinding.etExpectedReturnDate.text.toString())
+                    val actualReturnDate =
+                        sdf.parse(dialogBinding.etActualReturnDate.text.toString())
+                    if (actualReturnDate != null && expectedReturnDate != null) {
+                        val daysDifference =
+                            (actualReturnDate.time - expectedReturnDate.time) / (1000 * 60 * 60 * 24)
+                        if (daysDifference > maxdays) {
+                            dialogBinding.etActualReturnDate.setTextColor(Color.RED)
+                        } else {
+                            dialogBinding.etActualReturnDate.setTextColor(Color.BLACK)
+                        }
+                    }
+                    val bookName = issuedBooksList[position].bookName ?: ""
                     issuedBooksList[position].isReturned = true
-                    libraryDatabase.libraryDao().updateBooksStatus(bookName,0)
+                    libraryDatabase.libraryDao().updateBooksStatus(bookName, 0)
                     libraryDatabase.libraryDao().updateIssuedBooks(issuedBooksList[position])
                     issuedBooksAdapter.notifyItemChanged(position)
                     dismiss()
                 }
-            }
-            if (dialogBinding.tvEnroll.text.toString() == resources.getString(R.string.graduation)){
-
-            }else if (dialogBinding.tvEnroll.text.toString() == resources.getString(R.string.master)){
-
-            }else if (dialogBinding.tvEnroll.text.toString() == resources.getString(R.string.doctorate)){
-
             }
         }
     }
