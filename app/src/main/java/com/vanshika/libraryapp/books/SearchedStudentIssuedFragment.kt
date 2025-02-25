@@ -1,6 +1,8 @@
 package com.vanshika.libraryapp.books
 
 import android.app.AlertDialog
+import android.app.DatePickerDialog
+import android.app.Dialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,8 +13,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.vanshika.libraryapp.LibraryDatabase
 import com.vanshika.libraryapp.R
+import com.vanshika.libraryapp.databinding.CustomDialogReturnedBinding
 import com.vanshika.libraryapp.databinding.FragmentSearchedStudentIssuedBinding
 import com.vanshika.libraryapp.home.BooksEditDeleteInterface
+import java.text.SimpleDateFormat
+import java.util.Calendar
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -33,6 +38,9 @@ class SearchedStudentIssuedFragment : Fragment(), BooksEditDeleteInterface, IsRe
     lateinit var linearLayoutManager: LinearLayoutManager
     var studentList = arrayListOf<IssuedBooksDataClass>()
     lateinit var issuedBooksAdapter : IssuedBooksAdapter
+    var calendar = Calendar.getInstance()
+    var formatDate : String ?= null
+    var dateFormat = SimpleDateFormat("dd/MMM/yyy")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -112,6 +120,62 @@ class SearchedStudentIssuedFragment : Fragment(), BooksEditDeleteInterface, IsRe
     }
 
     override fun isReturned(position: Int, isReturned: Boolean) {
+        Dialog(requireContext()).apply {
+            val dialogBinding = CustomDialogReturnedBinding.inflate(layoutInflater)
+            setContentView(dialogBinding.root)
+            window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+            show()
+            setCancelable(false)
 
+            when(studentList[position].enroll){
+                0 -> dialogBinding.tvEnroll.text = resources.getString(R.string.graduation)
+                1 -> dialogBinding.tvEnroll.text = resources.getString(R.string.master)
+                2 -> dialogBinding.tvEnroll.text = resources.getString(R.string.doctorate)
+            }
+
+            dialogBinding.etExpectedReturnDate.setOnClickListener {
+                var datePickerDialog = DatePickerDialog(requireContext(), {_, year, month, date ->
+                    calendar = Calendar.getInstance()
+                    calendar.set(year, month, date)
+                    formatDate = dateFormat.format(calendar.time)
+                    dialogBinding.etExpectedReturnDate.setText(formatDate)
+                }, Calendar.getInstance().get(Calendar.YEAR),
+                    Calendar.getInstance().get(Calendar.MONTH),
+                    Calendar.getInstance().get(Calendar.DATE))
+                datePickerDialog.show()
+            }
+
+            dialogBinding.etActualReturnDate.setOnClickListener {
+                var datePickerDialog = DatePickerDialog(requireContext(), {_, year, month, date ->
+                    calendar = Calendar.getInstance()
+                    calendar.set(year, month, date)
+                    formatDate = dateFormat.format(calendar.time)
+                    dialogBinding.etActualReturnDate.setText(formatDate)
+                }, Calendar.getInstance().get(Calendar.YEAR),
+                    Calendar.getInstance().get(Calendar.MONTH),
+                    Calendar.getInstance().get(Calendar.DATE))
+                datePickerDialog.show()
+            }
+
+            dialogBinding.btnOk.setOnClickListener {
+                if (dialogBinding.etExpectedReturnDate.text.toString().isEmpty()){
+                    dialogBinding.etExpectedReturnDate.error = resources.getString(R.string.enter_return_date)
+                }else if (dialogBinding.etActualReturnDate.text.toString().isEmpty()){
+                    dialogBinding.etActualReturnDate.error = resources.getString(R.string.enter_return_date)
+                }else{
+                    studentList[position].isReturned = true
+                    libraryDatabase.libraryDao().updateIssuedBooks(studentList[position])
+                    issuedBooksAdapter.notifyItemChanged(position)
+                    dismiss()
+                }
+            }
+            if (dialogBinding.tvEnroll.text.toString() == resources.getString(R.string.graduation)){
+
+            }else if (dialogBinding.tvEnroll.text.toString() == resources.getString(R.string.master)){
+
+            }else if (dialogBinding.tvEnroll.text.toString() == resources.getString(R.string.doctorate)){
+
+            }
+        }
     }
 }

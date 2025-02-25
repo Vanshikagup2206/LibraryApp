@@ -118,7 +118,7 @@ class UpdateIssuedBooksFragment : Fragment() {
             } else if (binding?.rgEnroll?.checkedRadioButtonId == -1){
                 Toast.makeText(requireContext(), resources.getString(R.string.select_one), Toast.LENGTH_SHORT).show()
             }else {
-                var enroll = if (binding?.rbGraduation?.isChecked == true) {
+                val enroll = if (binding?.rbGraduation?.isChecked == true) {
                     0
                 } else if (binding?.rbMaster?.isChecked == true){
                     1

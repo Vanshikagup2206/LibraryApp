@@ -6,13 +6,13 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -32,7 +32,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [AdminHomeFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class AdminHomeFragment : Fragment(), BooksClickInterface, CategoryClickInterface{
+class AdminHomeFragment : Fragment(), BooksClickInterface, CategoryClickInterface {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -75,17 +75,21 @@ class AdminHomeFragment : Fragment(), BooksClickInterface, CategoryClickInterfac
         binding?.rvBooks?.adapter = booksAdapter
         getBooksAccToCategory()
 
-        sharedPreferences = requireContext().getSharedPreferences(resources.getString(R.string.app_name),
-            Context.MODE_PRIVATE)
+        sharedPreferences = requireContext().getSharedPreferences(
+            resources.getString(R.string.app_name),
+            Context.MODE_PRIVATE
+        )
         editor = sharedPreferences.edit()
 
-        linearLayoutManagerCategory = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        linearLayoutManagerCategory =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         binding?.rvCategory?.layoutManager = linearLayoutManagerCategory
         booksCategoryAdapter = BooksCategoryAdapter(categoryList, this)
         binding?.rvCategory?.adapter = booksCategoryAdapter
         getCategoryList()
 
-        val itemTouchHelper = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
+        val itemTouchHelper = ItemTouchHelper(object :
+            ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
 
             override fun onMove(
                 recyclerView: RecyclerView,
@@ -113,7 +117,10 @@ class AdminHomeFragment : Fragment(), BooksClickInterface, CategoryClickInterfac
                         }
                         .show()
                 } else if (direction == ItemTouchHelper.RIGHT) {
-                    findNavController().navigate(R.id.adminHomeUpdateFragment, bundleOf("bookId" to booksList[position].booksId))
+                    findNavController().navigate(
+                        R.id.adminHomeUpdateFragment,
+                        bundleOf("bookId" to booksList[position].booksId)
+                    )
                 }
             }
 
@@ -147,7 +154,8 @@ class AdminHomeFragment : Fragment(), BooksClickInterface, CategoryClickInterfac
                     background.draw(c)
 
                     // Draw the edit icon
-                    val editIcon = ContextCompat.getDrawable(requireContext(), R.drawable.baseline_edit_24)
+                    val editIcon =
+                        ContextCompat.getDrawable(requireContext(), R.drawable.baseline_edit_24)
                     editIcon?.let {
                         val iconTop = itemView.top + (itemView.height - it.intrinsicHeight) / 2
                         val iconLeft = itemView.left + iconMargin
@@ -168,7 +176,8 @@ class AdminHomeFragment : Fragment(), BooksClickInterface, CategoryClickInterfac
                     background.draw(c)
 
                     // Draw the delete icon
-                    val deleteIcon = ContextCompat.getDrawable(requireContext(), R.drawable.baseline_delete_24)
+                    val deleteIcon =
+                        ContextCompat.getDrawable(requireContext(), R.drawable.baseline_delete_24)
                     deleteIcon?.let {
                         val iconTop = itemView.top + (itemView.height - it.intrinsicHeight) / 2
                         val iconRight = itemView.right - iconMargin
@@ -179,7 +188,15 @@ class AdminHomeFragment : Fragment(), BooksClickInterface, CategoryClickInterfac
                     }
                 }
 
-                super.onChildDraw(c, recyclerView, viewHolder, clampedDx, dY, actionState, isCurrentlyActive)
+                super.onChildDraw(
+                    c,
+                    recyclerView,
+                    viewHolder,
+                    clampedDx,
+                    dY,
+                    actionState,
+                    isCurrentlyActive
+                )
             }
 
 
@@ -198,7 +215,7 @@ class AdminHomeFragment : Fragment(), BooksClickInterface, CategoryClickInterfac
 
     private fun getCategoryList() {
         categoryList.clear()
-        categoryList.add(CategoryDataClass(-1,"All"))
+        categoryList.add(CategoryDataClass(-1, "All"))
         categoryList.addAll(libraryDatabase.libraryDao().getCategory())
         booksCategoryAdapter.notifyDataSetChanged()
     }
@@ -232,7 +249,7 @@ class AdminHomeFragment : Fragment(), BooksClickInterface, CategoryClickInterfac
     override fun moveToNext(position: Int) {
         val convertToString = Gson().toJson(booksList[position])
         val selectedCategory = booksList[position].booksCategory
-        sharedPreferences.edit().putString("selectedCategory",selectedCategory).apply()
+        sharedPreferences.edit().putString("selectedCategory", selectedCategory).apply()
         val bundle = bundleOf(
             "booksId" to booksList[position].booksId,
             "noOfBooks" to convertToString,
@@ -240,18 +257,17 @@ class AdminHomeFragment : Fragment(), BooksClickInterface, CategoryClickInterfac
             "booksDescription" to convertToString,
             "selectedCategory" to selectedCategory
         )
-        findNavController().navigate(R.id.booksSpecificationFragment,bundle)
+        findNavController().navigate(R.id.booksSpecificationFragment, bundle)
     }
 
     override fun onItemClick(position: Int) {
-        libraryDatabase.libraryDao().updateBooksWithCategory(booksList[position])
-//        booksCategoryAdapter.updatePosition(position)
-        categoryList.clear()
-        if (categoryList[position].categoryId == -1){
-            getBooksAccToCategory()
-        }else{
+        booksList.clear()
+        if (categoryList[position].categoryId == -1) {
+            booksList.addAll(libraryDatabase.libraryDao().getBooksAccToCategory())
+        } else {
             booksList.addAll(libraryDatabase.libraryDao().getHomeBooksAccToCategory(categoryList[position].categoryName.toString()))
-            booksAdapter.notifyDataSetChanged()
         }
+        booksAdapter.notifyDataSetChanged()
+        booksCategoryAdapter.updatePosition(position)
     }
 }

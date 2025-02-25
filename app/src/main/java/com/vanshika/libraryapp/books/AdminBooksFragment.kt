@@ -19,6 +19,7 @@ import com.vanshika.libraryapp.R
 import com.vanshika.libraryapp.databinding.CustomDialogReturnedBinding
 import com.vanshika.libraryapp.databinding.FragmentAdminBooksBinding
 import com.vanshika.libraryapp.home.BooksEditDeleteInterface
+import com.vanshika.libraryapp.profile.StudentInformationDataClass
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -144,8 +145,6 @@ class AdminBooksFragment : Fragment(), BooksEditDeleteInterface, IsReturnedInter
     override fun isReturned(position: Int, isReturned: Boolean) {
         val graduationDays = 14
         val masterDoctorateDays = 21
-        val graduationBookLimit = 2
-        val masterDoctorateBookLimit = 3
 
         Dialog(requireContext()).apply {
             val dialogBinding = CustomDialogReturnedBinding.inflate(layoutInflater)
@@ -165,7 +164,7 @@ class AdminBooksFragment : Fragment(), BooksEditDeleteInterface, IsReturnedInter
             }
             dialogBinding.tvEnroll.text = enrollmentType
 
-            val maxdays = if (enrollmentType == resources.getString(R.string.graduation)) {
+            val maxDays = if (enrollmentType == resources.getString(R.string.graduation)) {
                 graduationDays
             } else {
                 masterDoctorateDays
@@ -215,8 +214,15 @@ class AdminBooksFragment : Fragment(), BooksEditDeleteInterface, IsReturnedInter
                     if (actualReturnDate != null && expectedReturnDate != null) {
                         val daysDifference =
                             (actualReturnDate.time - expectedReturnDate.time) / (1000 * 60 * 60 * 24)
-                        if (daysDifference > maxdays) {
+                        if (daysDifference > maxDays) {
                             dialogBinding.etActualReturnDate.setTextColor(Color.RED)
+                            val extraDays = daysDifference - maxDays
+                            val fineAmount = extraDays * 10
+                            libraryDatabase.libraryDao().insertStudentData(
+                                StudentInformationDataClass(
+                                    fineAmount = fineAmount.toString().toInt()
+                                )
+                            )
                         } else {
                             dialogBinding.etActualReturnDate.setTextColor(Color.BLACK)
                         }

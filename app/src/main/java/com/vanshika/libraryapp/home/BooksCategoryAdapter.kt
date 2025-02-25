@@ -1,5 +1,6 @@
 package com.vanshika.libraryapp.home
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,16 +30,15 @@ class BooksCategoryAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.btnCategory.setText(categoryList[position].categoryName)
-//        holder.btnCategory.setOnClickListener {
-//            categoryClickInterface.onItemClick(position)
-//        }
-         holder.itemView.setOnClickListener {
+         holder.btnCategory.setOnClickListener {
              categoryClickInterface.onItemClick(position)
          }
     }
 
     fun updatePosition(position: Int) {
+        val previousPosition = selectedPosition
         selectedPosition = position
-        notifyDataSetChanged()
+        notifyItemChanged(previousPosition)
+        notifyItemChanged(selectedPosition)
     }
 }
