@@ -60,7 +60,9 @@ class BooksDescriptionFragment : Fragment() {
             binding?.tvNoOfBooks?.text = booksData.noOfBooks.toString()
             binding?.tvReleaseDate?.text = booksData.booksReleaseDate
             binding?.tvBooksDescription?.text = booksData.booksBriefDescription
+            binding?.tvSrNo?.text = booksData.booksSrNo.toString()
             binding?.tvTableOfContent?.text = booksData.booksTable
+            binding?.tvPageNo?.text = booksData.booksPageNo.toString()
             binding?.tvLanguage?.text = booksData.bookLanguage
             binding?.tvShelfNo?.text = booksData.shelfNo
             binding?.tvBookNo?.text = booksData.bookNo
