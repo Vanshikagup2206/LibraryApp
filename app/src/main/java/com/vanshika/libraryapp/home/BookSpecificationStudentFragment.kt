@@ -115,7 +115,9 @@ class BookSpecificationStudentFragment : Fragment(), BooksClickInterface,IsWishl
             "noOfBooks" to convertToString,
             "releaseDate" to convertToString,
             "bookDescription" to convertToString,
+            "srNo" to convertToString,
             "tableOfContent" to convertToString,
+            "pageNo" to convertToString,
             "language" to convertToString,
             "bookPhoto" to convertToString
         )

@@ -23,7 +23,9 @@ class BooksSpecificationAdapter(
         var tvBooksPublisher: TextView = view.findViewById(R.id.tvPublisher)
         var tvNoOfBooks: TextView = view.findViewById(R.id.tvNoOfBooks)
         var tvBriefDescription: TextView = view.findViewById(R.id.tvBriefDescription)
+        var tvSrNo: TextView = view.findViewById(R.id.tvSrNo)
         var tvBooksTable: TextView = view.findViewById(R.id.tvTableOfContent)
+        var tvPageNo: TextView = view.findViewById(R.id.tvPageNo)
         var tvBooksReleaseDate: TextView = view.findViewById(R.id.tvReleaseDate)
         var tvLanguage: TextView = view.findViewById(R.id.tvLanguage)
         var tvBooksCategory : TextView = view.findViewById(R.id.tvBooksCategory)
@@ -53,7 +55,9 @@ class BooksSpecificationAdapter(
         holder.tvBooksPublisher.text = booksSpecificationList[position].booksPublisher
         holder.tvNoOfBooks.text = booksSpecificationList[position].noOfBooks.toString()
         holder.tvBriefDescription.text = booksSpecificationList[position].booksBriefDescription
+        holder.tvSrNo.text = booksSpecificationList[position].booksSrNo.toString()
         holder.tvBooksTable.text = booksSpecificationList[position].booksTable
+        holder.tvPageNo.text = booksSpecificationList[position].booksPageNo.toString()
         holder.tvBooksReleaseDate.text = booksSpecificationList[position].booksReleaseDate
         holder.tvLanguage.text = booksSpecificationList[position].bookLanguage
         holder.tvBooksCategory.text = booksSpecificationList[position].booksCategory
