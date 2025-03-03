@@ -108,6 +108,8 @@ class BooksUpdateFragment : Fragment() {
         binding?.etBookLanguage?.setText(booksSpecificationDataClass.bookLanguage)
         binding?.etShelfNo?.setText(booksSpecificationDataClass.shelfNo)
         binding?.etBookNo?.setText(booksSpecificationDataClass.bookNo)
+        binding?.etSrNo?.setText(booksSpecificationDataClass.booksSrNo.toString())
+        binding?.etPageNo?.setText(booksSpecificationDataClass.booksPageNo.toString())
 
         binding?.ivBookPhoto?.let {imageView ->
             booksSpecificationDataClass.booksPhoto?.let { photoUri ->
@@ -151,10 +153,16 @@ class BooksUpdateFragment : Fragment() {
                     resources.getString(R.string.enter_short_description)
             } else if (binding?.etDescription?.text?.trim()?.isEmpty() == true) {
                 binding?.etDescription?.error = resources.getString(R.string.enter_description)
-            } else if (binding?.etTableOfContent?.text?.trim()?.isEmpty() == true) {
+            } else if (binding?.etSrNo?.text?.trim()?.isEmpty() == true) {
+                binding?.etTableOfContent?.error =
+                    resources.getString(R.string.enter_sr_no)
+            }else if (binding?.etTableOfContent?.text?.trim()?.isEmpty() == true) {
                 binding?.etTableOfContent?.error =
                     resources.getString(R.string.enter_the_table_content)
-            } else if (binding?.etCopiesAvailable?.text?.trim()?.isEmpty() == true) {
+            } else if (binding?.etPageNo?.text?.trim()?.isEmpty() == true) {
+                binding?.etTableOfContent?.error =
+                    resources.getString(R.string.enter_page_no)
+            }else if (binding?.etCopiesAvailable?.text?.trim()?.isEmpty() == true) {
                 binding?.etCopiesAvailable?.error =
                     resources.getString(R.string.enter_copies_available)
             } else if (binding?.etReleaseDate?.text?.trim()?.isEmpty() == true) {
@@ -194,7 +202,9 @@ class BooksUpdateFragment : Fragment() {
                         booksPhoto = selectedImageUri?.toString(),
                         booksCategory = binding?.tvBooksCategory?.text?.toString(),
                         bookNo = binding?.etBookNo?.text?.toString(),
-                        shelfNo = binding?.etShelfNo?.text?.toString()
+                        shelfNo = binding?.etShelfNo?.text?.toString(),
+                        booksSrNo = binding?.etSrNo?.text?.toString()?.toInt(),
+                        booksPageNo = binding?.etPageNo?.text?.toString()?.toInt()
                     )
                 )
                 findNavController().popBackStack()

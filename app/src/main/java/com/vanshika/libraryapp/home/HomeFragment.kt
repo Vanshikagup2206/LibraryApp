@@ -24,13 +24,16 @@ private const val ARG_PARAM2 = "param2"
  * Use the [HomeFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class HomeFragment : Fragment(), BooksClickInterface {
+class HomeFragment : Fragment(), BooksClickInterface, CategoryClickInterface {
     private var param1: String? = null
     private var param2: String? = null
     var binding: FragmentHomeBinding ?= null
     lateinit var linearLayoutManager: LinearLayoutManager
+    lateinit var linearLayoutManagerCategory: LinearLayoutManager
     var booksList = arrayListOf<BooksDataClass>()
+    var categoryList = arrayListOf<CategoryDataClass>()
     lateinit var booksAdapter: BooksAdapter
+    lateinit var categoryAdapter: BooksCategoryAdapter
     lateinit var libraryDatabase: LibraryDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,12 +54,26 @@ class HomeFragment : Fragment(), BooksClickInterface {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         libraryDatabase = LibraryDatabase.getInstance(requireContext())
         booksAdapter = BooksAdapter(booksList,this)
         linearLayoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding?.rvBooks?.layoutManager = linearLayoutManager
         binding?.rvBooks?.adapter = booksAdapter
         getBooksAccToCategory()
+
+        linearLayoutManagerCategory = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding?.rvCategory?.layoutManager = linearLayoutManagerCategory
+        categoryAdapter = BooksCategoryAdapter(categoryList, this)
+        binding?.rvCategory?.adapter = categoryAdapter
+        getCategoryList()
+    }
+
+    private fun getCategoryList() {
+        categoryList.clear()
+        categoryList.add(CategoryDataClass(-1,"All"))
+        categoryList.addAll(libraryDatabase.libraryDao().getCategory())
+        categoryAdapter.notifyDataSetChanged()
     }
 
     private fun getBooksAccToCategory() {
@@ -95,5 +112,16 @@ class HomeFragment : Fragment(), BooksClickInterface {
             "selectedCategory" to selectedCategory
         )
         findNavController().navigate(R.id.bookSpecificationStudentFragment, bundle)
+    }
+
+    override fun onItemClick(position: Int) {
+        booksList.clear()
+        if (categoryList[position].categoryId == -1){
+            booksList.addAll(libraryDatabase.libraryDao().getBooksAccToCategory())
+        }else {
+            booksList.addAll(libraryDatabase.libraryDao().getHomeBooksAccToCategory(categoryList[position].categoryName.toString()))
+        }
+        booksAdapter.notifyDataSetChanged()
+        categoryAdapter.updatePosition(position)
     }
 }

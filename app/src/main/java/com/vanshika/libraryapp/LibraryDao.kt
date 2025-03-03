@@ -34,7 +34,7 @@ interface LibraryDao {
     @Insert
     fun insertBookCategory(categoryDataClass: CategoryDataClass)
 
-    @Query("SELECT * FROM BooksDataClass WHERE categoryName =:categoryName")
+    @Query("SELECT * FROM BooksDataClass WHERE booksCategory =:categoryName")
     fun getHomeBooksAccToCategory(categoryName: String) : List<BooksDataClass>
 
     // Queries for Books Specification
@@ -109,5 +109,14 @@ interface LibraryDao {
 
     @Query("SELECT * FROM IssuedBooksDataClass WHERE isReturned =:isReturned AND regNo =:regNo")
     fun getReturnedBooks(isReturned : Boolean, regNo: Int): List<IssuedBooksDataClass>
+
+    @Query("SELECT COUNT(*) FROM IssuedBooksDataClass WHERE regNo =:regNo AND isReturned = 0")
+    fun getIssuedBooksCount(regNo: Int): Int
+
+    @Query("UPDATE BooksSpecificationDataClass SET booksStatus =:booksStatus WHERE booksName =:booksName")
+    fun updateBooksStatus(booksName: String, booksStatus: Int)
+
+    @Query("SELECT * FROM StudentInformationDataClass WHERE registrationNo =:registrationNo")
+    fun getStudentRegNo(registrationNo: Int): StudentInformationDataClass
 
 }
