@@ -239,8 +239,9 @@ class AdminProfileFragment : Fragment(), BooksClickInterface {
         sharedPreferences.edit().putInt("selectedRegNo", selectedRegNo.toString().toInt()).apply()
         val bundle = bundleOf(
             "studentId" to studentDataList[position].studentId,
+            "registrationNo" to studentDataList[position].registrationNo,
             "studentName" to convertToString,
-            "regNo" to convertToString,
+//            "regNo" to convertToString,
             "studentPhoto" to convertToString
         )
         findNavController().navigate(R.id.studentAllRecordFragment,bundle)
