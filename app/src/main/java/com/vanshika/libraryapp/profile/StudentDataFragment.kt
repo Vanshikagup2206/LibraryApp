@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
@@ -83,7 +84,17 @@ class StudentDataFragment : Fragment() {
             else if (binding?.etSemester?.text?.isEmpty() == true){
                 binding?.etSemester?.error = resources.getString(R.string.enter_semester)
             }
+            else if (binding?.rgEnroll?.checkedRadioButtonId == -1){
+                Toast.makeText(requireContext(), resources.getString(R.string.select_one), Toast.LENGTH_SHORT).show()
+            }
             else{
+                val enroll = if (binding?.rbGraduation?.isChecked == true){
+                    0
+                }else if (binding?.rbMaster?.isChecked == true){
+                    1
+                }else{
+                    2
+                }
                 libraryDatabase.libraryDao().insertStudentData(
                     StudentInformationDataClass(
                         studentName = binding?.etStudentName?.text?.toString(),
@@ -91,7 +102,8 @@ class StudentDataFragment : Fragment() {
                         department = binding?.etDepartment?.text?.toString(),
                         mobileNo = binding?.etMobileNo?.text?.toString(),
                         studentPhoto = selectedImageUri?.toString(),
-                        semester = binding?.etSemester?.text?.toString()?.toInt()
+                        semester = binding?.etSemester?.text?.toString()?.toInt(),
+                        enroll = enroll
                     )
                 )
                 findNavController().popBackStack()

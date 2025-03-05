@@ -21,6 +21,7 @@ class StudentDataAdapter (
                 var tvMobileNo : TextView = view.findViewById(R.id.tvMobileNo)
                 var ivStudentPhoto : ImageView = view.findViewById(R.id.ivStudentPhoto)
                 var tvSemester : TextView = view.findViewById(R.id.tvSemester)
+                var tvEnroll : TextView = view.findViewById(R.id.tvEnroll)
             }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -53,6 +54,18 @@ class StudentDataAdapter (
 
         holder.tvStudentName.setOnClickListener {
             booksClickInterface.moveToNext(position)
+        }
+
+        when (studentDataList[position].enroll){
+            0 -> {
+                holder.tvEnroll.setText(R.string.graduation)
+            }
+            1 ->{
+                holder.tvEnroll.setText(R.string.master)
+            }
+            2 ->{
+                holder.tvEnroll.setText(R.string.doctorate)
+            }
         }
     }
 }
