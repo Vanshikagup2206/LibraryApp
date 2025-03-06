@@ -12,7 +12,9 @@ data class StudentInformationDataClass(
     var department : String ?= "",
     var mobileNo : String ?= "",
     var studentPhoto : String ?= null,
-    var semester : Int ?= null
+    var semester : Int ?= null,
+    var enroll : Int ?= 0,
+    var fineAmount : Int ?= 0
 ){
     override fun toString(): String {
         return registrationNo.toString()

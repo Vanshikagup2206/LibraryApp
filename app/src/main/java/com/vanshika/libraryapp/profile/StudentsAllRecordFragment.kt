@@ -93,17 +93,17 @@ class StudentsAllRecordFragment : Fragment() {
 
     private fun getReturnedBooks() {
         val isReturned = true
-        val studentId = arguments?.getInt("studentId",0)
+        val regNo = arguments?.getInt("registrationNo",0)
         studentDataList.clear()
-        studentDataList.addAll(libraryDatabase.libraryDao().getReturnedBooks(isReturned,studentId.toString().toInt()))
+        studentDataList.addAll(libraryDatabase.libraryDao().getReturnedBooks(isReturned,regNo.toString().toInt()))
         issuedDetailsAdapter.notifyDataSetChanged()
     }
 
     private fun getIssuedBooks() {
         val isReturned = false
-        val studentId = arguments?.getInt("studentId",0)
+        val regNo = arguments?.getInt("registrationNo",0)
         studentDataList.clear()
-        studentDataList.addAll(libraryDatabase.libraryDao().getReturnedBooks(isReturned, studentId.toString().toInt()))
+        studentDataList.addAll(libraryDatabase.libraryDao().getReturnedBooks(isReturned, regNo.toString().toInt()))
         issuedDetailsAdapter.notifyDataSetChanged()
     }
 
