@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.vanshika.libraryapp.LibraryDatabase
@@ -62,6 +63,11 @@ class UpdateStudentDataFragment : Fragment() {
         binding?.etDepartment?.setText(studentInformationDataClass.department)
         binding?.etMobileNo?.setText(studentInformationDataClass.mobileNo.toString())
         binding?.etSemester?.setText(studentInformationDataClass.semester.toString())
+        when (studentInformationDataClass.enroll){
+            0 -> binding?.rbGraduation?.isChecked = true
+            1 -> binding?.rbMaster?.isChecked = true
+            2 -> binding?.rbDoctorate?.isChecked = true
+        }
 
         binding?.ivSelectedImage?.let { imageView ->
             studentInformationDataClass.studentPhoto?.let { photoUri ->
@@ -88,7 +94,17 @@ class UpdateStudentDataFragment : Fragment() {
             else if (binding?.etSemester?.text?.isEmpty() == true){
                 binding?.etSemester?.error = resources.getString(R.string.enter_semester)
             }
+            else if (binding?.rgEnroll?.checkedRadioButtonId == -1){
+                Toast.makeText(requireContext(), resources.getString(R.string.select_one), Toast.LENGTH_SHORT).show()
+            }
             else{
+                val enroll = if (binding?.rbGraduation?.isChecked == true){
+                    0
+                } else if (binding?.rbMaster?.isChecked == true){
+                    1
+                } else{
+                    2
+                }
                 libraryDatabase.libraryDao().updateStudentData(
                     StudentInformationDataClass(
                         studentId = studentId,
@@ -97,7 +113,8 @@ class UpdateStudentDataFragment : Fragment() {
                         department = binding?.etDepartment?.text?.toString(),
                         mobileNo = binding?.etMobileNo?.text?.toString(),
                         studentPhoto = selectedImageUri?.toString(),
-                        semester = binding?.etSemester?.text?.toString()?.toInt()
+                        semester = binding?.etSemester?.text?.toString()?.toInt(),
+                        enroll = enroll
                     )
                 )
                 findNavController().popBackStack()
