@@ -11,6 +11,22 @@
         android:textSize="@dimen/sp_20"
         android:layout_marginBottom="@dimen/dp_10"
         android:textStyle="bold"
+        android:text="@string/enrolled_in"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/sp_20"
+        android:layout_marginBottom="@dimen/dp_10"
+        android:id="@+id/tvEnroll"
+        android:text="@string/enrolled_in"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/sp_20"
+        android:layout_marginBottom="@dimen/dp_10"
+        android:textStyle="bold"
         android:text="@string/expected_return_date"/>
 
     <EditText

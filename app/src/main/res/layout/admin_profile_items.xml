@@ -64,6 +64,19 @@
             android:background="@color/green" />
 
         <TextView
+            android:id="@+id/tvEnroll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/enrolled_in"
+            android:textSize="@dimen/sp_20"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginVertical="@dimen/dp_8"
+            android:background="@color/green" />
+
+        <TextView
             android:id="@+id/tvSemester"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
