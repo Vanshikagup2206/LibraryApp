@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -63,22 +62,27 @@
             android:background="@color/green" />
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center" />
+            android:id="@+id/ivBookPhoto"
+            android:layout_width="180dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:scaleType="centerCrop"
+            android:src="@drawable/empty" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginVertical="@dimen/dp_8"
             android:background="@color/green" />
+
         <TextView
+            android:id="@+id/tvBooksStatus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/tvBooksStatus"
             android:text="@string/status"
             android:textSize="@dimen/sp_20"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -97,12 +101,112 @@
             android:layout_height="1dp"
             android:layout_marginVertical="@dimen/dp_8"
             android:background="@color/green" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/tvTableOfContent"
+            android:paddingBottom="@dimen/dp_10"
             android:text="@string/table_of_content"
-            android:textSize="@dimen/sp_20" />
+            android:textSize="@dimen/sp_20"
+            android:textStyle="bold" />
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:stretchColumns="1">
+
+            <TableRow
+                android:background="@color/pine_green"
+                android:padding="@dimen/dp_8">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/dp_8"
+                    android:gravity="center"
+                    android:text="@string/s_no"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/dp_16"
+                    android:gravity="center"
+                    android:text="@string/titles"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/dp_16"
+                    android:gravity="center"
+                    android:text="@string/pageNo"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+            </TableRow>
+        </TableLayout>
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:stretchColumns="1">
+
+            <TableRow
+                android:padding="@dimen/dp_8">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvSrNo"
+                    android:layout_marginEnd="@dimen/dp_8"
+                    android:gravity="center"
+                    android:text="@string/s_no"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvTableOfContent"
+                    android:layout_marginEnd="@dimen/dp_16"
+                    android:gravity="center"
+                    android:text="@string/titles"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvPageNo"
+                    android:layout_marginEnd="@dimen/dp_16"
+                    android:gravity="center"
+                    android:text="@string/pageNo"
+                    android:textStyle="bold" />
+            </TableRow>
+        </TableLayout>
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="horizontal"-->
+<!--            android:padding="@dimen/dp_10">-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/tvSrNo"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:paddingRight="@dimen/dp_16"-->
+<!--                android:text="@string/s_no" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/tvTableOfContent"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:gravity="end"-->
+<!--                android:text="@string/table_of_content"-->
+<!--                android:textSize="@dimen/sp_20" />-->
+<!--        </LinearLayout>-->
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -112,8 +216,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/dp_10"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/dp_10">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -132,8 +236,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/dp_10"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/dp_10">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -149,11 +253,12 @@
                 android:textSize="@dimen/sp_20"
                 android:textStyle="bold" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/dp_10"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/dp_10">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -168,11 +273,12 @@
                 android:text="@string/release_date"
                 android:textSize="@dimen/sp_20" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/dp_10"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/dp_10">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -185,6 +291,46 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/copies"
+                android:textSize="@dimen/sp_20" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/dp_10">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/shelf_no"
+                android:textSize="@dimen/sp_20" />
+
+            <TextView
+                android:id="@+id/tvShelfNo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/shelf_no"
+                android:textSize="@dimen/sp_20" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/dp_10">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/book_no"
+                android:textSize="@dimen/sp_20" />
+
+            <TextView
+                android:id="@+id/tvBookNo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/book_no"
                 android:textSize="@dimen/sp_20" />
         </LinearLayout>
 
