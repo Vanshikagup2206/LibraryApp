@@ -14,6 +14,31 @@
         android:padding="@dimen/dp_10"
         android:orientation="vertical">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="@string/book_category"
+            android:textSize="@dimen/sp_18"
+            android:textColor="@color/dark_black"
+            android:paddingBottom="@dimen/dp_4" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="@string/book_category"
+            android:id="@+id/tvBooksCategory"
+            android:textSize="@dimen/sp_16"
+            android:padding="@dimen/dp_10"
+            android:background="@drawable/edit_text_outline"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/green"
+            android:layout_marginVertical="@dimen/dp_8"/>
+
         <!-- Author Name Section -->
         <TextView
             android:layout_width="match_parent"
@@ -156,6 +181,21 @@
             android:background="@color/green"
             android:layout_marginVertical="@dimen/dp_8"/>
 
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="140dp"
+            android:id="@+id/ivBookPhoto"
+            android:scaleType="centerCrop"
+            android:layout_gravity="center"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="@dimen/sp_20"
+            android:id="@+id/btnUpdateImage"
+            android:text="@string/update_image"/>
+
         <!-- Brief Description Section -->
         <TextView
             android:layout_width="match_parent"
@@ -195,19 +235,53 @@
             android:textColor="@color/dark_black"
             android:paddingBottom="@dimen/dp_4" />
 
-        <EditText
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/etTableOfContent"
-            android:hint="@string/topic_name"
-            android:textSize="@dimen/sp_16"
-            android:padding="@dimen/dp_10"
-            android:minLines="5"
-            android:maxLines="30"
-            android:scrollHorizontally="false"
-            android:inputType="textMultiLine"
-            android:gravity="top|start"
-            android:background="@drawable/edit_text_outline"/>
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/etSrNo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_text_outline"
+                android:gravity="top|start"
+                android:hint="@string/s_no"
+                android:inputType="textMultiLine"
+                android:maxLines="30"
+                android:minLines="5"
+                android:padding="@dimen/dp_10"
+                android:scrollHorizontally="false"
+                android:textSize="@dimen/sp_16" />
+
+            <EditText
+                android:id="@+id/etTableOfContent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_text_outline"
+                android:gravity="top|start"
+                android:hint="@string/topic_name"
+                android:inputType="textMultiLine"
+                android:maxLines="30"
+                android:minLines="5"
+                android:padding="@dimen/dp_10"
+                android:scrollHorizontally="false"
+                android:textSize="@dimen/sp_16" />
+
+            <EditText
+                android:id="@+id/etPageNo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_text_outline"
+                android:gravity="top|start"
+                android:hint="@string/pageNo"
+                android:inputType="textMultiLine"
+                android:maxLines="30"
+                android:minLines="5"
+                android:padding="@dimen/dp_10"
+                android:scrollHorizontally="false"
+                android:textSize="@dimen/sp_16" />
+        </LinearLayout>
 
         <View
             android:layout_width="match_parent"
@@ -231,6 +305,54 @@
             android:id="@+id/etCopiesAvailable"
             android:hint="@string/eg_1_2"
             android:inputType="number"
+            android:textSize="@dimen/sp_16"
+            android:padding="@dimen/dp_10"
+            android:background="@drawable/edit_text_outline"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/green"
+            android:layout_marginVertical="@dimen/dp_8"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="@string/shelf_no"
+            android:textSize="@dimen/sp_18"
+            android:textColor="@color/dark_black"
+            android:paddingBottom="@dimen/dp_4" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/etShelfNo"
+            android:hint="@string/shelf_no"
+            android:textSize="@dimen/sp_16"
+            android:padding="@dimen/dp_10"
+            android:background="@drawable/edit_text_outline"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/green"
+            android:layout_marginVertical="@dimen/dp_8"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="@string/book_no"
+            android:textSize="@dimen/sp_18"
+            android:textColor="@color/dark_black"
+            android:paddingBottom="@dimen/dp_4" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/etBookNo"
+            android:hint="@string/book_no"
             android:textSize="@dimen/sp_16"
             android:padding="@dimen/dp_10"
             android:background="@drawable/edit_text_outline"/>
