@@ -3,23 +3,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".search.SearchFragment"
-    android:padding="@dimen/dp_10">
+    tools:context=".profile.SearchStudentFragment"
+    android:padding="@dimen/dp_10"
+    android:orientation="vertical">
 
     <androidx.appcompat.widget.SearchView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/searchBar"
-        app:queryHint="@string/enter_book_title"
+        android:inputType="number"
+        app:queryHint="@string/enter_registration_no"
         app:iconifiedByDefault="false"
         android:background="@drawable/search_view_background"
         app:queryBackground="@android:color/transparent"/>
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/lvBookName"
+        android:id="@+id/lvStudentRegNo"
         android:paddingTop="@dimen/dp_10"/>
 
 </LinearLayout>
