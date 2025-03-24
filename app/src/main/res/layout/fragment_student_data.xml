@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_green"
+    android:orientation="vertical"
+    tools:context=".profile.StudentDataFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/dp_10">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingBottom="@dimen/dp_4"
+            android:text="@string/insert_image_of_the_student"
+            android:textColor="@color/dark_black"
+            android:textSize="@dimen/sp_18"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginVertical="@dimen/dp_8"
+            android:background="@color/green" />
+
+        <ImageView
+            android:id="@+id/ivSelectedImage"
+            android:layout_width="100dp"
+            android:layout_height="140dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/dp_8"
+            android:scaleType="centerCrop" />
+
+        <Button
+            android:id="@+id/btnAddImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/pantone_forest_green"
+            android:text="@string/add_images"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_20" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/dp_4"
+            android:text="@string/student_name"
+            android:textColor="@color/dark_black"
+            android:textSize="@dimen/sp_18"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/etStudentName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edit_text_outline"
+            android:hint="@string/student_name"
+            android:inputType="textCapSentences"
+            android:padding="@dimen/dp_10"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp_16" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginVertical="@dimen/dp_8"
+            android:background="@color/green" />
+
+        <!-- Author Name Section -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/dp_4"
+            android:text="@string/registration_no"
+            android:textColor="@color/dark_black"
+            android:textSize="@dimen/sp_18"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/etRegistrationNo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edit_text_outline"
+            android:hint="@string/registration_no"
+            android:inputType="number"
+            android:maxLength="8"
+            android:padding="@dimen/dp_10"
+            android:textSize="@dimen/sp_16" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginVertical="@dimen/dp_8"
+            android:background="@color/green" />
+
+        <!-- Book Title Section -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/dp_4"
+            android:text="@string/department"
+            android:textColor="@color/dark_black"
+            android:textSize="@dimen/sp_18"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/etDepartment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edit_text_outline"
+            android:hint="@string/department"
+            android:inputType="textCapSentences"
+            android:padding="@dimen/dp_10"
+            android:textSize="@dimen/sp_16" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginVertical="@dimen/dp_8"
+            android:background="@color/green" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/dp_4"
+            android:text="@string/enrolled_in"
+            android:textColor="@color/dark_black"
+            android:textSize="@dimen/sp_18"
+            android:textStyle="bold" />
+
+        <RadioGroup
+            android:id="@+id/rgEnroll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rbGraduation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/graduation" />
+
+            <RadioButton
+                android:id="@+id/rbMaster"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/master" />
+
+            <RadioButton
+                android:id="@+id/rbDoctorate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/doctorate" />
+        </RadioGroup>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginVertical="@dimen/dp_8"
+            android:background="@color/green" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/dp_4"
+            android:text="@string/semester"
+            android:textColor="@color/dark_black"
+            android:textSize="@dimen/sp_18"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/etSemester"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edit_text_outline"
+            android:hint="@string/eg_1_2"
+            android:inputType="number"
+            android:maxLength="1"
+            android:padding="@dimen/dp_10"
+            android:textSize="@dimen/sp_16" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginVertical="@dimen/dp_8"
+            android:background="@color/green" />
+
+        <!-- Publisher Section -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/dp_4"
+            android:text="@string/mobile_no"
+            android:textColor="@color/dark_black"
+            android:textSize="@dimen/sp_18"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/etMobileNo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edit_text_outline"
+            android:hint="@string/mobile_no"
+            android:inputType="number"
+            android:maxLength="10"
+            android:padding="@dimen/dp_10"
+            android:textSize="@dimen/sp_16" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginVertical="@dimen/dp_8"
+            android:background="@color/green" />
+
+        <Button
+            android:id="@+id/btnAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/pantone_forest_green"
+            android:text="@string/add"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_20" />
+
+    </LinearLayout>
+
+</ScrollView>
