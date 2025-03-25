@@ -28,9 +28,8 @@
         <ImageView
             android:layout_width="100dp"
             android:layout_height="140dp"
-            android:id="@+id/ivBookPhoto"
-            android:layout_margin="8dp"
             android:scaleType="centerCrop"
+            android:id="@+id/ivBookPhoto"
             android:src="@drawable/empty" />
 
         <LinearLayout
@@ -38,6 +37,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingStart="@dimen/dp_10">
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
@@ -51,35 +51,26 @@
                 android:text="@string/status"
                 android:textSize="@dimen/sp_20"
                 android:textStyle="bold" />
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginVertical="@dimen/dp_8"
                 android:background="@color/green" />
 
-            <TextView
-                android:id="@+id/tvEdit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/edit"
-                android:textSize="@dimen/sp_20" />
+            <CheckBox
+                android:id="@+id/cbWishlist"
+                android:layout_width="30dp"
+                android:layout_height="40dp"
+                android:background="@drawable/wishlist_tag"
+                android:button="@null" />
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginVertical="@dimen/dp_8"
                 android:background="@color/green" />
 
-            <TextView
-                android:id="@+id/tvDelete"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/delete"
-                android:textSize="@dimen/sp_20" />
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginVertical="@dimen/dp_8"
-                android:background="@color/green" />
         </LinearLayout>
     </LinearLayout>
 
@@ -124,7 +115,7 @@
         android:id="@+id/tvSrNo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/table_of_content"
+        android:text="@string/s_no"
         android:textSize="@dimen/sp_20"
         android:visibility="gone" />
 
@@ -140,7 +131,7 @@
         android:id="@+id/tvPageNo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/table_of_content"
+        android:text="@string/pageNo"
         android:textSize="@dimen/sp_20"
         android:visibility="gone" />
 
@@ -161,10 +152,10 @@
         android:visibility="gone" />
 
     <TextView
-        android:id="@+id/tvBooksCategory"
+        android:id="@+id/tvBookNo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/book_category"
+        android:text="@string/book_no"
         android:textSize="@dimen/sp_20"
         android:visibility="gone" />
 
@@ -173,14 +164,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/shelf_no"
-        android:textSize="@dimen/sp_20"
-        android:visibility="gone" />
-
-    <TextView
-        android:id="@+id/tvBookNo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/book_no"
         android:textSize="@dimen/sp_20"
         android:visibility="gone" />
 

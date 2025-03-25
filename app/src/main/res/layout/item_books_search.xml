@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:padding="@dimen/dp_10">
-
     <TextView
         android:id="@+id/tvBooksAuthorName"
         android:layout_width="match_parent"
@@ -28,9 +27,8 @@
         <ImageView
             android:layout_width="100dp"
             android:layout_height="140dp"
-            android:id="@+id/ivBookPhoto"
-            android:layout_margin="8dp"
             android:scaleType="centerCrop"
+            android:id="@+id/ivBookPhoto"
             android:src="@drawable/empty" />
 
         <LinearLayout
@@ -57,29 +55,6 @@
                 android:layout_marginVertical="@dimen/dp_8"
                 android:background="@color/green" />
 
-            <TextView
-                android:id="@+id/tvEdit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/edit"
-                android:textSize="@dimen/sp_20" />
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginVertical="@dimen/dp_8"
-                android:background="@color/green" />
-
-            <TextView
-                android:id="@+id/tvDelete"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/delete"
-                android:textSize="@dimen/sp_20" />
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginVertical="@dimen/dp_8"
-                android:background="@color/green" />
         </LinearLayout>
     </LinearLayout>
 
@@ -121,23 +96,7 @@
         android:visibility="gone" />
 
     <TextView
-        android:id="@+id/tvSrNo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/table_of_content"
-        android:textSize="@dimen/sp_20"
-        android:visibility="gone" />
-
-    <TextView
         android:id="@+id/tvTableOfContent"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/table_of_content"
-        android:textSize="@dimen/sp_20"
-        android:visibility="gone" />
-
-    <TextView
-        android:id="@+id/tvPageNo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/table_of_content"
@@ -157,14 +116,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/language"
-        android:textSize="@dimen/sp_20"
-        android:visibility="gone" />
-
-    <TextView
-        android:id="@+id/tvBooksCategory"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/book_category"
         android:textSize="@dimen/sp_20"
         android:visibility="gone" />
 
