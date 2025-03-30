@@ -25,4 +25,8 @@
     <color name="accent">#03DAC5</color>
     <color name="mint_green">#E8F5E9</color>
     <color name="dark_shade_green">#333333</color>
+    <color name="deep_jungle_green">#1B4D3E</color>
+    <color name="charcoal">#666666</color>
+    <color name="blackish">#444444</color>
+    <color name="deep_cactus_green">#1C453A</color>
 </resources>

@@ -55,4 +55,54 @@
         android:name="com.vanshika.libraryapp.books.AdminBooksFragment"
         android:label="fragment_admin_books"
         tools:layout="@layout/fragment_admin_books" />
+    <fragment
+        android:id="@+id/searchedBooksFragment"
+        android:name="com.vanshika.libraryapp.search.SearchedBooksFragment"
+        android:label="fragment_searched_books"
+        tools:layout="@layout/fragment_searched_books" />
+    <fragment
+        android:id="@+id/searchStudentFragment"
+        android:name="com.vanshika.libraryapp.profile.SearchStudentFragment"
+        android:label="fragment_search_student"
+        tools:layout="@layout/fragment_search_student" />
+    <fragment
+        android:id="@+id/studentDataFragment"
+        android:name="com.vanshika.libraryapp.profile.StudentDataFragment"
+        android:label="fragment_student_data"
+        tools:layout="@layout/fragment_student_data" />
+    <fragment
+        android:id="@+id/searchedStudentFragment"
+        android:name="com.vanshika.libraryapp.profile.SearchedStudentFragment"
+        android:label="fragment_searched_student"
+        tools:layout="@layout/fragment_searched_student" />
+    <fragment
+        android:id="@+id/updateStudentDataFragment"
+        android:name="com.vanshika.libraryapp.profile.UpdateStudentDataFragment"
+        android:label="fragment_update_student_data"
+        tools:layout="@layout/fragment_update_student_data" />
+    <fragment
+        android:id="@+id/studentAllRecordFragment"
+        android:name="com.vanshika.libraryapp.profile.StudentsAllRecordFragment"
+        android:label="fragment_studemt_all_record"
+        tools:layout="@layout/fragment_student_all_record" />
+    <fragment
+        android:id="@+id/issuedBooksFragment"
+        android:name="com.vanshika.libraryapp.books.IssuedBooksFragment"
+        android:label="fragment_issued_books"
+        tools:layout="@layout/fragment_issued_books" />
+    <fragment
+        android:id="@+id/updateIssuedBooksFragment"
+        android:name="com.vanshika.libraryapp.books.UpdateIssuedBooksFragment"
+        android:label="fragment_update_issued_books"
+        tools:layout="@layout/fragment_update_issued_books" />
+    <fragment
+        android:id="@+id/searchStudentIssuedFragment"
+        android:name="com.vanshika.libraryapp.books.SearchStudentIssuedFragment"
+        android:label="fragment_search_student_issued"
+        tools:layout="@layout/fragment_search_student_issued" />
+    <fragment
+        android:id="@+id/searchedStudentIssuedFragment"
+        android:name="com.vanshika.libraryapp.books.SearchedStudentIssuedFragment"
+        android:label="fragment_searched_student_issued"
+        tools:layout="@layout/fragment_searched_student_issued" />
 </navigation>

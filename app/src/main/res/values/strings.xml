@@ -1,11 +1,11 @@
 <resources>
-    <string name="app_name">LibraryApp</string>
+    <string name="app_name">TomeSphere</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="lets_get_started">Let\'s get started!</string>
     <string name="enter_your_registration_no">Enter your registration no.</string>
     <string name="enter_password">Enter password</string>
-    <string name="registration_no">Registration No.</string>
+    <string name="registration_no">Registration No. : </string>
     <string name="password">Password</string>
     <string name="login">Login</string>
     <string name="admin">Admin</string>
@@ -91,12 +91,30 @@
     <string name="enter_shelf_no">Enter shelf no</string>
     <string name="enter_book_no">Enter book no</string>
     <string name="enter_registration_no">Enter Registration No...</string>
-    <string name="semester">Semester</string>
+    <string name="semester">Semester : </string>
     <string name="enter_valid_mobile_no">Enter valid mobile no</string>
     <string name="enter_semester">Enter semester</string>
-    <string name="issued_books">Issued Books</string>
+    <string name="issued_books">Issued \nBooks</string>
     <string name="previously_issued_books">Previously Issued</string>
     <string name="s_no">S. NO.</string>
     <string name="issued_date">Issued Date</string>
     <string name="_1">1</string>
+    <string name="return_date">Return Date : </string>
+    <string name="issue_date">Issue Date</string>
+    <string name="enter_issue_date">Enter Issue date</string>
+    <string name="enter_return_date">Enter Return Date</string>
+    <string name="issued_book">Issued Book : </string>
+    <string name="enrolled_in">Enrolled in:</string>
+    <string name="graduation">Graduation</string>
+    <string name="master">Masters</string>
+    <string name="doctorate">Doctorate</string>
+    <string name="expected_return_date">Expected Return Date:</string>
+    <string name="actual_return_date">Actual Return Date</string>
+    <string name="ok">OK</string>
+    <string name="check_your_details">Check Your Details!</string>
+    <string name="cards_available">Cards Available</string>
+    <string name="fine_details">Fine Details</string>
+    <string name="pageNo">Page No</string>
+    <string name="enter_sr_no">Enter sr no</string>
+    <string name="enter_page_no">Enter page no</string>
 </resources>
